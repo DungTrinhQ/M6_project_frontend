@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "modelbook-frontend-project"
+    }
+  },
+  "defaultProject": "modelbook-frontend-project",
+  "cli": {
+    "analytics": false
+  }
 }
