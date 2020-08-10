@@ -62,6 +62,7 @@
       Logged in as {{ accountEmail }}.
     </div>
     <button *ngIf="isLoggedIn" class="btn btn-danger" (click)="logOut()">Log Out</button>
+    <button *ngIf="!isLoggedIn" class="btn btn-success" routerLink="/register">Đăng kí</button>
 
   </div>
 </div>
