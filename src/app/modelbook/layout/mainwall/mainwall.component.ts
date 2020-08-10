@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AccountService} from '../../../service/account.service';
+import {IAccount} from '../../../models/iaccount';
 
 @Component({
   selector: 'app-mainwall',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainwallComponent implements OnInit {
 
-  constructor() { }
+  accountList: IAccount[];
+
+  constructor(private accountService:AccountService) { }
 
   ngOnInit(): void {
+    this.getAccountList();
+  }
+
+  getAccountList():IAccount[]{
+    this.accountService.getAccountList().subscribe(
+      (data)=>{
+        this.accountList = data;
+        console.log(data);
+      }
+    )
+    return this.accountList;
   }
 
 }
