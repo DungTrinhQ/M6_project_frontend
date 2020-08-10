@@ -37,10 +37,16 @@ export class LoginComponent implements OnInit {
     this.authService.login(account).subscribe(
       data =>{
         console.log(data);
-        this.accountEmail = data.email;
-        this.isLoggedIn = true;
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveAccount(data.email);
+        if(data.message == 'Login success'){
+          this.accountEmail = data.email;
+          this.isLoggedIn = true;
+          this.tokenStorage.saveToken(data.token);
+          this.tokenStorage.saveAccount(data.email);
+        }else if(data.message == 'Invalid Email or password'){
+          this.isLoginFailed = true;
+          this.errorMessage = data.message;
+        }
+
       }
     )
   }
