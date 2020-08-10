@@ -8,12 +8,16 @@ import {IAccount} from '../models/iaccount';
 })
 export class AccountService {
 
-  private API_URL = 'http://localhost:8080/api/'
+  private API_URL = 'http://localhost:8080/'
 
   constructor(private  http: HttpClient) { }
 
   getAccountList():Observable<any>{
-    return this.http.get(this.API_URL+'account')
+    return this.http.get(this.API_URL+'api/account')
+  }
+
+  createAccount(data:IAccount):Observable<any>{
+    return this.http.post(this.API_URL+'register',data,{responseType: 'text'})
   }
 
 }
