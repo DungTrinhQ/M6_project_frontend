@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
             this.errorMessage = data;
 
           }
-          this.isRegisterFail=true;
+          this.isRegisterFail = true;
 
 
         console.log(data)},
