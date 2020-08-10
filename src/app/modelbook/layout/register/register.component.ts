@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {AccountService} from '../../../service/account.service';
 import {IAccount} from '../../../models/iaccount';
 import {Router} from '@angular/router';
+import {TokenStorageService} from '../../../service/tokenstorage.service';
+import {AuthenService} from '../../../service/authen.service';
 
 @Component({
   selector: 'app-register',
@@ -19,9 +21,14 @@ export class RegisterComponent implements OnInit {
 
   constructor(private accountService:AccountService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private authenService: AuthenService) { }
 
   ngOnInit(): void {
+    if(this.authenService.isLogin()){
+      alert("Bạn đã Đăng Nhập");
+      this.router.navigate(['login'])
+    }
     this.registerForm = this.formBuilder.group({
       email:[''],
       name:[''],

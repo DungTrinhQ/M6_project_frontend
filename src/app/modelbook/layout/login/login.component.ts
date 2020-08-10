@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  accountEmail = '';
+  accountEmail = this.tokenStorage.getAccount();
 
   constructor(private authService: AuthenService,
               private tokenStorage: TokenStorageService,
