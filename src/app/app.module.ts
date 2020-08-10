@@ -5,16 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './modelbook/layout/register/register.component';
+import { LoginComponent } from './modelbook/layout/login/login.component';
+import {ReactiveFormsModule} from '@angular/forms';
+
+import { authInterceptorProviders } from './helper/auth.interceptor';
+import { MainwallComponent } from './modelbook/layout/mainwall/mainwall.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent,
+    MainwallComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

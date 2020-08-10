@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IAccount} from '../models/iaccount';
+import {TokenStorageService} from './tokenstorage.service';
 
 
 
@@ -15,13 +16,11 @@ export class AuthenService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private tokenStorage: TokenStorageService) { }
 
   login(credentials:IAccount): Observable<any> {
-    return this.http.post(this.URL_API+'login',{
-      email: credentials.email,
-      password: credentials.password
-    },this.httpOptions);
+    return this.http.post(this.URL_API+'login',credentials);
   }
 
   register(user:IAccount):Observable<any>{
@@ -30,5 +29,10 @@ export class AuthenService {
       name: user.name,
       password: user.password
     },this.httpOptions);
+  }
+
+  isLogin(){
+    let account = this.tokenStorage.getAccount();
+    return !(account===null);
   }
 }

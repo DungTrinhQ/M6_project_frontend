@@ -1,9 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {RegisterComponent} from './modelbook/layout/register/register.component';
+import {LoginComponent} from './modelbook/layout/login/login.component';
+import {AuthGaurdService} from './helper/auth-gaurd.service';
+import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
 
 const routes: Routes = [
-  {path: '', component: RegisterComponent}
+  {path: '',children: [
+      {path:'register', component:RegisterComponent},
+      {path:'login',component:LoginComponent}
+    ]},
+  {path: 'accounts',canActivate:[AuthGaurdService],component:MainwallComponent}
 ];
 
 @NgModule({

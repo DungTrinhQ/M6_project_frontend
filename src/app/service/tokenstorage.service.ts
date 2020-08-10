@@ -24,7 +24,7 @@ export class TokenStorageService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  public saveAccount(account:IAccount):void{
+  public saveAccount(account:any):void{
     window.localStorage.removeItem(this.USER_KEY);
     window.localStorage.setItem(this.USER_KEY,JSON.stringify(account));
   }
