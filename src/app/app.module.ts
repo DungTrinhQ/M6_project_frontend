@@ -10,7 +10,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { MainwallComponent } from './modelbook/layout/mainwall/mainwall.component'
 import {AuthInterceptor} from './helper/auth.interceptor';
-import {EditInfoComponent} from './modelbook/layout/edit-info/edit-info.component';
+import {EditInfoComponent} from './modelbook/account-infomation/edit-info/edit-info.component';
+import {AccountInfomationModule} from './modelbook/account-infomation/account-infomation.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {EditInfoComponent} from './modelbook/layout/edit-info/edit-info.componen
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AccountInfomationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

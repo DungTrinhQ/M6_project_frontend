@@ -31,9 +31,11 @@ export class EditInfoComponent implements OnInit {
       dateOfBirth: [''],
     });
     this.findUserByID();
+    console.log(this.id)
   }
   findUserByID(){
     this.accountService.getAccount(this.id).subscribe((res : IAccount) =>{
+      this.user = res;
       this.editUserProfile.patchValue(res);
     })
   }
