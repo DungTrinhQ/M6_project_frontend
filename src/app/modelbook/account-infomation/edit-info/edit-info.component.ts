@@ -42,7 +42,8 @@ export class EditInfoComponent implements OnInit {
   editAccountInfo(){
     let data = this.editUserProfile.value;
     this.accountService.editAccountInfo(data, this.id).subscribe((res : IAccount) => {
-      this.router.navigate([''])
+      this.user = data;
+      // this.router.navigate([''])
     })
   }
 
