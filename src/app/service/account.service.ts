@@ -21,7 +21,7 @@ export class AccountService {
     return this.http.post(this.API_URL+'register',data,{responseType: 'text'})
   }
 
-  editAccountInfo(data: any, id: number): Observable<IAccount>{
+  editAccountInfo(data: any, id: number): Observable<any>{
     return this.http.put<IAccount>(this.API_URL + 'api/edit/' + id, data);
   }
   getAccount(id: number): Observable<IAccount>{
