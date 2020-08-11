@@ -12,6 +12,10 @@ import { MainwallComponent } from './modelbook/layout/mainwall/mainwall.componen
 import {AuthInterceptor} from './helper/auth.interceptor';
 import {EditInfoComponent} from './modelbook/account-infomation/edit-info/edit-info.component';
 import {AccountInfomationModule} from './modelbook/account-infomation/account-infomation.module';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,9 @@ import {AccountInfomationModule} from './modelbook/account-infomation/account-in
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
     FormsModule,
     AccountInfomationModule
   ],
