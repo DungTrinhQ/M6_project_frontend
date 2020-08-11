@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path: '',canActivate:[AuthGaurdService],component:MainwallComponent},
   {path: 'account',children: [{
-    path: ':id/edit', component: EditInfoComponent
+    path: 'edit', component: EditInfoComponent
     }]}
 ];
 

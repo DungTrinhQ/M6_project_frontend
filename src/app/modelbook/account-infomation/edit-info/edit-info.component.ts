@@ -5,6 +5,7 @@ import {AccountService} from '../../../service/account.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
+import {TokenStorageService} from '../../../service/tokenstorage.service';
 
 @Component({
   selector: 'app-edit-info',
@@ -21,16 +22,20 @@ export class EditInfoComponent implements OnInit {
   };
   selectedImage:any = null;
 
+  accountId = null;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
     private route: ActivatedRoute,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private tokenService: TokenStorageService
   ) { }
-  id = +this.route.snapshot.paramMap.get('id');
+  // id = +this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
+    this.accountId = this.tokenService.getAccount();
     this.userAvatar = this.fb.group({
       avatar:[''],
     });
@@ -47,14 +52,14 @@ export class EditInfoComponent implements OnInit {
     this.findUserByID();
   }
   findUserByID(){
-    this.accountService.getAccount(this.id).subscribe((res : IAccount) =>{
+    this.accountService.getAccount(this.accountId).subscribe((res : IAccount) =>{
       this.user = res;
       this.editUserProfile.patchValue(res);
     })
   }
   editAccountInfo(){
     let data = this.editUserProfile.value;
-    this.accountService.editAccountInfo(data, this.id).subscribe((res : IAccount) => {
+    this.accountService.editAccountInfo(data, this.accountId).subscribe((res : IAccount) => {
       this.user = data;
       console.log(this.user);
       // this.router.navigate([''])

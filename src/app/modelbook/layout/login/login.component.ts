@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  accountEmail = this.tokenStorage.getAccount();
+  // accountEmail = this.tokenStorage.getAccount();
 
   constructor(private authService: AuthenService,
               private tokenStorage: TokenStorageService,
@@ -38,11 +38,10 @@ export class LoginComponent implements OnInit {
       data =>{
         console.log(data);
         if(data.message == 'Login success'){
-          this.accountEmail = data.email;
           this.isLoggedIn = true;
           this.tokenStorage.saveToken(data.token);
-          this.tokenStorage.saveAccount(data.email);
-        }else if(data.message == 'Invalid Email or password'){
+          this.tokenStorage.saveAccount(data.account_id);
+        }else if(data.message == 'Email hoặc mật khẩu không đúng'){
           this.isLoginFailed = true;
           this.errorMessage = data.message;
         }
