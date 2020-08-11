@@ -1,71 +1,40 @@
-<div class="view full-page-intro" style="background-image: url('https://www.google.com.np/imgres?imgurl=https%3A%2F%2Fwww.w3schools.com%2Fw3css%2Fimg_lights.jpg&imgrefurl=https%3A%2F%2Fwww.w3schools.com%2Fw3css%2Fw3css_images.asp&docid=R0KnAtfyBDsyiM&tbnid=kwgHAQqTiLQXLM%3A&vet=10ahUKEwj5z9nr277bAhWBbX0KHZzyAS8QMwitASgBMAE..i&w=600&h=400&bih=702&biw=1366&q=image&ved=0ahUKEwj5z9nr277bAhWBbX0KHZzyAS8QMwitASgBMAE&iact=mrc&uact=8'); background-repeat: no-repeat; background-size: cover;">
-<div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-  <div class="container">
-    <div class="row wow fadeIn">
-      <div class="col-md-6 mb-4 white-text text-center text-md-left">
-        <h1 class="display-4 font-weight-bold">Sign UP</h1>
-        <hr class="hr-light">
-        <p>
-          <strong>For the more information</strong>
-        </p>
-        <p class="mb-4 d-none d-md-block">
-          <strong>Quickly get information from new leads and customers by signing up .WIth their information, you can funnel them into new accounts in an instant.Follow us on FACEBOOK</strong>
-        </p>
-        <a href="http:/www.facebook.com" target="_blank"  class="btn btn-indigo btn-lg">Facebook
-          <i class="fa fa-facebook ml-2"></i>
-        </a>
-      </div>
-      <div class="col-md-6 col-xl-5 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
-              <p class="h4 text-center mb-4">Sign up</p>
-              <div class="md-form">
-                <i class="fa fa-envelope prefix grey-text"></i>
-                <label for="email">Your email</label>
-                <br>
-                <input type="email" formControlName="email" id="email" class="form-control" placeholder="Enter your email">
-              </div>
-              <br>
-              <div class="md-form">
-                <i class="fa fa-user prefix grey-text"></i>
-                <label for="name">Your name</label>
-                <input type="text" formControlName="name" id="name" class="form-control" placeholder="Enter your name">
-              </div>
-              <br>
-              <div class="md-form">
-                <i class="fa fa-lock prefix grey-text"></i>
-                <label for="password">Your password</label>
-                <input type="password" formControlName="password" id="password" class="form-control">
-              </div>
-              <br>
-              <div class="md-form">
-                <i class="fa fa-exclamation-triangle prefix grey-text"></i>
-                <label for="confirmPass">Confirm Your password</label>
-                <input type="password" [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}" id="confirmPass" class="form-control">
-              </div>
-              <br>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="defaultCheck12">
-                <label for="defaultCheck12" class="grey-text">Accept the
-                  <a href="#" class="blue-text"> Terms and Conditions</a>
-                </label>
-              </div>
-              <br>
-              <div *ngIf="isRegisterFail">
-                <div class="alert alert-danger">
-                  {{errorMessage}}
-                </div>
-              </div>
-              <div class="text-center mt-4">
-                <button class="btn btn-primary" type="submit" >Register</button>
-              </div>
-            </form>
+<div class="container">
+    <div class="wrapper" style="background-image:url('assets/static/images/bg-registration-form-2.jpg');">
+      <div class="inner">
+        <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+          <h3>Registration</h3>
+          <div class="form-wrapper">
+            <label for="email">Email</label>
+            <input style="border-radius: 30px" autofocus type="email" formControlName="email" id="email" class="form-control" placeholder="Enter your email">
           </div>
-        </div>
+          <div class="form-wrapper">
+            <label for="name">Name</label>
+            <input style="border-radius: 30px" type="text" formControlName="name" id="name" class="form-control" placeholder="Enter your name">
+          </div>
+          <div class="form-wrapper">
+            <label for="password">Password</label>
+            <input style="border-radius: 30px" type="password" formControlName="password" id="password" class="form-control">
+          </div>
+          <div class="form-wrapper">
+            <label for="confirmPass">Confirm Password</label>
+            <input style="border-radius: 30px" type="password" [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}" id="confirmPass" class="form-control">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> I accept the Terms of Use & Privacy Policy.
+              <br>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <button type="submit" style="border-radius: 30px">Register</button>
+          <br>
+          <div *ngIf="isRegisterFail">
+            <div class="alert alert-danger">
+              {{errorMessage}}
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-</div>
-</div>
 
