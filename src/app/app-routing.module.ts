@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path: '',canActivate:[AuthGaurdService],component:MainwallComponent},
   {
-    path: 'account',
+    path: 'account', canActivate:[AuthGaurdService],
     loadChildren: () => import('./modelbook/account-infomation/account-infomation.module').then(module => module.AccountInfomationModule)
   }
 ];

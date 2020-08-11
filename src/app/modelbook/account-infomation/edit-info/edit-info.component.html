@@ -48,14 +48,13 @@
                       <label class="col-md-4  col-sm-3 col-xs-12 control-label">Email</label>
                       <div class="col-md-10 col-sm-9 col-xs-12">
                         <input type="email" class="form-control" formControlName="email">
-                        <!--                    <p class="help-block">This is the email </p>-->
+
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-md-4  col-sm-3 col-xs-12 control-label">Address</label>
                       <div class="col-md-10 col-sm-9 col-xs-12">
                         <input type="text" class="form-control" formControlName="address">
-                        <!--                    <p class="help-block">Your twitter username</p>-->
                       </div>
                     </div>
                     <div class="form-group">
@@ -72,9 +71,15 @@
                     </div>
                   <hr>
                   <div class="form-group">
+                    <div *ngIf="isEditFail" class="alert-danger col-md-4  col-sm-3 col-xs-12">
+                      {{message}}
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
                       <button class="btn btn-primary" type="submit">Cập Nhật</button>
                     </div>
+
                   </div>
                 </form>
 

@@ -24,6 +24,10 @@ export class EditInfoComponent implements OnInit {
 
   accountId = null;
 
+  isEditSuccess = false;
+  isEditFail = false;
+  message:string;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -52,17 +56,26 @@ export class EditInfoComponent implements OnInit {
     this.findUserByID();
   }
   findUserByID(){
-    this.accountService.getAccount(this.accountId).subscribe((res : IAccount) =>{
+    this.accountService.getAccount(this.accountId).subscribe((res) =>{
       this.user = res;
       this.editUserProfile.patchValue(res);
     })
   }
   editAccountInfo(){
     let data = this.editUserProfile.value;
-    this.accountService.editAccountInfo(data, this.accountId).subscribe((res : IAccount) => {
-      this.user = data;
-      console.log(this.user);
-      // this.router.navigate([''])
+    this.accountService.editAccountInfo(data, this.accountId).subscribe((res) => {
+      if(res.message == 'Success'){
+        this.isEditSuccess = true;
+        alert("Cập nhật thành công");
+        this.router.navigate(['/'])
+      }else {
+        this.message = 'Cập nhật thất bại';
+        this.isEditFail = true;
+      }
+    },(error)=>{
+      this.message = error.message;
+      this.isEditFail = true;
+
     })
   }
 
