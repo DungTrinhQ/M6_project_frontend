@@ -6,4 +6,5 @@ export interface IAccount {
   address?: string;
   phoneNumber?: number;
   dateOfBirth?: string;
+  avatarUrl?: string
 }
