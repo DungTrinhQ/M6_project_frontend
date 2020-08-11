@@ -11,7 +11,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class EditInfoComponent implements OnInit {
   editUserProfile: FormGroup;
-  user: IAccount;
+  userAvatar:FormGroup;
+  user: IAccount = {
+    email:'',
+    password:'',
+    avatarUrl: ''
+  };
+  selectedImage:any = null;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -21,6 +28,9 @@ export class EditInfoComponent implements OnInit {
   id = +this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
+    this.userAvatar = this.fb.group({
+      avatar:[''],
+    });
     this.editUserProfile = this.fb.group({
       id: [''],
       email: [''],
@@ -31,7 +41,6 @@ export class EditInfoComponent implements OnInit {
       dateOfBirth: [''],
     });
     this.findUserByID();
-    console.log(this.id)
   }
   findUserByID(){
     this.accountService.getAccount(this.id).subscribe((res : IAccount) =>{
