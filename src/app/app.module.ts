@@ -23,7 +23,6 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     RegisterComponent,
     LoginComponent,
     MainwallComponent,
-    EditInfoComponent
   ],
   imports: [
     BrowserModule,

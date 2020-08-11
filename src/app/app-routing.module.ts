@@ -10,9 +10,10 @@ const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path:'register',component:RegisterComponent},
   {path: '',canActivate:[AuthGaurdService],component:MainwallComponent},
-  {path: 'account',children: [{
-    path: ':id/edit', component: EditInfoComponent
-    }]}
+  {
+    path: 'account',
+    loadChildren: () => import('./modelbook/account-infomation/account-infomation.module').then(module => module.AccountInfomationModule)
+  }
 ];
 
 @NgModule({
