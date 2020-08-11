@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IAccount} from '../models/iaccount';
+import {Istatus} from '../models/istatus';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,13 @@ export class AccountService {
   }
   getAccount(id: number): Observable<IAccount>{
     return this.http.get<IAccount>(this.API_URL + 'api/account-details/' + id);
+  }
+  getListStatusByAccount(id: number):Observable<any>{
+    return this.http.get(this.API_URL + 'api/statuses/'+id)
+  }
+
+  createStatus(data: Istatus):Observable<any>{
+    return this.http.get(this.API_URL + 'api/create-status')
   }
 
 }
