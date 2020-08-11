@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
           this.errorMessage = data.message;
         }
 
+      },
+      (error)=>{
+        this.isLoginFailed = true;
+        this.errorMessage = error.message;
       }
     )
   }
