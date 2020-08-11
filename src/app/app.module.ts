@@ -10,13 +10,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { MainwallComponent } from './modelbook/layout/mainwall/mainwall.component'
 import {AuthInterceptor} from './helper/auth.interceptor';
+import {EditInfoComponent} from './modelbook/layout/edit-info/edit-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    MainwallComponent
+    MainwallComponent,
+    EditInfoComponent
   ],
   imports: [
     BrowserModule,

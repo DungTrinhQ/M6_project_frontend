@@ -20,4 +20,11 @@ export class AccountService {
     return this.http.post(this.API_URL+'register',data,{responseType: 'text'})
   }
 
+  editAccountInfo(data: any, id: number): Observable<IAccount>{
+    return this.http.put<IAccount>(this.API_URL + id, data);
+  }
+  getAccount(id: number): Observable<IAccount>{
+    return this.http.get<IAccount>(this.API_URL + 'find-one-user/' + id);
+  }
+
 }
