@@ -4,13 +4,15 @@ import {RegisterComponent} from './modelbook/layout/register/register.component'
 import {LoginComponent} from './modelbook/layout/login/login.component';
 import {AuthGaurdService} from './helper/auth-gaurd.service';
 import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
-import {EditInfoComponent} from './modelbook/layout/edit-info/edit-info.component';
+import {EditInfoComponent} from './modelbook/account-infomation/edit-info/edit-info.component';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path:'register',component:RegisterComponent},
   {path: '',canActivate:[AuthGaurdService],component:MainwallComponent},
-  {path: 'edit/:id',component: EditInfoComponent}
+  {path: 'account',children: [{
+    path: ':id/edit', component: EditInfoComponent
+    }]}
 ];
 
 @NgModule({

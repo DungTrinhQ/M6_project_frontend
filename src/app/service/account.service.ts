@@ -21,10 +21,10 @@ export class AccountService {
   }
 
   editAccountInfo(data: any, id: number): Observable<IAccount>{
-    return this.http.put<IAccount>(this.API_URL + id, data);
+    return this.http.put<IAccount>(this.API_URL + 'api/' + id, data);
   }
   getAccount(id: number): Observable<IAccount>{
-    return this.http.get<IAccount>(this.API_URL + 'find-one-user/' + id);
+    return this.http.get<IAccount>(this.API_URL + 'api/account-details/' + id);
   }
 
 }
