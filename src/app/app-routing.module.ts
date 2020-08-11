@@ -5,6 +5,7 @@ import {LoginComponent} from './modelbook/layout/login/login.component';
 import {AuthGaurdService} from './helper/auth-gaurd.service';
 import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
 import {EditInfoComponent} from './modelbook/account-infomation/edit-info/edit-info.component';
+import {ProfileComponent} from './modelbook/account-infomation/profile/profile.component';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: '',canActivate:[AuthGaurdService],component:MainwallComponent},
   {path: 'account',children: [{
     path: ':id/edit', component: EditInfoComponent
-    }]}
+    },
+      {path: ':id/details', component: ProfileComponent}]}
 ];
 
 @NgModule({
