@@ -3,8 +3,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {IAccount} from '../../../models/iaccount';
 import {AccountService} from '../../../service/account.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AngularFireStorage} from '@angular/fire/storage';
-import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-info',
@@ -25,8 +23,7 @@ export class EditInfoComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
-    private route: ActivatedRoute,
-    private storage: AngularFireStorage
+    private route: ActivatedRoute
   ) { }
   id = +this.route.snapshot.paramMap.get('id');
 
@@ -42,7 +39,6 @@ export class EditInfoComponent implements OnInit {
       address: [''],
       phoneNumber: [''],
       dateOfBirth: [''],
-      avatarUrl:['']
     });
     this.findUserByID();
   }
@@ -56,36 +52,8 @@ export class EditInfoComponent implements OnInit {
     let data = this.editUserProfile.value;
     this.accountService.editAccountInfo(data, this.id).subscribe((res : IAccount) => {
       this.user = data;
-      console.log(this.user);
       // this.router.navigate([''])
     })
   }
 
-  updateAvatar() {
-    if(this.selectedImage !==null){
-      const filePath = `avatar/${this.selectedImage.name.split('.').slice(0,-1).join('.')}_${new Date().getTime()}`;
-      const fileRef = this.storage.ref(filePath);
-      this.storage.upload(filePath,this.selectedImage).snapshotChanges().pipe(
-        finalize(
-          ()=> fileRef.getDownloadURL().subscribe(url=>{
-            this.editUserProfile.value.avatarUrl = url;
-            alert("Ấn cập nhật để xác nhận thay đổi.")
-          })
-        )
-      ).subscribe();
-    }
-
-  }
-
-  loadImgFile(even:any) {
-    if(even.target.files && even.target.files[0]){
-      const reader = new FileReader();
-      reader.onload = (e:any) => this.user.avatarUrl = e.target.result;
-      reader.readAsDataURL(even.target.files[0]);
-      this.selectedImage = even.target.files[0];
-    }else {
-      this.selectedImage = null;
-    }
-
-  }
 }

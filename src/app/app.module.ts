@@ -12,10 +12,6 @@ import { MainwallComponent } from './modelbook/layout/mainwall/mainwall.componen
 import {AuthInterceptor} from './helper/auth.interceptor';
 import {EditInfoComponent} from './modelbook/account-infomation/edit-info/edit-info.component';
 import {AccountInfomationModule} from './modelbook/account-infomation/account-infomation.module';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -23,6 +19,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     RegisterComponent,
     LoginComponent,
     MainwallComponent,
+    EditInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +27,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    AccountInfomationModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AccountInfomationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
