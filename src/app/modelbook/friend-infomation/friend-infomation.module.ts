@@ -4,12 +4,16 @@ import { RouterModule, Routes} from '@angular/router';
 import { FriendListComponent } from './friend-list/friend-list.component';
 
 const routes: Routes = [
+  {path:'',component:FriendListComponent}
 
   ]
 
 @NgModule({
   declarations: [
     FriendListComponent,
+  ],
+  exports: [
+    FriendListComponent
   ],
   imports: [
     CommonModule,

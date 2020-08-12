@@ -4,7 +4,6 @@ import {RegisterComponent} from './modelbook/layout/register/register.component'
 import {LoginComponent} from './modelbook/layout/login/login.component';
 import {AuthGaurdService} from './helper/auth-gaurd.service';
 import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
-import {EditInfoComponent} from './modelbook/account-infomation/edit-info/edit-info.component';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent},

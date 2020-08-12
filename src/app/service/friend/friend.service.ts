@@ -17,12 +17,12 @@ export class FriendService{
 
   sentFriendRequest(id:number):Observable<any>{
     this.account_id = this.tokenStorage.getAccount();
-    return this.http.get(this.URL_FRIEND_API+this.account_id+'/friend_request/'+id,{responseType :'text'});
+    return this.http.get(this.URL_FRIEND_API+this.account_id+'/friend_request/'+id);
   }
 
   getFriendList():Observable<any>{
     this.account_id = this.tokenStorage.getAccount();
-    return this.http.get(this.URL_FRIEND_API+this.account_id+'/friends',{responseType: 'text'});
+    return this.http.get(this.URL_FRIEND_API+this.account_id+'/friends');
 
   }
 
