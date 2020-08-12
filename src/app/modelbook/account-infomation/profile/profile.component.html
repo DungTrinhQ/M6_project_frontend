@@ -69,17 +69,8 @@
 
                   <!-- Begin timeline -->
                   <div class="the-timeline">
-                      <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == accounts.id">
-                        <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Whats on your mind..."></textarea>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <a class="btn btn-sm btn-default"><i class="fa fa-camera"></i></a>
-                            <a class="btn btn-sm btn-default"><i class="fa fa-video-camera"></i></a>
-                            <a class="btn btn-sm btn-default"><i class="fa fa-map-marker"></i></a>
-                          </div>
-                          <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
-                        </div>
-                      </form>
+
+                    <app-form-stt (statusForm)="addStatus($event)"></app-form-stt>
                     <br><br>
                     <ul *ngFor="let st of status" style="padding-left: 0px">
                       <div class="card">
