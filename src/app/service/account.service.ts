@@ -31,8 +31,8 @@ export class AccountService {
     return this.http.get(this.API_URL + 'api/statuses/'+id)
   }
 
-  createStatus(data: Istatus):Observable<any>{
-    return this.http.post(this.API_URL + 'api/create-status',data)
+  createStatus(id: number,data: any):Observable<any>{
+    return this.http.post(this.API_URL + 'api/'+id+'/create-status',data)
   }
 
 }

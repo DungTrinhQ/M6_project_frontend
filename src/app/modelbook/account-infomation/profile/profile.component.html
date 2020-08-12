@@ -3,7 +3,7 @@
   <div class="content-page">
     <div class="profile-banner" style="background-image: url(http://hubancreative.com/projects/templates/coco/corporate/images/stock/1epgUO0.jpg);">
       <div class="col-sm-3 avatar-container">
-        <img src="{{account.avatarUrl}}" class="img-circle profile-avatar" alt="User avatar">
+        <img src="{{accounts.avatarUrl}}" class="img-circle profile-avatar" alt="User avatar">
       </div>
       <!--      <div class="col-sm-12 profile-actions text-right">-->
       <!--        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Friends</button>-->
@@ -18,15 +18,15 @@
           <div style="margin-top:120px">
             <ul class="list-group">
               <li class="text-center list-group-item">
-                <h4><b>{{account.name}}</b></h4>
+                <h4><b>{{accounts.name}}</b></h4>
               </li>
               <li class="list-group-item">
                 <span class="badge">Email:</span>
-                <span>{{account.email}}</span>
+                <span>{{accounts.email}}</span>
               </li>
               <li class="list-group-item">
                 <span class="badge">Phone:</span>
-                <span>{{account.phoneNumber}}</span>
+                <span>{{accounts.phoneNumber}}</span>
               </li>
               <li class="list-group-item">
                 <span class="badge">Follow : 1.000.000</span>
@@ -40,7 +40,7 @@
                   <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>
                 </div>
                 <div class="col-lg-6">
-                  <button type="button" class="btn btn-secondary btn-sm btn-block"><i class="fa fa-user"></i> Add as friend</button>
+                  <button type="button" class="btn btn-secondary btn-sm btn-block"><i class="fa fa-user"></i> Add friend</button>
                 </div>
               </div>
             </div><!-- End div .user-button -->
@@ -70,8 +70,7 @@
                   <!-- Begin timeline -->
                   <div class="the-timeline">
                     <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline">
-                      <textarea class="form-control" style="height: 70px;margin-bottom:10px;" placeholder="Whats on your mind..."></textarea>
-                      <input type="number" value="{{account.id}}" formControlName="account">
+                      <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Whats on your mind..."></textarea>
                       <div class="row">
                         <div class="col-sm-6">
                           <a class="btn btn-sm btn-default"><i class="fa fa-camera"></i></a>
@@ -89,14 +88,13 @@
                             <div class="the-date">
                               <span>{{st.createDate}}</span>
                             </div>
-                            <h4>{{account.name}}</h4>
+                            <h4>{{st.account.name}}</h4>
                             <p>
                               {{st.content}}
                             </p>
                           </li>
                         </div>
                       </div>
-
                     </ul>
 
                   </div><!-- End div .the-timeline -->
