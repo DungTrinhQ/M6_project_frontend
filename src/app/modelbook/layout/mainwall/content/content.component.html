@@ -1,6 +1,13 @@
-<p>content works!</p>
+
 <div class="row">
   <div class="col-md-3 col-sm-12" >
     <app-side-menu></app-side-menu>
+  </div>
+  <div class="col-md-9 col-sm-12">
+    <table>
+      <div *ngFor="let friend of friendResult">
+        <tr>{{friend.name}}</tr>
+      </div>
+    </table>
   </div>
 </div>

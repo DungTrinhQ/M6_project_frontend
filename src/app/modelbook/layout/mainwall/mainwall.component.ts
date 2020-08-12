@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AccountService} from '../../../service/account.service';
 import {IAccount} from '../../../models/iaccount';
 
@@ -11,6 +11,8 @@ export class MainwallComponent implements OnInit {
 
   accountList: IAccount[];
 
+  friendResult : IAccount[];
+  keywordSearch : String;
   constructor(private accountService:AccountService) { }
 
   ngOnInit(): void {
@@ -25,6 +27,17 @@ export class MainwallComponent implements OnInit {
       }
     )
     return this.accountList;
+  }
+  getKeyword(event){
+    this.keywordSearch = event;
+    this.findFriend();
+  }
+  findFriend(){
+    this.accountService.searchFriend(this.keywordSearch).subscribe((res : IAccount[]) =>{
+        this.friendResult = res;
+        console.log('thanh cong')
+      },
+      error => console.log('loi'))
   }
 
 }
