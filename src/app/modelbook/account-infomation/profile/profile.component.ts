@@ -13,8 +13,8 @@ import {TokenStorageService} from '../../../service/tokenstorage.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  statusForm: FormGroup;
+  // statuscontent: string
+  // statusForm: FormGroup;
   accounts: IAccount = {
     avatarUrl: '',
     name: '',
@@ -35,9 +35,6 @@ export class ProfileComponent implements OnInit {
   id = +this.route.snapshot.paramMap.get('id');
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();
-    this.statusForm = this.fb.group({
-      content: ['']
-    })
     this.getAccount()
     this.getStatus()
   }
@@ -55,11 +52,9 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  addStatus() {
-    let newStatus = this.statusForm.value;
-    console.log(newStatus);
+  addStatus(event) {
     const st = {
-      content: this.statusForm.value.content,
+      content: event,
       account: {
         id: this.tokenService.getAccount()
       }
@@ -69,9 +64,6 @@ export class ProfileComponent implements OnInit {
       (httpResponse)=>{
         if(httpResponse.message == 'success'){
           this.getStatus()
-          this.statusForm = this.fb.group({
-            content:['']
-          })
         }else {
           alert("Lỗi")
         }

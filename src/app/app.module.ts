@@ -18,6 +18,7 @@ import { NavbarComponent } from './modelbook/layout/mainwall/navbar/navbar.compo
 import { InputSearchComponent } from './modelbook/layout/mainwall/navbar/input-search/input-search.component';
 import { ContentComponent } from './modelbook/layout/mainwall/content/content.component';
 import { SideMenuComponent } from './modelbook/layout/mainwall/content/side-menu/side-menu.component';
+import {FormSttComponent} from './modelbook/account-infomation/profile/form-stt/form-stt.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SideMenuComponent } from './modelbook/layout/mainwall/content/side-menu
     InputSearchComponent,
     ContentComponent,
     SideMenuComponent,
+    FormSttComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import {EditInfoComponent} from './edit-info/edit-info.component';
 import {RouterModule, Routes} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ProfileComponent} from './profile/profile.component';
+import { FormSttComponent } from './profile/form-stt/form-stt.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     EditInfoComponent,
-    ProfileComponent
+    ProfileComponent,
+
   ],
   imports: [
     CommonModule,
