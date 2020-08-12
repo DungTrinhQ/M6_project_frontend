@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {FriendService} from '../../../service/friend/friend.service';
 import {IAccount} from '../../../models/iaccount';
+import {FriendService} from '../../../service/friend/friend.service';
 import {AccountService} from '../../../service/account.service';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
 
 @Component({
-  selector: 'app-friend-list',
-  templateUrl: './friend-list.component.html',
-  styleUrls: ['./friend-list.component.css']
+  selector: 'app-friend-layout',
+  templateUrl: './friend-layout.component.html',
+  styleUrls: ['./friend-layout.component.css']
 })
-export class FriendListComponent implements OnInit {
+export class FriendLayoutComponent implements OnInit {
 
   friendList: any;
   accounts: IAccount = {
@@ -25,22 +25,14 @@ export class FriendListComponent implements OnInit {
               private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.getFriendRequest();
     this.getAccount();
   }
+
   getAccount() {
     this.current_Id = this.tokenStorage.getAccount();
     this.accountService.getAccount(this.current_Id).subscribe((resp: IAccount) => {
       this.accounts = resp;
     })
-  }
-
-  getFriendRequest(){
-    this.friendService.getFriendList().subscribe((data)=>{
-      this.friendList = data;
-      console.log(data);
-    })
-
   }
 
 }

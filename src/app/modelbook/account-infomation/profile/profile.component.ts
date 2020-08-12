@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit {
 
   sentFriendRequest() {
     this.friendRequest.sentFriendRequest(this.id).subscribe((data) => {
-      if(data == 'success'){
+      if(data.message == 'success'){
         this.isRequestPending = true;
       }
     })
