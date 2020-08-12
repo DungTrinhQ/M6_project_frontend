@@ -32,7 +32,6 @@ export class ProfileComponent implements OnInit {
               private tokenService: TokenStorageService) {
   }
 
-  id = +this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();
@@ -44,13 +43,13 @@ export class ProfileComponent implements OnInit {
   }
 
   getAccount() {
-    this.accountService.getAccount(this.id).subscribe((resp: IAccount) => {
+    this.accountService.getAccount(this.accountId).subscribe((resp: IAccount) => {
       this.accounts = resp;
     })
   }
 
   getStatus() {
-    this.accountService.getListStatusByAccount(this.id).subscribe((resp: Istatus[]) => {
+    this.accountService.getListStatusByAccount(this.accountId).subscribe((resp: Istatus[]) => {
       this.status = resp;
       console.log(this.status);
     })
