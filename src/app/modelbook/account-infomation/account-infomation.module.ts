@@ -12,7 +12,7 @@ const routes: Routes = [
     component: EditInfoComponent
   },
   {
-    path: 'details',
+    path: ':id',
     component: ProfileComponent
   }
 ]
