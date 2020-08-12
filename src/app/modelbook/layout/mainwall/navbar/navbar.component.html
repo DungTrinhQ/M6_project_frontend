@@ -29,6 +29,6 @@
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
-    <app-input-search></app-input-search>
+    <app-input-search (keyWord)="getKeyWord($event)"></app-input-search>
   </div>
 </nav>

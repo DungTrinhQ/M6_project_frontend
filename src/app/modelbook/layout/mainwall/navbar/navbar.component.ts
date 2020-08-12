@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {IAccount} from '../../../../models/iaccount';
+import {AccountService} from '../../../../service/account.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  @Output()
+  keyWord : EventEmitter<any> = new EventEmitter<any>();
+
+
+  constructor(
+    private accountService : AccountService
+
+  ) { }
 
   ngOnInit(): void {
   }
+  getKeyWord(event){
+    let data = this.keyWord.emit(event);
+  }
+
 
 }

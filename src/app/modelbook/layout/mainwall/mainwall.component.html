@@ -1,2 +1,2 @@
-<app-navbar></app-navbar>
-<app-content></app-content>
+<app-navbar (keyWord)="getKeyword($event)" ></app-navbar>
+<app-content  [friendResult] = "friendResult"></app-content>
