@@ -17,6 +17,7 @@ export class MainwallComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAccountList();
+    this.keywordSearch = '';
   }
 
   getAccountList():IAccount[]{
@@ -29,7 +30,14 @@ export class MainwallComponent implements OnInit {
     return this.accountList;
   }
   getKeyword(event){
-    this.keywordSearch = event;
+
+    if(event == ''){
+      this.keywordSearch = ' ';
+    }
+    else
+    {
+      this.keywordSearch = event;
+    }
     this.findFriend();
   }
   findFriend(){
@@ -37,7 +45,8 @@ export class MainwallComponent implements OnInit {
         this.friendResult = res;
         console.log('thanh cong')
       },
-      error => console.log('loi'))
+      error =>console.log(this.keywordSearch)
+    )
   }
 
 }
