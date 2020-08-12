@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {AccountService} from '../../../../service/account.service';
+import {IAccount} from '../../../../models/iaccount';
 
 @Component({
   selector: 'app-content',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  friendResult : IAccount[];
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
+
+
 
 }

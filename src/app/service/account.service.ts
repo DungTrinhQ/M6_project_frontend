@@ -34,5 +34,8 @@ export class AccountService {
   createStatus(data: Istatus):Observable<any>{
     return this.http.post(this.API_URL + 'api/create-status',data)
   }
+  searchFriend(data : String): Observable<any>{
+    return this.http.patch(this.API_URL + 'api/find-list-users', data)
+  }
 
 }
