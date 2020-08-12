@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AccountService} from '../../../../service/account.service';
 import {IAccount} from '../../../../models/iaccount';
+import {TokenStorageService} from '../../../../service/tokenstorage.service';
 
 @Component({
   selector: 'app-content',
@@ -11,6 +12,7 @@ export class ContentComponent implements OnInit {
 
   @Input()
   friendResult : IAccount[];
+
   constructor(
   ) { }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TokenStorageService} from '../../../../../service/tokenstorage.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-menu.component.css']
 })
 export class SideMenuComponent implements OnInit {
-
-  constructor() { }
+  account_id:number;
+  constructor(private token:TokenStorageService) { }
 
   ngOnInit(): void {
+    this.account_id= this.token.getAccount();
   }
 
+  logout() {
+    this.token.signOut();
+    window.location.reload();
+  }
 }

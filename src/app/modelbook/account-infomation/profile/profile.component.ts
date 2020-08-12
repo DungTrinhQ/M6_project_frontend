@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {IAccount} from '../../../models/iaccount';
 import {Istatus} from '../../../models/istatus';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
+import {FriendService} from '../../../service/friend/friend.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,13 +24,15 @@ export class ProfileComponent implements OnInit {
   };
   status: Istatus[];
   accountId:number;
+  isRequestPending = false;
 
   constructor(private accountService: AccountService,
               private fb: FormBuilder,
               private authenService: AuthenService,
               private route: ActivatedRoute,
               private router: Router,
-              private tokenService: TokenStorageService) {
+              private tokenService: TokenStorageService,
+              private friendRequest: FriendService) {
   }
 
   id = +this.route.snapshot.paramMap.get('id');
@@ -79,5 +82,14 @@ export class ProfileComponent implements OnInit {
         alert("Có lỗi kết nối với back end");
       }
     )
+  }
+
+  sentFriendRequest() {
+    this.friendRequest.sentFriendRequest(this.id).subscribe((data) => {
+      if(data.message == 'success'){
+        this.isRequestPending = true;
+      }
+    })
+
   }
 }
