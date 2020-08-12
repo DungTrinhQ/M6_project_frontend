@@ -1,15 +1,19 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th scope="col">#</th>
+    <th scope="col"></th>
     <th scope="col">Name</th>
     <th scope="col">Email</th>
-    <th scope="col">ID</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let friend of friendList,index as index">
-    <th scope="row">{{index}}</th>
+    <th>
+      <div class="img-container" >
+        <img class="img-inside img-thumbnail" src="{{friend.avatarUrl}}" alt="">
+
+      </div>
+    </th>
     <td>
       <a [routerLink]="'/account/'+friend.id">
         {{friend.name}}
@@ -17,7 +21,6 @@
 
     </td>
     <td>{{friend.email}}</td>
-    <td>{{friend.id}}</td>
   </tr>
 
   </tbody>

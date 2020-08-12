@@ -1,1 +1,30 @@
-<p>friend-request works!</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th></th>
+    <th scope="col">Name</th>
+    <th scope="col">Handle</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let friend of friendRequestList,index as index">
+    <td>
+      <div class="img-container" >
+        <img class="img-inside img-thumbnail" src="{{friend.avatarUrl}}" alt="">
+
+      </div>
+<!--      <img src="{{friend.avatarUrl}}" alt="">-->
+    </td>
+    <td>
+     {{friend.name}}
+    </td>
+    <td>
+      <button class="btn btn-primary mr-2">Xác Nhận</button>
+      <button class="btn btn-secondary mr-2">Xóa</button>
+    </td>
+    <td></td>
+  </tr>
+
+  </tbody>
+</table>
+
