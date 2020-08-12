@@ -37,7 +37,7 @@
             <div class="user-button">
               <div class="row">
                 <div class="col-lg-6">
-                  <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i>Message</button>
                 </div>
                 <div class="col-lg-6">
                   <button type="button" class="btn btn-secondary btn-sm btn-block"><i class="fa fa-user"></i> Add friend</button>
@@ -85,13 +85,16 @@
                       <div class="card">
                         <div class="card-body">
                           <li style="list-style: none">
+                            <h4>{{st.account.name}}</h4>
                             <div class="the-date">
                               <span>{{st.createDate}}</span>
                             </div>
-                            <h4>{{st.account.name}}</h4>
+                            <br>
                             <p>
                               {{st.content}}
                             </p>
+                            <a class="btn icon-btn btn-primary" style="border-radius: 30px ;margin-right: 10px" href="#"><i class="fa fa-heart"></i></a>
+                            <a class="btn icon-btn btn-danger" style="border-radius: 30px ;margin-right: 30px" href="#"><i class="fa  fa-comment"></i></a>
                           </li>
                         </div>
                       </div>
