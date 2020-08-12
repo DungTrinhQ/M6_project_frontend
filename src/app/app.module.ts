@@ -17,6 +17,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
 import { NavbarComponent } from './modelbook/layout/mainwall/navbar/navbar.component';
 import { InputSearchComponent } from './modelbook/layout/mainwall/navbar/input-search/input-search.component';
 import { ContentComponent } from './modelbook/layout/mainwall/content/content.component';
+import { SideMenuComponent } from './modelbook/layout/mainwall/content/side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ContentComponent } from './modelbook/layout/mainwall/content/content.co
     NavbarComponent,
     InputSearchComponent,
     ContentComponent,
+    SideMenuComponent,
   ],
   imports: [
     BrowserModule,
