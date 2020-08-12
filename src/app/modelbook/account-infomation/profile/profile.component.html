@@ -36,11 +36,14 @@
             <!-- User button -->
             <div class="user-button">
               <div class="row">
-                <div class="col-lg-6">
-                  <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i>Message</button>
+                <div class="col-12">
+                  <button type="button" class="btn btn-primary btn-block"><i class="fa fa-envelope"></i>Message</button>
                 </div>
-                <div class="col-lg-6" *ngIf="accountId != accounts.id">
-                  <button type="button" class="btn btn-secondary btn-sm btn-block"><i class="fa fa-user"></i> Add friend</button>
+                <div class="col-12" *ngIf="accountId != accounts.id && !isRequestPending">
+                  <button type="button" class="btn btn-secondary  btn-block" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Add friend</button>
+                </div>
+                <div class="col-12" *ngIf="isRequestPending">
+                  <button class="btn btn-secondary btn-block disabled">Pending</button>
                 </div>
               </div>
             </div><!-- End div .user-button -->

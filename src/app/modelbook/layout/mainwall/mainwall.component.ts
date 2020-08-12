@@ -16,7 +16,6 @@ export class MainwallComponent implements OnInit {
   constructor(private accountService:AccountService) { }
 
   ngOnInit(): void {
-    this.getAccountList();
     this.keywordSearch = '';
   }
 
@@ -24,7 +23,7 @@ export class MainwallComponent implements OnInit {
     this.accountService.getAccountList().subscribe(
       (data)=>{
         this.accountList = data;
-        console.log(data);
+
       }
     )
     return this.accountList;

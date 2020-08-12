@@ -13,7 +13,12 @@ const routes: Routes = [
   {
     path: 'account', canActivate:[AuthGaurdService],
     loadChildren: () => import('./modelbook/account-infomation/account-infomation.module').then(module => module.AccountInfomationModule)
+  },
+  {
+    path: 'friends',canActivate:[AuthGaurdService],
+    loadChildren: ()=> import('./modelbook/friend-infomation/friend-infomation.module').then(module => module.FriendInfomationModule)
   }
+
 ];
 
 @NgModule({
