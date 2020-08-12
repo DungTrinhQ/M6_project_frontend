@@ -30,4 +30,12 @@ export class FriendService{
     this.account_id = this.tokenStorage.getAccount();
     return this.http.get(this.URL_FRIEND_API+this.account_id+'/friend_request_response');
   }
+
+  acceptRequest(request_id:number):Observable<any>{
+    return this.http.put(this.URL_FRIEND_API+'friend_request_response/'+request_id,null);
+  }
+
+  deniedRequest(request_id:number):Observable<any>{
+    return this.http.delete(this.URL_FRIEND_API+'friend_request_response/'+request_id);
+  }
 }

@@ -29,4 +29,19 @@ export class FriendRequestComponent implements OnInit {
     })
   }
 
+  accept(id: number) {
+    this.friendService.acceptRequest(id).subscribe(()=>{
+      alert("Đã thêm bạn")
+      window.location.reload();
+    });
+
+  }
+
+  denied(id: number) {
+    this.friendService.deniedRequest(id).subscribe(()=>{
+      alert("Đã hủy yêu cầu")
+      window.location.reload();
+    })
+
+  }
 }
