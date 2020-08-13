@@ -45,6 +45,9 @@
                 <div class="col-12" *ngIf="isRequestPending">
                   <button class="btn btn-secondary btn-block disabled">Pending</button>
                 </div>
+                <div class="col-12" *ngIf="accountId == accounts.id">
+                  <button routerLink="/account/edit" class="btn btn-outline-primary btn-block">Chỉnh sửa</button>
+                </div>
               </div>
             </div><!-- End div .user-button -->
           </div><!-- End div .box-info -->
