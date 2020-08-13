@@ -1,14 +1,38 @@
 
 <div class="row">
-  <div class="col-md-3 col-sm-12 border border-secondary rounded" >
+  <div class="col-md-3 col-sm-12 border border-secondary rounded p-3" >
     <app-side-menu></app-side-menu>
   </div>
-  <div class="col-md-9 col-sm-12 ">
+  <div class="col-md-9 col-sm-12 p-3" >
+    <div *ngIf="friendResult!= null" class="m-3">
+      <h5 class="text-center">Kết quả tìm kiếm</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tên</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
 
-    <table>
-      <div *ngFor="let friend of friendResult">
-        <tr>{{friend.name}}</tr>
-      </div>
-    </table>
+        <ng-container *ngFor="let friend of friendResult">
+          <tr>
+            <td><a [routerLink]="'/account/'+friend.id">{{friend.name}}</a></td>
+            <td>{{friend.email}}</td>
+            <td>
+              <button class="btn btn-primary btn-sm">Kết bạn</button>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+<!--    <table>-->
+<!--      <div *ngFor="let friend of friendResult">-->
+<!--        <tr>{{friend.name}}</tr>-->
+<!--      </div>-->
+<!--    </table>-->
   </div>
 </div>
