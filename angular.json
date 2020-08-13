@@ -21,7 +21,8 @@
               "@firebase/component",
               "@firebase/functions",
               "@firebase/performance",
-              "@firebase/remote-config"
+              "@firebase/remote-config",
+              "@firebase/util"
             ],
             "outputPath": "dist/modelbook-frontend-project",
             "index": "src/index.html",

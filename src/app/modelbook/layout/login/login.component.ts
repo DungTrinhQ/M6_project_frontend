@@ -3,6 +3,7 @@ import {AuthenService} from '../../../service/authen.service';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {IAccount} from '../../../models/iaccount';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenService,
               private tokenStorage: TokenStorageService,
-              private fb:FormBuilder) { }
+              private fb:FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
     if(this.tokenStorage.getToken()){
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
           this.isLoggedIn = true;
           this.tokenStorage.saveToken(data.token);
           this.tokenStorage.saveAccount(data.account_id);
+          this.router.navigate(['/'])
         }else if(data.message == 'Email hoặc mật khẩu không đúng'){
           this.isLoginFailed = true;
           this.errorMessage = data.message;
