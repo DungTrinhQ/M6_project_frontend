@@ -98,6 +98,11 @@
                             <p>
                               {{st.content}}
                             </p>
+                            <div class="d-flex flex-row justify-content-start" *ngIf="st.images != null">
+                              <div  class="img-box" style="max-height: 300px" *ngFor="let img of st.images">
+                                <img class="img-thumbnail" style="max-height: inherit" src="{{img.url}}" alt="img">
+                              </div>
+                            </div>
                             <a class="btn icon-btn btn-primary" style="border-radius: 30px ;margin-right: 10px" href="#"><i class="fa fa-heart"></i></a>
                             <a class="btn icon-btn btn-danger" style="border-radius: 30px ;margin-right: 30px" href="#"><i class="fa  fa-comment"></i></a>
                           </li>
