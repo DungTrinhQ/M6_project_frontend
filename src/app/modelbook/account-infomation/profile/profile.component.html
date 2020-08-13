@@ -1,0 +1,116 @@
+
+<div class="container" style="background-color: #ebecf0">
+  <div class="content-page">
+    <div class="profile-banner" style="background-image: url(http://hubancreative.com/projects/templates/coco/corporate/images/stock/1epgUO0.jpg);">
+      <div class="col-sm-3 avatar-container">
+        <img src="{{accounts.avatarUrl}}" class="img-circle profile-avatar" alt="User avatar">
+      </div>
+      <!--      <div class="col-sm-12 profile-actions text-right">-->
+      <!--        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Friends</button>-->
+      <!--        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-envelope"></i> Send Message</button>-->
+      <!--      </div>-->
+    </div>
+    <div class="content">
+
+      <div class="row">
+        <div class="col-sm-3">
+          <!-- Begin user profile -->
+          <div style="margin-top:120px">
+            <ul class="list-group">
+              <li class="text-center list-group-item">
+                <h4><b>{{accounts.name}}</b></h4>
+              </li>
+              <li class="list-group-item">
+                <span class="badge">Email:</span>
+                <span>{{accounts.email}}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="badge">Phone:</span>
+                <span>{{accounts.phoneNumber}}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="badge">Follow : 1.000.000</span>
+              </li>
+            </ul>
+
+            <!-- User button -->
+            <div class="user-button">
+              <div class="row">
+                <div class="col-12">
+                  <button type="button" class="btn btn-primary btn-block"><i class="fa fa-envelope"></i>Message</button>
+                </div>
+                <div class="col-12" *ngIf="accountId != accounts.id && !isRequestPending">
+                  <button type="button" class="btn btn-secondary  btn-block" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Add friend</button>
+                </div>
+                <div class="col-12" *ngIf="isRequestPending">
+                  <button class="btn btn-secondary btn-block disabled">Pending</button>
+                </div>
+              </div>
+            </div><!-- End div .user-button -->
+          </div><!-- End div .box-info -->
+          <!-- Begin user profile -->
+        </div><!-- End div .col-sm-4 -->
+
+        <div class="col-sm-9">
+          <div class="widget widget-tabbed">
+            <!-- Nav tab -->
+            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">
+              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>
+              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>
+              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>
+              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>
+            </ul>
+            <!-- End nav tab -->
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+
+              <!-- Tab timeline -->
+              <div class="tab-pane animated active fadeInRight" id="my-timeline">
+                <div class="user-profile-content">
+
+                  <!-- Begin timeline -->
+                  <div class="the-timeline">
+                      <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == accounts.id">
+                        <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Whats on your mind..."></textarea>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <a class="btn btn-sm btn-default"><i class="fa fa-camera"></i></a>
+                            <a class="btn btn-sm btn-default"><i class="fa fa-video-camera"></i></a>
+                            <a class="btn btn-sm btn-default"><i class="fa fa-map-marker"></i></a>
+                          </div>
+                          <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
+                        </div>
+                      </form>
+                    <br><br>
+                    <ul *ngFor="let st of status" style="padding-left: 0px">
+                      <div class="card">
+                        <div class="card-body">
+                          <li style="list-style: none">
+                            <h4>{{st.account.name}}</h4>
+                            <div class="the-date">
+                              <span>{{st.createDate}}</span>
+                            </div>
+                            <br>
+                            <p>
+                              {{st.content}}
+                            </p>
+                            <a class="btn icon-btn btn-primary" style="border-radius: 30px ;margin-right: 10px" href="#"><i class="fa fa-heart"></i></a>
+                            <a class="btn icon-btn btn-danger" style="border-radius: 30px ;margin-right: 30px" href="#"><i class="fa  fa-comment"></i></a>
+                          </li>
+                        </div>
+                      </div>
+                    </ul>
+
+                  </div><!-- End div .the-timeline -->
+                  <!-- End timeline -->
+                </div><!-- End div .user-profile-content -->
+              </div><!-- End div .tab-pane -->
+            </div><!-- End div .tab-content -->
+          </div><!-- End div .box-info -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
