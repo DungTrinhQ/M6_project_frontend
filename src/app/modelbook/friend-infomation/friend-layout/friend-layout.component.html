@@ -2,7 +2,7 @@
   <div class="content-page">
     <div class="profile-banner" style="background-image: url(http://hubancreative.com/projects/templates/coco/corporate/images/stock/1epgUO0.jpg);">
       <div class="col-sm-3 avatar-container">
-        <img src="{{accounts.avatarUrl}}" class="img-circle profile-avatar" alt="User avatar">
+        <img [src]="accounts.avatarUrl?accounts.avatarUrl:'../../../../assets/static/img/avatar-default.png'" class="rounded-circle profile-avatar" alt="User avatar">
       </div>
 
     </div>

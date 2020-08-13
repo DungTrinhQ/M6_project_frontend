@@ -10,7 +10,8 @@
   <tr *ngFor="let friend of friendList,index as index">
     <th>
       <div class="img-container" >
-        <img class="img-inside img-thumbnail" src="{{friend.avatarUrl}}" alt="">
+        <img class="img-inside img-thumbnail" [src]="friend.avatarUrl?friend.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
+
 
       </div>
     </th>

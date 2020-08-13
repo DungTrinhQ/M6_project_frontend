@@ -8,7 +8,7 @@ import { FriendRequestComponent } from './friend-request/friend-request.componen
 const routes: Routes = [
   {path:'',children: [
       {path:'request', component: FriendRequestComponent},
-      {path: 'list',component: FriendListComponent}
+      {path: '',component: FriendListComponent}
     ],component:FriendLayoutComponent},
 
   ]

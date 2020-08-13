@@ -10,10 +10,11 @@
   <tr *ngFor="let friend of friendRequestList">
     <td>
       <div class="img-container" >
-        <img class="img-inside img-thumbnail" src="{{friend.accountSend.avatarUrl}}" alt="">
-
+        <img class="img-inside img-thumbnail"
+             [src]="friend.accountSend.avatarUrl?friend.accountSend.avatarUrl:
+             '../../../../assets/static/img/avatar-default.png'"
+             alt="avatar">
       </div>
-<!--      <img src="{{friend.avatarUrl}}" alt="">-->
     </td>
     <td>
      {{friend.accountSend.name}}
