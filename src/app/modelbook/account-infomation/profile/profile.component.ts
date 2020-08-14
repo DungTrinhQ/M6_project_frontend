@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     password: ''
   };
   status: Istatus[];
-  statusResult: void | Istatus[];
+  statusResult: Istatus[];
   statusResultToken: Istatus[];
   comment: Icomment;
   accountId:number;

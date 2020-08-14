@@ -32,8 +32,7 @@ export class StatusComponent implements OnInit {
 
   getNewFeed(){
     this.statusService.getNewFeed(this.current_id).subscribe(
-      (newfeed)=>{
-        // console.log(newfeed);
+      (newfeed: Istatus[])=>{
         this.statuses = newfeed;
       }
     )

@@ -192,7 +192,7 @@
                                 <span>{{comment.content}}</span>
                               </span>
                           </div>
-                          <div *ngIf="isFriend">
+                          <div *ngIf="isFriend || accountId == path_id">
                             <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
                           </div>
                         </div>
