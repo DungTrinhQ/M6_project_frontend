@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
     this.getAccount()
     this.checkRelationShip();
     this.getStatus()
-    this.checkIsFriend()
   }
 
   checkRelationShip(){
