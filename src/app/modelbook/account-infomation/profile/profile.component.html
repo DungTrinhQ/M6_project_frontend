@@ -103,7 +103,7 @@
                             <a class="btn icon-btn btn-danger" style="border-radius: 30px ;margin-right: 30px" href="#"><i class="fa  fa-comment"></i></a>
                             <ul *ngFor="let comment of st.comments">
                               <span>
-                                <a href=""></a>
+                                <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;
                                 <span>{{comment.content}}</span>
                               </span>
                             </ul>
