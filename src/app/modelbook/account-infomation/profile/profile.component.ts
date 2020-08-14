@@ -83,6 +83,9 @@ export class ProfileComponent implements OnInit {
   getStatus() {
     this.accountService.getListStatusByAccount(this.path_id).subscribe((resp: Istatus[]) => {
       this.status = resp;
+      this.status.map(status1 =>{
+        status1.createDate = new Date(status1.createDate);
+      })
       // console.log(this.status);
     })
   }
@@ -147,12 +150,13 @@ export class ProfileComponent implements OnInit {
     })
   }
   searchStatusByKeyword(event){
-    this.statusResult = (event) ? this.filterByKeyword(event) :this.statusResultToken ;
-    console.log(this.statusResult)
+    let keyword = event;
+    console.log(this.filterByKeyword(keyword))
+    this.statusResult = (keyword) ? this.filterByKeyword(keyword) :this.statusResultToken;
   }
   filterByKeyword(keyword){
-    this.status.filter(res => {
-      return res.content.indexOf(keyword) != -1;
+    return this.status.filter(res => {
+      return res.content.toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1;
     })
   }
 }
