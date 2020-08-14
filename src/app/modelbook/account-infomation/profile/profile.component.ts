@@ -25,7 +25,8 @@ export class ProfileComponent implements OnInit {
     password: ''
   };
   status: Istatus[];
-  statusResult: Istatus[];
+  statusResult: void | Istatus[];
+  statusResultToken: Istatus[];
   comment: Icomment;
   accountId:number;
   isCurrentAccount = false;
@@ -51,7 +52,7 @@ export class ProfileComponent implements OnInit {
     this.getAccount()
     this.checkRelationShip();
     this.getStatus()
-    // this.checkIsFriend()
+    this.checkIsFriend()
   }
 
   checkRelationShip(){
@@ -82,7 +83,10 @@ export class ProfileComponent implements OnInit {
   getStatus() {
     this.accountService.getListStatusByAccount(this.path_id).subscribe((resp: Istatus[]) => {
       this.status = resp;
-      console.log(this.status);
+      this.status.map(status1 =>{
+        status1.createDate = new Date(status1.createDate);
+      })
+      // console.log(this.status);
     })
   }
 
@@ -138,8 +142,13 @@ export class ProfileComponent implements OnInit {
   }
 
   searchStatusByKeyword(event){
-    this.accountService.searchStatus(event, this.tokenService.getAccount()).subscribe((res : Istatus[]) =>{
-      this.statusResult = res;
+    let keyword = event;
+    console.log(this.filterByKeyword(keyword))
+    this.statusResult = (keyword) ? this.filterByKeyword(keyword) :this.statusResultToken;
+  }
+  filterByKeyword(keyword){
+    return this.status.filter(res => {
+      return res.content.toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1;
     })
   }
 }

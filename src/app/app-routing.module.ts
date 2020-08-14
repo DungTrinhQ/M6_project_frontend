@@ -4,10 +4,12 @@ import {RegisterComponent} from './modelbook/layout/register/register.component'
 import {LoginComponent} from './modelbook/layout/login/login.component';
 import {AuthGaurdService} from './helper/auth-gaurd.service';
 import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
+import {TestComponent} from './dev/test/test.component';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path:'register',component:RegisterComponent},
+  {path:'test',component:TestComponent},
   {path: '',canActivate:[AuthGaurdService],component:MainwallComponent},
   {
     path: 'account', canActivate:[AuthGaurdService],
