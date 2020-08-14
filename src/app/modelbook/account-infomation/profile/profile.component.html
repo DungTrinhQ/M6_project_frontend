@@ -174,26 +174,39 @@
                             <hr style="margin: 3px 15px 0 15px ">
                             <div class="row d-flex flex-row justify-content-between mx-0">
                               <div class="text-center col-4 py-1 px-0">
-                                <button type="button"  class="btn btn-light btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
+                                <button type="button"  class="btn  btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
                               </div>
                               <div class="text-center col-4 py-1 px-0">
-                                <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
+                                <a style="text-decoration: none" href="#newfeed{{st.id}}" role="button"
+                                   data-toggle="collapse" aria-expanded="false" >
+                                  <button class="btn  btn-block mt-0">
+                                    <i class="fa fa-comment"></i> Comment
+                                  </button>
+                                </a>
+<!--                                <button type="button" class="btn btn-light btn-block mt-0"-->
+<!--                                        data-toggle="collapse"  data-target="#newfeed{{st.id}}"-->
+<!--                                        aria-expanded="false" href="#newfeed{{st.id}}"-->
+<!--                                        aria-controls="collapseExample"><i class="fa fa-comment">&nbsp;</i>Comment-->
+<!--                                </button>-->
                               </div>
                               <div class="text-center col-4 py-1 px-0">
-                                <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
+                                <button type="button" class="btn  btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="card-footer">
-                          <div *ngFor="let comment of st.comments">
+
+                          <div id="newfeed{{st.id}}" class=" collapse" >
+                            <div *ngFor="let comment of st.comments">
                               <span>
                                 <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;
                                 <span>{{comment.content}}</span>
                               </span>
-                          </div>
-                          <div *ngIf="isFriend || accountId == path_id">
-                            <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
+                            </div>
+                            <div *ngIf="isFriend || accountId == path_id">
+                              <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
+                            </div>
                           </div>
                         </div>
                       </div>
