@@ -118,3 +118,14 @@ body{
 .btn-primary,.btn-danger,.btn-secondary{
   height: 40px;
 }
+
+.btn-light{
+  background-color: #ffffff;
+  margin-top: 20px;
+  display: inline;
+  border: none;
+  font-family:Lucida Sans Unicode;
+}
+.btn-light:hover{
+  background-color: #f8f9fa;
+}

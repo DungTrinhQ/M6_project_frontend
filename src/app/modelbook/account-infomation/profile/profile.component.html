@@ -85,7 +85,7 @@
                     <br><br>
                     <ul *ngFor="let st of status" style="padding-left: 0px">
                       <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" style="padding-bottom: 0px">
                           <li style="list-style: none">
                             <h4>{{st.account.name}}</h4>
                             <div class="the-date">
@@ -94,9 +94,20 @@
                             <br>
                             <p>
                               {{st.content}}
-                            </p>
-                            <a class="btn icon-btn btn-primary" style="border-radius: 30px ;margin-right: 10px" href="#"><i class="fa fa-heart"></i></a>
-                            <a class="btn icon-btn btn-danger" style="border-radius: 30px ;margin-right: 30px" href="#"><i class="fa  fa-comment"></i></a>
+                            </p><br>
+                            <span>
+                              1.000 Lượt thích
+                            </span>
+                            <span>&nbsp;</span>
+                            <span>
+                              567 Bình luận
+                            </span>
+                            <hr style="margin-bottom: 0px ; margin-top: 5px">
+                            <div class="row">
+                              <button type="button" class="btn btn-light" style="width: 260px"> <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
+                              <button type="button" class="btn btn-light" style="width: 260px"><i class="fa fa-comment">&nbsp;</i>Comment</button>
+                              <button type="button" class="btn btn-light" style="width: 260px"><i class="fa fa-share">&nbsp;</i>Share</button>
+                            </div>
                           </li>
                         </div>
                       </div>
