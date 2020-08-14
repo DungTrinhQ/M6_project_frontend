@@ -88,12 +88,33 @@
                     <br><br>
                     <ul *ngFor="let st of status" style="padding-left: 0px">
                       <div class="card">
+                        <div class="card-header">
+                          <div class="d-flex justify-content-between">
+                            <div class="left-top-head">
+                              <h4>{{st.account.name}}</h4>
+                              <div class="the-date">
+                                <span>{{st.createDate}}</span>
+                              </div>
+                            </div>
+                            <div class="dropdown">
+<!--                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                                <i class="fas fa-ellipsis-h"></i>-->
+<!--                              </a>-->
+                              <button class="btn btn-sm" type="button" aria-haspopup="true"
+                                      aria-expanded="false" id="dropdownMenu" data-toggle="dropdown">
+                                                                  <i class="fas fa-ellipsis-h"></i>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="#">Xóa</a>
+                                <!--                                  <a class="dropdown-item" href="#">Something else here</a>-->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <div class="card-body">
                           <li style="list-style: none">
-                            <h4>{{st.account.name}}</h4>
-                            <div class="the-date">
-                              <span>{{st.createDate}}</span>
-                            </div>
+
                             <br>
                             <p>
                               {{st.content}}

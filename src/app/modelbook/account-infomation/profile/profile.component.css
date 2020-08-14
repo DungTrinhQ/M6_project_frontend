@@ -1,6 +1,4 @@
-container-page{
-  background-color: #ebecf0;
-}
+
 body{
   margin-top:20px;
   background-color:#e9ebee;
@@ -118,4 +116,7 @@ body{
 }
 .btn-primary,.btn-danger,.btn-secondary{
   height: 40px;
+}
+.the-date{
+  font-size: 12px;
 }

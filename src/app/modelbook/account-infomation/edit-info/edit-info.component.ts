@@ -27,6 +27,7 @@ export class EditInfoComponent implements OnInit {
   isEditSuccess = false;
   isEditFail = false;
   message:string;
+  isAvatarUploaded:boolean;
 
   constructor(
     private fb: FormBuilder,
