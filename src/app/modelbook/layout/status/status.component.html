@@ -6,7 +6,9 @@
           <div class="img-container d-flex flex-row align-items-center" >
             <img class="img-inside rounded-circle" [src]="st.account.avatarUrl?st.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
             <div class="ml-3">
-              <h4>{{st.account.name}}</h4>
+              <a class="account-link" [routerLink]="'/account/'+st.account.id">
+                <h4>{{st.account.name}}</h4>
+              </a>
             </div>
 
           </div>

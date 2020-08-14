@@ -136,3 +136,8 @@ body{
 .status-footer-btn{
   max-width: inherit;
 }
+
+.img-inside{
+  height: 50px;
+  width: 50px;
+}
