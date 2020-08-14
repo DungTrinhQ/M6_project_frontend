@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
     this.getAccount()
     this.checkRelationShip();
     this.getStatus()
-    this.checkIsFriend()
+    // this.checkIsFriend()
   }
 
   checkRelationShip(){
@@ -136,15 +136,7 @@ export class ProfileComponent implements OnInit {
     },
       error => console.log("error"));
   }
-  checkIsFriend(){
-     this.accountService.isFriend(this.tokenService.getAccount(), this.path_id).subscribe((res: Ifriend)=> {
-       console.log(res.name)
-       if(res.name == "friend" || this.tokenService.getAccount() == this.path_id){
-         this.isFriend = true
-       }
-       console.log(this.isFriend)
-    })
-  }
+
   searchStatusByKeyword(event){
     this.accountService.searchStatus(event, this.tokenService.getAccount()).subscribe((res : Istatus[]) =>{
       this.statusResult = res;

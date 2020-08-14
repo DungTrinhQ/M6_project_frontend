@@ -6,6 +6,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ProfileComponent} from './profile/profile.component';
 import { CommentComponent } from './profile/comment/comment.component';
 import { SearchStatusComponent } from './profile/search-status/search-status.component';
+import {AppModule} from '../../app.module';
 
 
 const routes: Routes = [
@@ -23,12 +24,12 @@ const routes: Routes = [
     EditInfoComponent,
     ProfileComponent,
     CommentComponent,
-    SearchStatusComponent
+    SearchStatusComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ReactiveFormsModule,
+    ]
 })
 export class AccountInfomationModule { }
