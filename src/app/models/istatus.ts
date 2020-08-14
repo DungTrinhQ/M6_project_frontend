@@ -1,4 +1,5 @@
 import {IAccount} from './iaccount';
+import {Icomment} from './icomment';
 
 export interface Istatus {
   id?:number,
@@ -7,6 +8,7 @@ export interface Istatus {
   account:any,
   images?:any,
   totalComments?:number,
-  totalLikes?:number
+  totalLikes?:number,
+  comments?: Icomment[]
 
 }

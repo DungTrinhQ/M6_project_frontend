@@ -89,7 +89,9 @@
                           <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
                         </div>
                       </form>
-                    <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
+                    <div *ngIf="accountId == accounts.id">
+                      <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
+                    </div>
                     <div>
                       <ul *ngFor="let status of statusResult">
                         <div class="card">
