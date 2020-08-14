@@ -1,27 +1,31 @@
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col"></th>
-    <th scope="col">Name</th>
-    <th scope="col">Email</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let friend of friendList,index as index">
-    <th>
-      <div class="img-container" >
-        <img class="img-inside img-thumbnail" src="{{friend.avatarUrl}}" alt="">
+<div class="p-3">
+  <h5 class="text-center">Danh sách bạn bè</h5>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let friend of friendList,index as index">
+      <th>
+        <div class="img-container" >
+          <img class="img-inside img-thumbnail" [src]="friend.avatarUrl?friend.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
 
-      </div>
-    </th>
-    <td>
-      <a [routerLink]="'/account/'+friend.id">
-        {{friend.name}}
-      </a>
 
-    </td>
-    <td>{{friend.email}}</td>
-  </tr>
+        </div>
+      </th>
+      <td>
+        <a [routerLink]="'/account/'+friend.id">
+          {{friend.name}}
+        </a>
 
-  </tbody>
-</table>
+      </td>
+      <td>{{friend.email}}</td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

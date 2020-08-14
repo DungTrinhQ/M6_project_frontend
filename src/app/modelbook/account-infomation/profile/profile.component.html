@@ -9,7 +9,7 @@
     <div class="content">
 
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-lg-3">
           <!-- Begin user profile -->
           <div style="margin-top:120px">
             <ul class="list-group">
@@ -33,16 +33,19 @@
             <div class="user-button">
               <div class="row">
                 <div class="col-12">
-                  <button type="button" class="btn btn-primary btn-block"><i class="fa fa-envelope"></i>Message</button>
+                  <button type="button" routerLink="/" class="btn btn-primary btn-block">Trang chủ</button>
                 </div>
-                <div class="col-12" *ngIf="accountId != accounts.id && !isRequestPending">
-                  <button type="button" class="btn btn-secondary  btn-block" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Add friend</button>
+                <div class="col-12" *ngIf="accountId != accounts.id && isNoRelation">
+                  <button type="button" class="btn btn-secondary  btn-block" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Thêm bạn</button>
                 </div>
-                <div class="col-12" *ngIf="isRequestPending">
-                  <button class="btn btn-secondary btn-block disabled">Pending</button>
+                <div class="col-12" *ngIf="isPending">
+                  <button class="btn btn-secondary btn-block disabled">Chờ xác nhận</button>
+                </div>
+                <div class="col-12" *ngIf="isFriend">
+                  <button class="btn btn-primary btn-block disabled">Bạn bè</button>
                 </div>
                 <div class="col-12" *ngIf="accountId == accounts.id">
-                  <button routerLink="/account/edit" class="btn btn-outline-primary btn-block">Chỉnh sửa</button>
+                  <button routerLink="/account/edit" class="btn btn-outline-primary btn-block"><i class="fas fa-user-edit"></i></button>
                 </div>
               </div>
             </div><!-- End div .user-button -->
@@ -50,19 +53,19 @@
           <!-- Begin user profile -->
         </div><!-- End div .col-sm-4 -->
 
-        <div class="col-sm-9">
+        <div class="col-lg-9">
           <div class="widget widget-tabbed">
             <!-- Nav tab -->
-            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">
-              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>
-              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>
-              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>
-              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>
-            </ul>
+<!--            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">-->
+<!--              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>-->
+<!--              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>-->
+<!--              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>-->
+<!--              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>-->
+<!--            </ul>-->
             <!-- End nav tab -->
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <div class="tab-content my-5">
 
 
               <!-- Tab timeline -->
