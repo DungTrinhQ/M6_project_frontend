@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IAccount} from '../models/iaccount';
 import {Istatus} from '../models/istatus';
@@ -37,5 +37,18 @@ export class AccountService {
   searchFriend(data : String): Observable<any>{
     return this.http.patch(this.API_URL + 'api/find-list-users', data)
   }
+  createComment(data : any, id_status: number): Observable<any>{
+    return this.http.post(this.API_URL +'api/comment-create/' + id_status, data)
+  }
+  getAllComment(id: number): Observable<any>{
+    return this.http.get(this.API_URL + 'api/comment-getA1l/' + id)
+  }
+  isFriend(current_id: number, check_id: number):Observable<any>{
+    return this.http.get(this.API_URL + 'api/'+ current_id + '/check_relation/' + check_id);
+  }
+  searchStatus(data: String, account_id: number): Observable<any>{
+    return this.http.patch(this.API_URL + 'api/find-status/' + account_id, data);
+  }
+
 
 }

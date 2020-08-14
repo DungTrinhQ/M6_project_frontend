@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../../service/account.service';
+import {AuthenService} from '../../../service/authen.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {IAccount} from '../../../models/iaccount';
 import {Istatus} from '../../../models/istatus';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
 import {FriendService} from '../../../service/friend/friend.service';
+import {Icomment} from '../../../models/icomment';
+import {Ifriend} from '../../../models/ifriend';
 
 @Component({
   selector: 'app-profile',
@@ -22,6 +25,8 @@ export class ProfileComponent implements OnInit {
     password: ''
   };
   status: Istatus[];
+  statusResult: Istatus[];
+  comment: Icomment;
   accountId:number;
   isCurrentAccount = false;
   isFriend = false;
@@ -30,6 +35,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private accountService: AccountService,
               private fb: FormBuilder,
+              private authenService: AuthenService,
               private route: ActivatedRoute,
               private router: Router,
               private tokenService: TokenStorageService,
@@ -113,5 +119,34 @@ export class ProfileComponent implements OnInit {
       }
     })
 
+  }
+  getCommentContent(event, id){
+    this.comment = {
+      content: event.value.content,
+      account: {
+        id : this.tokenService.getAccount()
+  },
+      status: {
+        id: ['']
+      }
+    }
+    this.accountService.createComment(this.comment, id).subscribe((res) =>{
+      this.getStatus()
+    },
+      error => console.log("error"));
+  }
+  checkIsFriend(){
+     this.accountService.isFriend(this.tokenService.getAccount(), this.id).subscribe((res: Ifriend)=> {
+       console.log(res.name)
+       if(res.name == "friend" || this.tokenService.getAccount() == this.id){
+         this.isFriend = true
+       }
+       console.log(this.isFriend)
+    })
+  }
+  searchStatusByKeyword(event){
+    this.accountService.searchStatus(event, this.tokenService.getAccount()).subscribe((res : Istatus[]) =>{
+      this.statusResult = res;
+    })
   }
 }

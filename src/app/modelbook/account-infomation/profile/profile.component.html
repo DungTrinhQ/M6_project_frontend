@@ -5,6 +5,10 @@
       <div class="col-sm-3 avatar-container">
         <img [src]="accounts.avatarUrl?accounts.avatarUrl:'../../../../assets/static/img/avatar-default.png'" class="rounded-circle profile-avatar" alt="User avatar">
       </div>
+      <!--      <div class="col-sm-12 profile-actions text-right">-->
+      <!--        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Friends</button>-->
+      <!--        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-envelope"></i> Send Message</button>-->
+      <!--      </div>-->
     </div>
     <div class="content">
 
@@ -53,15 +57,15 @@
           <!-- Begin user profile -->
         </div><!-- End div .col-sm-4 -->
 
-        <div class="col-lg-9">
+        <div class="col-sm-9">
           <div class="widget widget-tabbed">
             <!-- Nav tab -->
-<!--            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">-->
-<!--              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>-->
-<!--              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>-->
-<!--              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>-->
-<!--              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>-->
-<!--            </ul>-->
+            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">
+              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>
+              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>
+              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>
+              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>
+            </ul>
             <!-- End nav tab -->
 
             <!-- Tab panes -->
@@ -85,6 +89,25 @@
                           <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
                         </div>
                       </form>
+                    <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
+                    <div>
+                      <ul *ngFor="let status of statusResult">
+                        <div class="card">
+                          <div class="card-body">
+                            <li style="list-style: none">
+                              <h4>{{status.account.name}}</h4>
+                              <div class="the-date">
+                                <span>{{status.createDate}}</span>
+                              </div>
+                              <br>
+                              <p>
+                                {{status.content}}
+                              </p>
+                            </li>
+                          </div>
+                        </div>
+                      </ul>
+                    </div>
                     <br><br>
                     <ng-container *ngFor="let st of status" style="padding-left: 0px">
                       <div class="card mb-3">
@@ -155,6 +178,17 @@
                                 <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
                               </div>
                             </div>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <div *ngFor="let comment of st.comments">
+                              <span>
+                                <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;
+                                <span>{{comment.content}}</span>
+                              </span>
+                          </div>
+                          <div *ngIf="isFriend">
+                            <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
                           </div>
                         </div>
                       </div>
