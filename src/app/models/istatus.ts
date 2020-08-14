@@ -4,5 +4,6 @@ export interface Istatus {
   id?:number,
   content:string,
   createDate?:Date,
-  account:any
+  account:any,
+  images?:any
 }

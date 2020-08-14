@@ -119,6 +119,9 @@ body{
 .btn-primary,.btn-danger,.btn-secondary{
   height: 40px;
 }
+.the-date{
+  font-size: 12px;
+}
 
 .btn-light{
   background-color: #ffffff;
