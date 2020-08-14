@@ -25,7 +25,8 @@ export class ProfileComponent implements OnInit {
     password: ''
   };
   status: Istatus[];
-  statusResult: Istatus[];
+  statusResult: void | Istatus[];
+  statusResultToken: Istatus[];
   comment: Icomment;
   accountId:number;
   isCurrentAccount = false;
@@ -82,13 +83,13 @@ export class ProfileComponent implements OnInit {
   getStatus() {
     this.accountService.getListStatusByAccount(this.path_id).subscribe((resp: Istatus[]) => {
       this.status = resp;
-      console.log(this.status);
+      // console.log(this.status);
     })
   }
 
   addStatus() {
     let newStatus = this.statusForm.value;
-    console.log(newStatus);
+    // console.log(newStatus);
     const st = {
       content: this.statusForm.value.content,
       account: {
@@ -142,12 +143,16 @@ export class ProfileComponent implements OnInit {
        if(res.name == "friend" || this.tokenService.getAccount() == this.path_id){
          this.isFriend = true
        }
-       console.log(this.isFriend)
+       // console.log(this.isFriend)
     })
   }
   searchStatusByKeyword(event){
-    this.accountService.searchStatus(event, this.tokenService.getAccount()).subscribe((res : Istatus[]) =>{
-      this.statusResult = res;
+    this.statusResult = (event) ? this.filterByKeyword(event) :this.statusResultToken ;
+    console.log(this.statusResult)
+  }
+  filterByKeyword(keyword){
+    this.status.filter(res => {
+      return res.content.indexOf(keyword) != -1;
     })
   }
 }
