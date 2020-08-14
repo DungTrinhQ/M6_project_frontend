@@ -86,6 +86,25 @@
                           <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
                         </div>
                       </form>
+                    <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
+                    <div>
+                      <ul *ngFor="let status of statusResult">
+                        <div class="card">
+                          <div class="card-body">
+                            <li style="list-style: none">
+                              <h4>{{status.account.name}}</h4>
+                              <div class="the-date">
+                                <span>{{status.createDate}}</span>
+                              </div>
+                              <br>
+                              <p>
+                                {{status.content}}
+                              </p>
+                            </li>
+                          </div>
+                        </div>
+                      </ul>
+                    </div>
                     <br><br>
                     <ul *ngFor="let st of status" style="padding-left: 0px">
                       <div class="card">
@@ -107,7 +126,9 @@
                                 <span>{{comment.content}}</span>
                               </span>
                             </ul>
+                          <div *ngIf="isFriend">
                             <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
+                          </div>
                           </li>
                         </div>
                       </div>

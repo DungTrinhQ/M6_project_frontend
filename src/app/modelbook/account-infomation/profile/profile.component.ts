@@ -8,6 +8,7 @@ import {Istatus} from '../../../models/istatus';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
 import {FriendService} from '../../../service/friend/friend.service';
 import {Icomment} from '../../../models/icomment';
+import {Ifriend} from '../../../models/ifriend';
 
 @Component({
   selector: 'app-profile',
@@ -24,10 +25,11 @@ export class ProfileComponent implements OnInit {
     password: ''
   };
   status: Istatus[];
+  statusResult: Istatus[];
   comment: Icomment;
   accountId:number;
   isRequestPending = false;
-
+  isFriend = false;
   constructor(private accountService: AccountService,
               private fb: FormBuilder,
               private authenService: AuthenService,
@@ -45,6 +47,7 @@ export class ProfileComponent implements OnInit {
     })
     this.getAccount()
     this.getStatus()
+    this.checkIsFriend()
   }
 
   getAccount() {
@@ -108,5 +111,19 @@ export class ProfileComponent implements OnInit {
       this.getStatus()
     },
       error => console.log("error"));
+  }
+  checkIsFriend(){
+     this.accountService.isFriend(this.tokenService.getAccount(), this.id).subscribe((res: Ifriend)=> {
+       console.log(res.name)
+       if(res.name == "friend" || this.tokenService.getAccount() == this.id){
+         this.isFriend = true
+       }
+       console.log(this.isFriend)
+    })
+  }
+  searchStatusByKeyword(event){
+    this.accountService.searchStatus(event, this.tokenService.getAccount()).subscribe((res : Istatus[]) =>{
+      this.statusResult = res;
+    })
   }
 }

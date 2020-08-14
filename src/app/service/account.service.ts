@@ -43,6 +43,12 @@ export class AccountService {
   getAllComment(id: number): Observable<any>{
     return this.http.get(this.API_URL + 'api/comment-getA1l/' + id)
   }
+  isFriend(current_id: number, check_id: number):Observable<any>{
+    return this.http.get(this.API_URL + 'api/'+ current_id + '/check_relation/' + check_id);
+  }
+  searchStatus(data: String, account_id: number): Observable<any>{
+    return this.http.patch(this.API_URL + 'api/find-status/' + account_id, data);
+  }
 
 
 }
