@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   };
   status: Istatus[];
   statusResult: Istatus[];
+  statusResultToken: Istatus[];
   comment: Icomment;
   accountId:number;
   isCurrentAccount = false;
@@ -55,7 +56,6 @@ export class ProfileComponent implements OnInit {
     this.getAccount()
     this.checkRelationShip();
     this.getStatus()
-    this.checkIsFriend()
   }
 
   checkRelationShip(){
@@ -86,7 +86,10 @@ export class ProfileComponent implements OnInit {
   getStatus() {
     this.accountService.getListStatusByAccount(this.path_id).subscribe((resp: Istatus[]) => {
       this.status = resp;
-      console.log(this.status);
+      this.status.map(status1 =>{
+        status1.createDate = new Date(status1.createDate);
+      })
+      // console.log(this.status);
     })
   }
 
@@ -147,18 +150,15 @@ export class ProfileComponent implements OnInit {
     },
       error => console.log("error"));
   }
-  checkIsFriend(){
-     this.accountService.isFriend(this.tokenService.getAccount(), this.path_id).subscribe((res: Ifriend)=> {
-       console.log(res.name)
-       if(res.name == "friend" || this.tokenService.getAccount() == this.path_id){
-         this.isFriend = true
-       }
-       console.log(this.isFriend)
-    })
-  }
+
   searchStatusByKeyword(event){
-    this.accountService.searchStatus(event, this.tokenService.getAccount()).subscribe((res : Istatus[]) =>{
-      this.statusResult = res;
+    let keyword = event;
+    console.log(this.filterByKeyword(keyword))
+    this.statusResult = (keyword) ? this.filterByKeyword(keyword) :this.statusResultToken;
+  }
+  filterByKeyword(keyword){
+    return this.status.filter(res => {
+      return res.content.toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1;
     })
   }
 }

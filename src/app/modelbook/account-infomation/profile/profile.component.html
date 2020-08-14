@@ -39,7 +39,7 @@
                 <div class="col-12">
                   <button type="button" routerLink="/" class="btn btn-primary btn-block">Trang chủ</button>
                 </div>
-                <div class="col-12" *ngIf="accountId != accounts.id && isNoRelation">
+                <div class="col-12" *ngIf="accountId != path_id && isNoRelation">
                   <button type="button" class="btn btn-secondary  btn-block" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Thêm bạn</button>
                 </div>
                 <div class="col-12" *ngIf="isPending">
@@ -48,7 +48,8 @@
                 <div class="col-12" *ngIf="isFriend">
                   <button class="btn btn-primary btn-block disabled">Bạn bè</button>
                 </div>
-                <div class="col-12" *ngIf="accountId == accounts.id">
+                <div class="col-12" *ngIf="accountId == path_id">
+                  <!--Edit button-->
                   <button routerLink="/account/edit" class="btn btn-outline-primary btn-block"><i class="fas fa-user-edit"></i></button>
                 </div>
               </div>
@@ -78,7 +79,7 @@
 
                   <!-- Begin timeline -->
                   <div class="the-timeline">
-                      <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == accounts.id">
+                      <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == path_id">
                         <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Whats on your mind..."></textarea>
                         <div class="row">
                           <div class="col-sm-6">
@@ -89,14 +90,14 @@
                           <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
                         </div>
                       </form>
-                    <div *ngIf="accountId == accounts.id">
+                    <div *ngIf="accountId == path_id">
                       <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
                     </div>
                     <div>
-                      <ul *ngFor="let status of statusResult">
+                      <ng-container *ngFor="let status of statusResult">
                         <div class="card">
                           <div class="card-body">
-                            <li style="list-style: none">
+                            <div style="list-style: none">
                               <h4>{{status.account.name}}</h4>
                               <div class="the-date">
                                 <span>{{status.createDate}}</span>
@@ -105,12 +106,13 @@
                               <p>
                                 {{status.content}}
                               </p>
-                            </li>
+                            </div>
                           </div>
                         </div>
-                      </ul>
+                      </ng-container>
                     </div>
                     <br><br>
+
                     <ng-container *ngFor="let st of status" style="padding-left: 0px">
                       <div class="card mb-3">
                         <div class="card-header">
@@ -126,7 +128,7 @@
 
                               </div>
                               <div class="the-date">
-                                <span>{{st.createDate}}</span>
+                                <span>{{st.createDate.toDateString()}}</span>
                               </div>
                             </div>
                             <div class="dropdown">
@@ -139,7 +141,8 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                                 <a class="dropdown-item" href="#">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="#">Xóa</a>
+                                <a class="dropdown-item" *ngIf="path_id == accountId">Xóa</a>
+                                <a class="dropdown-item" *ngIf="path_id != accountId">Ẩn</a>
                                 <!--                                  <a class="dropdown-item" href="#">Something else here</a>-->
                               </div>
                             </div>
@@ -188,7 +191,7 @@
                                 <span>{{comment.content}}</span>
                               </span>
                           </div>
-                          <div *ngIf="isFriend">
+                          <div *ngIf="isFriend || accountId == path_id">
                             <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
                           </div>
                         </div>

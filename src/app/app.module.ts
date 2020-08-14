@@ -20,34 +20,38 @@ import { ContentComponent } from './modelbook/layout/mainwall/content/content.co
 import { SideMenuComponent } from './modelbook/layout/mainwall/content/side-menu/side-menu.component';
 import { SummerNoteComponent } from './modelbook/layout/summer-note/summer-note.component';
 import { StatusComponent } from './modelbook/layout/status/status.component';
+import { TestComponent } from './dev/test/test.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RegisterComponent,
-    LoginComponent,
-    MainwallComponent,
-    NavbarComponent,
-    InputSearchComponent,
-    ContentComponent,
-    SideMenuComponent,
-    SummerNoteComponent,
-    StatusComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AngularFireStorageModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
-    FormsModule,
-    AccountInfomationModule
-  ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        RegisterComponent,
+        LoginComponent,
+        MainwallComponent,
+        NavbarComponent,
+        InputSearchComponent,
+        ContentComponent,
+        SideMenuComponent,
+        SummerNoteComponent,
+        StatusComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        AngularFireStorageModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireDatabaseModule,
+        FormsModule,
+        AccountInfomationModule
+    ],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    ],
+    exports: [
+        StatusComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
