@@ -70,7 +70,7 @@ body{
   margin: 15px 0;
 }
 
-.user-button .btn {
+.user-button  {
   margin: 5px 0;
 }
 
@@ -132,4 +132,7 @@ body{
 }
 .btn-light:hover{
   background-color: #f8f9fa;
+}
+.status-footer-btn{
+  max-width: inherit;
 }
