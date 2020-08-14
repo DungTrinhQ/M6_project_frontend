@@ -20,7 +20,7 @@ export class StatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.current_id = this.token.getAccount();
-    this.getStatusList();
+    this.getNewFeed();
   }
 
   getStatusList(){
@@ -30,12 +30,21 @@ export class StatusComponent implements OnInit {
       })
   }
 
+  getNewFeed(){
+    this.statusService.getNewFeed(this.current_id).subscribe(
+      (newfeed)=>{
+        // console.log(newfeed);
+        this.statuses = newfeed;
+      }
+    )
+  }
+
 
   deleteStatus(id: number) {
     this.statusService.deleteStatusById(id).subscribe((response)=>{
       if(response.message =='xóa thành công'){
         alert("xóa thành công");
-        this.getStatusList();
+        this.getNewFeed();
       }else {
         alert("xóa không thành công")
       }
