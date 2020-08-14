@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../../service/account.service';
-import {AuthenService} from '../../../service/authen.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {IAccount} from '../../../models/iaccount';
@@ -24,35 +23,57 @@ export class ProfileComponent implements OnInit {
   };
   status: Istatus[];
   accountId:number;
-  isRequestPending = false;
+  isCurrentAccount = false;
+  isFriend = false;
+  isPending = false;
+  isNoRelation = false;
 
   constructor(private accountService: AccountService,
               private fb: FormBuilder,
-              private authenService: AuthenService,
               private route: ActivatedRoute,
               private router: Router,
               private tokenService: TokenStorageService,
-              private friendRequest: FriendService) {
+              private friendService: FriendService) {
   }
 
-  id = +this.route.snapshot.paramMap.get('id');
+  path_id = +this.route.snapshot.paramMap.get('id');
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();
     this.statusForm = this.fb.group({
       content: ['']
     })
     this.getAccount()
+    this.checkRelationShip();
     this.getStatus()
   }
 
+  checkRelationShip(){
+    this.friendService.checkRelationShip(this.path_id).subscribe(
+      (result)=>{
+        switch (result.name){
+          case 'none':{
+            this.isNoRelation = true;
+            break;
+          }
+          case 'pending':{
+            this.isPending = true;
+            break;
+          }
+          case 'friend':{
+            this.isFriend = true;
+          }
+        }
+      })
+  }
+
   getAccount() {
-    this.accountService.getAccount(this.id).subscribe((resp: IAccount) => {
+    this.accountService.getAccount(this.path_id).subscribe((resp: IAccount) => {
       this.accounts = resp;
     })
   }
 
   getStatus() {
-    this.accountService.getListStatusByAccount(this.id).subscribe((resp: Istatus[]) => {
+    this.accountService.getListStatusByAccount(this.path_id).subscribe((resp: Istatus[]) => {
       this.status = resp;
       console.log(this.status);
     })
@@ -85,9 +106,10 @@ export class ProfileComponent implements OnInit {
   }
 
   sentFriendRequest() {
-    this.friendRequest.sentFriendRequest(this.id).subscribe((data) => {
+    this.friendService.sentFriendRequest(this.path_id).subscribe((data) => {
       if(data.message == 'success'){
-        this.isRequestPending = true;
+        this.isPending = true;
+        this.isNoRelation = false;
       }
     })
 

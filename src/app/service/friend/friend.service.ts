@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from '../tokenstorage.service';
+import {IRelationship} from '../../models/response-observable/irelationship';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,10 @@ export class FriendService{
 
   deniedRequest(request_id:number):Observable<any>{
     return this.http.delete(this.URL_FRIEND_API+'friend_request_response/'+request_id);
+  }
+
+  checkRelationShip(check_id:number):Observable<IRelationship>{
+    this.account_id = this.tokenStorage.getAccount();
+    return this.http.get(this.URL_FRIEND_API+this.account_id+'/check_relation/'+check_id);
   }
 }

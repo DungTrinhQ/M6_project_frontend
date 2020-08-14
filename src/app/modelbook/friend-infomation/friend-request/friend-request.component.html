@@ -1,30 +1,35 @@
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th></th>
-    <th scope="col">Name</th>
-    <th scope="col">Handle</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let friend of friendRequestList">
-    <td>
-      <div class="img-container" >
-        <img class="img-inside img-thumbnail" src="{{friend.accountSend.avatarUrl}}" alt="">
 
-      </div>
-<!--      <img src="{{friend.avatarUrl}}" alt="">-->
-    </td>
-    <td>
-     {{friend.accountSend.name}}
-    </td>
-    <td>
-      <button class="btn btn-primary mr-2" (click)="accept(friend.id)">Xác Nhận</button>
-      <button class="btn btn-secondary mr-2" (click)="denied(friend.id)">Xóa</button>
-    </td>
-    <td></td>
-  </tr>
+<div class="p-3">
+  <h5 class="text-center">Lời mời kết bạn</h5>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th scope="col">Name</th>
+      <th scope="col">Handle</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let friend of friendRequestList">
+      <td>
+        <div class="img-container" >
+          <img class="img-inside img-thumbnail"
+               [src]="friend.accountSend.avatarUrl?friend.accountSend.avatarUrl:
+             '../../../../assets/static/img/avatar-default.png'"
+               alt="avatar">
+        </div>
+      </td>
+      <td>
+        {{friend.accountSend.name}}
+      </td>
+      <td>
+        <button class="btn btn-primary mr-2" (click)="accept(friend.id)">Xác Nhận</button>
+        <button class="btn btn-secondary mr-2" (click)="denied(friend.id)">Xóa</button>
+      </td>
+      <td></td>
+    </tr>
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 
