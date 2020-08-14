@@ -19,6 +19,7 @@ import { InputSearchComponent } from './modelbook/layout/mainwall/navbar/input-s
 import { ContentComponent } from './modelbook/layout/mainwall/content/content.component';
 import { SideMenuComponent } from './modelbook/layout/mainwall/content/side-menu/side-menu.component';
 import { SummerNoteComponent } from './modelbook/layout/summer-note/summer-note.component';
+import { StatusComponent } from './modelbook/layout/status/status.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SummerNoteComponent } from './modelbook/layout/summer-note/summer-note.
     ContentComponent,
     SideMenuComponent,
     SummerNoteComponent,
+    StatusComponent,
   ],
   imports: [
     BrowserModule,

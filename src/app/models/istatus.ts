@@ -5,5 +5,8 @@ export interface Istatus {
   content:string,
   createDate?:Date,
   account:any,
-  images?:any
+  images?:any,
+  totalComments?:number,
+  totalLikes?:number
+
 }
