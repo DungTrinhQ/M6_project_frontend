@@ -7,6 +7,7 @@ import {IAccount} from '../../../models/iaccount';
 import {Istatus} from '../../../models/istatus';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
 import {FriendService} from '../../../service/friend/friend.service';
+import {Icomment} from '../../../models/icomment';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
     password: ''
   };
   status: Istatus[];
+  comment: Icomment;
   accountId:number;
   isRequestPending = false;
 
@@ -91,5 +93,20 @@ export class ProfileComponent implements OnInit {
       }
     })
 
+  }
+  getCommentContent(event, id){
+    this.comment = {
+      content: event.value.content,
+      account: {
+        id : this.tokenService.getAccount()
+  },
+      status: {
+        id: ['']
+      }
+    }
+    this.accountService.createComment(this.comment, id).subscribe((res) =>{
+      this.getStatus()
+    },
+      error => console.log("error"));
   }
 }
