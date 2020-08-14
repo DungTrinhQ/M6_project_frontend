@@ -9,7 +9,10 @@ import {TokenStorageService} from '../../../service/tokenstorage.service';
 import {FriendService} from '../../../service/friend/friend.service';
 import {Icomment} from '../../../models/icomment';
 import {Ifriend} from '../../../models/ifriend';
+import {NotificationService} from '../../../service/notification.service';
 
+declare var $: any;
+declare var Swal: any;
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -39,7 +42,8 @@ export class ProfileComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private tokenService: TokenStorageService,
-              private friendService: FriendService) {
+              private friendService: FriendService,
+              private notificationService: NotificationService) {
   }
 
   path_id = +this.route.snapshot.paramMap.get('id');
@@ -95,21 +99,25 @@ export class ProfileComponent implements OnInit {
         id: this.tokenService.getAccount()
       }
     }
-
-    this.accountService.createStatus(this.accountId,st).subscribe(
-      (httpResponse)=>{
-        if(httpResponse.message == 'success'){
-          this.getStatus()
-          this.statusForm = this.fb.group({
-            content:['']
-          })
-        }else {
-          alert("Lỗi")
+    if (this.statusForm.value.content == ""){
+      this.notificationService.fail("Vui lòng nhập nội dung")
+    }else {
+      this.accountService.createStatus(this.accountId,st).subscribe(
+        (httpResponse)=>{
+          if(httpResponse.message == 'success'){
+            this.getStatus()
+            this.statusForm = this.fb.group({
+              content:['']
+            })
+            this.notificationService.success("Đăng status thành công")
+          }else {
+            this.notificationService.fail("Lỗi")
+          }
+        },()=>{
+          this.notificationService.fail("Lỗi server không thể đăng")
         }
-      },()=>{
-        alert("Có lỗi kết nối với back end");
-      }
-    )
+      )
+    }
   }
 
   sentFriendRequest() {
@@ -117,6 +125,9 @@ export class ProfileComponent implements OnInit {
       if(data.message == 'success'){
         this.isPending = true;
         this.isNoRelation = false;
+        this.notificationService.success("Đã gửi yêu cầu kết bạn.")
+      }else{
+        this.notificationService.fail("Không thể gửi yêu cầu kết bạn.")
       }
     })
 
