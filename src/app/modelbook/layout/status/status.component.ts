@@ -34,6 +34,9 @@ export class StatusComponent implements OnInit {
     this.statusService.getNewFeed(this.current_id).subscribe(
       (newfeed: Istatus[])=>{
         this.statuses = newfeed;
+        this.statuses.map(
+          status1 =>
+            status1.createDate = new Date(status1.createDate));
       }
     )
   }

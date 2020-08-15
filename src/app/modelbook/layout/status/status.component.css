@@ -10,3 +10,6 @@
 .account-link{
   text-decoration: none;
 }
+.btn-block:hover{
+  background-color: #c8e4ff;
+}
