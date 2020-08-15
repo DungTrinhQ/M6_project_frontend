@@ -78,9 +78,9 @@ export class StatusComponent implements OnInit {
     return this.commentService.getCommentsByStatusId(id).toPromise();
   }
 
-  async loadComments(id: number, index: number, statues: Istatus[]) {
+  async loadComments(id: number, index: number, statues: INewfeedResponse[]) {
     const comments = await this.getCommentByStatus(id);
-    statues[index].comments = comments;
+    statues[index].status.comments = comments;
     console.log(comments);
   }
 
