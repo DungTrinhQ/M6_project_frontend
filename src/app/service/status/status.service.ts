@@ -27,4 +27,8 @@ export class StatusService {
     return this.http.get(this.URL+'newfeed/'+id);
 
   }
+
+  getOneStatus(id:number):Observable<Istatus>{
+    return this.http.get<Istatus>(this.URL+'get-one-status/+id')
+  }
 }
