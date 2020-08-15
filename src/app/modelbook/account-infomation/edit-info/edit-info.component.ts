@@ -69,7 +69,7 @@ export class EditInfoComponent implements OnInit {
     this.accountService.editAccountInfo(data, this.accountId).subscribe((res) => {
       if(res.message == 'Success'){
         this.isEditSuccess = true;
-        alert("Cập nhật thành công");
+        this.notice.success("Cập nhật thành công");
         this.router.navigate(['/'])
       }else {
         this.message = 'Cập nhật thất bại';
@@ -91,10 +91,12 @@ export class EditInfoComponent implements OnInit {
           ()=> fileRef.getDownloadURL().subscribe(url=>{
             this.editUserProfile.value.avatarUrl = url;
             this.isAvatarUploading = false;
+            this.notice.success("Upload ảnh thành công, ấn cập nhật để lưu thay đổi");
 
 
           },()=>{
-            this.notice.fail("Upload ảnh không thành công, xin chờ đôi chút rồi thử lại")
+            this.notice.fail("Upload ảnh không thành công, xin chờ đôi chút rồi thử lại");
+            this.isEditFail = true;
           })
         )
       ).subscribe();
