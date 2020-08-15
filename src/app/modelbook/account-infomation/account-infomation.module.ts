@@ -26,10 +26,13 @@ const routes: Routes = [
     CommentComponent,
     SearchStatusComponent,
   ],
-    imports: [
+  imports: [
         CommonModule,
         RouterModule.forChild(routes),
         ReactiveFormsModule,
-    ]
+  ],
+  exports: [
+    CommentComponent,
+  ]
 })
 export class AccountInfomationModule { }

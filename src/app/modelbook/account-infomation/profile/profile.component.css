@@ -130,8 +130,8 @@ body{
   border: none;
   font-family:Lucida Sans Unicode;
 }
-.btn-light:hover{
-  background-color: #f8f9fa;
+.btn-block:hover{
+  background-color: #c8e4ff;
 }
 .status-footer-btn{
   max-width: inherit;

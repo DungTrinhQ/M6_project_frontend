@@ -14,7 +14,7 @@
           </div>
 
           <div class="the-date">
-            <span>{{st.createDate}}</span>
+            <span>{{st.createDate.toDateString()}}</span>
           </div>
         </div>
         <div class="dropdown">
@@ -59,13 +59,16 @@
             <button type="button"  class="btn btn-light btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
           </div>
           <div class="text-center col-4 py-1 px-0">
-            <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
+            <button type="button" class="btn btn-light btn-block mt-0" [routerLink]="'status/'+st.id" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
           </div>
           <div class="text-center col-4 py-1 px-0">
             <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
           </div>
         </div>
       </div>
+    </div>
+    <div class="card-footer">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </ng-container>

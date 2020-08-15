@@ -43,11 +43,11 @@ export class RegisterComponent implements OnInit {
     if(this.confirmPassword == newAccount.password){
       this.accountService.createAccount(newAccount).subscribe(
         (data)=>{
-          if(data == 'Đăng ký thành công'){
+          if(data.message == 'Đăng ký thành công'){
             alert("Đăng ký thành công")
             this.router.navigate(['login']);
           }else {
-            this.errorMessage = data;
+            this.errorMessage = data.message;
 
           }
           this.isRegisterFail = true;

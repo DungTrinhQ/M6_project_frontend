@@ -58,23 +58,23 @@
           <!-- Begin user profile -->
         </div><!-- End div .col-sm-4 -->
 
-        <div class="col-sm-9">
+        <div class="col-lg-9">
           <div class="widget widget-tabbed">
-            <!-- Nav tab -->
-            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">
-              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>
-              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>
-              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>
-              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>
-            </ul>
-            <!-- End nav tab -->
+<!--            &lt;!&ndash; Nav tab &ndash;&gt;-->
+<!--            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">-->
+<!--              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>-->
+<!--              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>-->
+<!--              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>-->
+<!--              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>-->
+<!--            </ul>-->
+<!--            &lt;!&ndash; End nav tab &ndash;&gt;-->
 
             <!-- Tab panes -->
-            <div class="tab-content my-5">
+            <div class="tab-content mt-lg-5">
 
 
               <!-- Tab timeline -->
-              <div class="tab-pane animated active fadeInRight" id="my-timeline">
+              <div class="tab-pane animated active fadeInRight" style="margin-top: 70px" id="my-timeline">
                 <div class="user-profile-content">
 
                   <!-- Begin timeline -->
@@ -173,19 +173,31 @@
                             <hr style="margin: 3px 15px 0 15px ">
                             <div class="row d-flex flex-row justify-content-between mx-0">
                               <div class="text-center col-4 py-1 px-0">
-                                <button type="button"  class="btn btn-light btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
+                                <button type="button"  class="btn  btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
                               </div>
                               <div class="text-center col-4 py-1 px-0">
-                                <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
+                                <a style="text-decoration: none" href="#newfeed{{st.id}}" role="button"
+                                   data-toggle="collapse" aria-expanded="false" >
+                                  <button class="btn  btn-block mt-0">
+                                    <i class="fa fa-comment"></i> Comment
+                                  </button>
+                                </a>
+<!--                                <button type="button" class="btn btn-light btn-block mt-0"-->
+<!--                                        data-toggle="collapse"  data-target="#newfeed{{st.id}}"-->
+<!--                                        aria-expanded="false"-->
+<!--                                        aria-controls="collapseExample"><i class="fa fa-comment">&nbsp;</i>Comment-->
+<!--                                </button>-->
                               </div>
                               <div class="text-center col-4 py-1 px-0">
-                                <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
+                                <button type="button" class="btn  btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="card-footer">
-                          <div *ngFor="let comment of st.comments">
+
+                          <div id="newfeed{{st.id}}" class="collapse" >
+                            <div *ngFor="let comment of st.comments">
                               <span>
                                 <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;
                                 <span>
@@ -204,9 +216,10 @@
                                 </span>
 
                               </span>
-                          </div>
-                          <div *ngIf="isFriend || accountId == path_id">
-                            <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
+                            </div>
+                            <div *ngIf="isFriend || accountId == path_id">
+                              <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
+                            </div>
                           </div>
                         </div>
                       </div>

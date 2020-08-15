@@ -86,6 +86,7 @@ export class ProfileComponent implements OnInit {
   getStatus() {
     this.accountService.getListStatusByAccount(this.path_id).subscribe((resp: Istatus[]) => {
       this.status = resp;
+      console.log(resp);
       this.status.map(status1 =>{
         status1.createDate = new Date(status1.createDate);
       })
@@ -147,8 +148,9 @@ export class ProfileComponent implements OnInit {
     }
     this.accountService.createComment(this.comment, id).subscribe((res) =>{
       this.getStatus()
+      this.notificationService.success("Comment thành công")
     },
-      error => console.log("error"));
+      error => this.notificationService.fail("Xảy ra lỗi"));
   }
 
   searchStatusByKeyword(event){
