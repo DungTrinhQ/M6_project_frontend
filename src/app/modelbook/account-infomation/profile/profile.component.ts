@@ -147,8 +147,9 @@ export class ProfileComponent implements OnInit {
     }
     this.accountService.createComment(this.comment, id).subscribe((res) =>{
       this.getStatus()
+      this.notificationService.success("Comment thành công")
     },
-      error => console.log("error"));
+      error => this.notificationService.fail("Xảy ra lỗi"));
   }
 
   searchStatusByKeyword(event){
