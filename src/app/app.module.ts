@@ -22,6 +22,7 @@ import { SummerNoteComponent } from './modelbook/layout/summer-note/summer-note.
 import { StatusComponent } from './modelbook/layout/status/status.component';
 import { TestComponent } from './dev/test/test.component';
 import { CommentsZoneComponent } from './modelbook/layout/comments-zone/comments-zone.component';
+import { StatusFormComponent } from './modelbook/layout/status-form/status-form.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { CommentsZoneComponent } from './modelbook/layout/comments-zone/comments
         SummerNoteComponent,
         StatusComponent,
         CommentsZoneComponent,
+        StatusFormComponent,
     ],
     imports: [
         BrowserModule,

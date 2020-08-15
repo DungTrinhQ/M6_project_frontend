@@ -34,4 +34,8 @@ export class StatusService {
   getNewFeed2(id:number):Observable<Istatus[]>{
     return this.http.get<Istatus[]>(this.URL+'newfeed2/'+id);
   }
+
+  createStatus(id: number,data: Istatus):Observable<any>{
+    return this.http.post(this.URL +id+'/create-status',data);
+  }
 }

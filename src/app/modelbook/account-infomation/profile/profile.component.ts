@@ -95,8 +95,6 @@ export class ProfileComponent implements OnInit {
   }
 
   addStatus() {
-    let newStatus = this.statusForm.value;
-    console.log(newStatus);
     const st = {
       content: this.statusForm.value.content,
       account: {
