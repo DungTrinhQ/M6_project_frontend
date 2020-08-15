@@ -11,6 +11,8 @@ export class CommentComponent implements OnInit {
   createCommentForm: FormGroup;
   @Output()
   commentConetent : EventEmitter<any> = new EventEmitter<any>();
+
+
   constructor(
     private fb : FormBuilder
   ) { }

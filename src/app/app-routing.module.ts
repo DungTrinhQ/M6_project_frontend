@@ -5,12 +5,17 @@ import {LoginComponent} from './modelbook/layout/login/login.component';
 import {AuthGaurdService} from './helper/auth-gaurd.service';
 import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
 import {TestComponent} from './dev/test/test.component';
+import {CommentsZoneComponent} from './modelbook/layout/comments-zone/comments-zone.component';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'test',component:TestComponent},
-  {path: '',canActivate:[AuthGaurdService],component:MainwallComponent},
+  {path: '',canActivate:[AuthGaurdService],
+    component:MainwallComponent,
+    children:[
+      {path:'status/:id',component:CommentsZoneComponent}
+    ]},
   {
     path: 'account', canActivate:[AuthGaurdService],
     loadChildren: () => import('./modelbook/account-infomation/account-infomation.module').then(module => module.AccountInfomationModule)

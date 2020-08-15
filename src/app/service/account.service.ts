@@ -41,7 +41,7 @@ export class AccountService {
     return this.http.post(this.API_URL +'api/comment-create/' + id_status, data)
   }
   getAllComment(id: number): Observable<any>{
-    return this.http.get(this.API_URL + 'api/comment-getA1l/' + id)
+    return this.http.get(this.API_URL + 'api/get-comments/' + id)
   }
   isFriend(current_id: number, check_id: number):Observable<any>{
     return this.http.get(this.API_URL + 'api/'+ current_id + '/check_relation/' + check_id);
