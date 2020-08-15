@@ -17,7 +17,7 @@
                       <i class="fas fa-envelope pt-3"></i>
                     </div>
                     <div class="col-md-11">
-                      <input type="email" formControlName="email" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Email" required>
+                      <input autofocus type="email" formControlName="email" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Email" required>
                       <div *ngIf="email.invalid && (email.dirty || email.touched)"
                            class="alert alert-danger">
                         <div *ngIf="email.errors.required">

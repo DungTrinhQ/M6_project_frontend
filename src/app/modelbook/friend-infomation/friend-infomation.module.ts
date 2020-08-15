@@ -4,11 +4,11 @@ import { RouterModule, Routes} from '@angular/router';
 import { FriendListComponent } from './friend-list/friend-list.component';
 import { FriendLayoutComponent } from './friend-layout/friend-layout.component';
 import { FriendRequestComponent } from './friend-request/friend-request.component';
+import {FormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {path:'',children: [
       {path:'request', component: FriendRequestComponent},
-      {path: '',component: FriendListComponent}
     ],component:FriendLayoutComponent},
 
   ]
@@ -25,6 +25,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    FormsModule,
   ]
 })
 export class FriendInfomationModule { }

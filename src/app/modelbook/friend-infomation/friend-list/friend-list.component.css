@@ -5,4 +5,5 @@
 }
 .img-inside{
   width: 100%;
+  height: inherit;
 }
