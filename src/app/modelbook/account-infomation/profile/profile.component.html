@@ -184,7 +184,7 @@
                                 </a>
 <!--                                <button type="button" class="btn btn-light btn-block mt-0"-->
 <!--                                        data-toggle="collapse"  data-target="#newfeed{{st.id}}"-->
-<!--                                        aria-expanded="false" href="#newfeed{{st.id}}"-->
+<!--                                        aria-expanded="false"-->
 <!--                                        aria-controls="collapseExample"><i class="fa fa-comment">&nbsp;</i>Comment-->
 <!--                                </button>-->
                               </div>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="card-footer">
 
-                          <div id="newfeed{{st.id}}" class=" collapse" >
+                          <div id="newfeed{{st.id}}" class="collapse" >
                             <div *ngFor="let comment of st.comments">
                               <span>
                                 <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;
