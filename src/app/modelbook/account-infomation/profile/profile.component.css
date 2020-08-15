@@ -141,3 +141,9 @@ body{
   height: 50px;
   width: 50px;
 }
+.editComment{
+  opacity: 0;
+}
+.editComment:hover{
+  opacity: 1;
+}

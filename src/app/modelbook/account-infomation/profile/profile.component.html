@@ -189,7 +189,21 @@
                           <div *ngFor="let comment of st.comments">
                               <span>
                                 <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;
-                                <span>{{comment.content}}</span>
+                                <span>
+                                  {{comment.content}}
+                                  <span class="editComment">
+                                    <span class="dropdown" >
+                              <button class="btn btn-sm" type="button" aria-haspopup="true" aria-expanded="false" id="dropdownMenu1" data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h"></i></button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
+                                <a class="dropdown-item" *ngIf="path_id == accountId">Xóa</a>
+                                <a class="dropdown-item" *ngIf="path_id != accountId">Ẩn</a>
+                              </div>
+                            </span>
+                                  </span>
+                                </span>
+
                               </span>
                           </div>
                           <div *ngIf="isFriend || accountId == path_id">
