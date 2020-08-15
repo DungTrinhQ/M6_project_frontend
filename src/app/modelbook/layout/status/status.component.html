@@ -1,20 +1,20 @@
-<ng-container *ngFor="let st of statuses; index as i" style="padding-left: 0px">
+<ng-container *ngFor="let st of newFeedResponse; index as i" style="padding-left: 0px">
   <div class="card mb-3">
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <div class="left-top-head">
           <div class="img-container d-flex flex-row align-items-center" >
-            <img class="img-inside rounded-circle" [src]="st.account.avatarUrl?st.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
+            <img class="img-inside rounded-circle" [src]="st.status.account.avatarUrl?st.status.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
             <div class="ml-3">
-              <a class="account-link" [routerLink]="'/account/'+st.account.id">
-                <h4>{{st.account.name}}</h4>
+              <a class="account-link" [routerLink]="'/account/'+st.status.account.id">
+                <h4>{{st.status.account.name}}</h4>
               </a>
             </div>
 
           </div>
 
           <div class="the-date">
-            <span>{{st.createDate.toDateString()}}</span>
+            <span>{{st.status.createDate.toDateString()}}</span>
           </div>
         </div>
         <div class="dropdown">
@@ -24,8 +24,8 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
             <a class="dropdown-item" href="#">Chỉnh sửa</a>
-            <a class="dropdown-item" (click)="deleteStatus(st.id)" *ngIf="st.account.id == current_id" >Xóa</a>
-            <a class="dropdown-item" *ngIf="st.account.id !== current_id">Ẩn</a>
+            <a class="dropdown-item" (click)="deleteStatus(st.status.id)" *ngIf="st.status.account.id == current_id" >Xóa</a>
+            <a class="dropdown-item" *ngIf="st.status.account.id !== current_id">Ẩn</a>
             <!--                                  <a class="dropdown-item" href="#">Something else here</a>-->
           </div>
         </div>
@@ -35,31 +35,34 @@
       <div style="list-style: none">
         <div class="upper-content px-3 pt-3">
           <p>
-            {{st.content}}
+            {{st.status.content}}
           </p>
-          <div class="d-flex flex-row justify-content-start" *ngIf="st.images != null">
-            <div  class="img-box" style="max-height: 300px" *ngFor="let img of st.images">
+          <div class="d-flex flex-row justify-content-start" *ngIf="st.status.images != null">
+            <div  class="img-box" style="max-height: 300px" *ngFor="let img of st.status.images">
               <img class="img-thumbnail" style="max-height: inherit" src="{{img.url}}" alt="img">
             </div>
           </div>
           <br>
           <span>
-                              {{st.totalLikes}} Lượt thích
+                              {{st.status.totalLikes}} Lượt thích
                             </span>
           <span>&nbsp;</span>
           <span>
-                              {{st.totalComments}} Bình luận
+                              {{st.status.totalComments}} Bình luận
                             </span>
         </div>
 
 
         <hr style="margin: 3px 15px 0 15px ">
         <div class="row d-flex flex-row justify-content-between mx-0">
-          <div class="text-center col-4 py-1 px-0">
-            <button type="button"  class="btn btn-light btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
+          <div class="text-center col-4 py-1 px-0" *ngIf="!st.like">
+            <button type="button" (click)="likeStatus(st.status.id,i)"  class="btn btn-light btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
+          </div>
+          <div class="text-center col-4 py-1 px-0" *ngIf="st.like">
+            <button type="button" (click)="unlikeStatus(st.status.id,i)"  class="btn btn-primary btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
           </div>
           <div class="text-center col-4 py-1 px-0">
-            <button type="button" class="btn btn-light btn-block mt-0" (click)="loadComments(st.id, i, statuses)" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
+            <button type="button" class="btn btn-light btn-block mt-0" (click)="loadComments(st.status.id, i, statuses)" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
           </div>
           <div class="text-center col-4 py-1 px-0">
             <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
@@ -68,7 +71,7 @@
       </div>
     </div>
     <div class="card-footer">
-      <app-comments-zone [comments]="statuses[i].comments"></app-comments-zone>
+      <app-comments-zone [comments]="newFeedResponse[i].status.comments"></app-comments-zone>
     </div>
   </div>
 </ng-container>

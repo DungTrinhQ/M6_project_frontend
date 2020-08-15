@@ -6,6 +6,8 @@ import {StatusService} from '../../../service/status/status.service';
 import {Icomment} from '../../../models/icomment';
 import {CommentService} from '../../../service/comment/comment.service';
 import {NotificationService} from '../../../service/notification.service';
+import {LikesService} from '../../../service/likes/likes.service';
+import {INewfeedResponse} from '../../../models/response-observable/inewfeed-response';
 
 @Component({
   selector: 'app-status',
@@ -17,6 +19,8 @@ export class StatusComponent implements OnInit {
   statuses: Istatus[];
   current_id: number;
 
+  newFeedResponse: INewfeedResponse[];
+
   comments: Icomment[];
 
   status_id_loading_comments: number;
@@ -27,7 +31,8 @@ export class StatusComponent implements OnInit {
               private token: TokenStorageService,
               private statusService: StatusService,
               private commentService: CommentService,
-              private notice: NotificationService) {
+              private notice: NotificationService,
+              private likeService: LikesService) {
   }
 
   ngOnInit(): void {
@@ -35,20 +40,21 @@ export class StatusComponent implements OnInit {
     this.getNewFeed();
   }
 
-  getStatusList() {
-    this.accountService.getListStatusByAccount(this.current_id).subscribe(
-      (statusList) => {
-        this.statuses = statusList;
-      });
-  }
+  // getStatusList() {
+  //   this.accountService.getListStatusByAccount(this.current_id).subscribe(
+  //     (statusList) => {
+  //       this.statuses = statusList;
+  //     });
+  // }
 
   getNewFeed() {
-    this.statusService.getNewFeed(this.current_id).subscribe(
-      (newfeed: Istatus[]) => {
-        this.statuses = newfeed;
-        this.statuses.map(
+    this.statusService.getNewFeed2(this.current_id).subscribe(
+      (newfeed:any) => {
+        console.log(newfeed);
+        this.newFeedResponse = newfeed;
+        this.newFeedResponse.map(
           status1 =>
-            status1.createDate = new Date(status1.createDate));
+            status1.status.createDate = new Date(status1.status.createDate));
       }
     );
   }
@@ -76,5 +82,24 @@ export class StatusComponent implements OnInit {
     const comments = await this.getCommentByStatus(id);
     statues[index].comments = comments;
     console.log(comments);
+  }
+
+  likeStatus(id: number,index:number) {
+    this.likeService.likeStatus(id,this.current_id).subscribe(
+      (data)=>{
+        if(data.message == 'success'){
+          this.notice.success("Like thanh cong")
+          this.getNewFeed();
+        }else {
+          this.notice.fail("like loi")
+        }
+      },()=>{
+        this.notice.fail("loi ket noi")
+      }
+    )
+  }
+
+  unlikeStatus(id: number, i: number) {
+
   }
 }

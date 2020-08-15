@@ -11,7 +11,6 @@ import {Istatus} from '../../models/istatus';
 export class StatusService {
 
   private URL = environment.API_URL;
-  private current_id: number;
 
 
   constructor(private http: HttpClient,
@@ -29,6 +28,10 @@ export class StatusService {
   }
 
   getOneStatus(id:number):Observable<Istatus>{
-    return this.http.get<Istatus>(this.URL+'get-one-status/+id')
+    return this.http.get<Istatus>(this.URL+'get-one-status/'+id);
+  }
+
+  getNewFeed2(id:number):Observable<Istatus[]>{
+    return this.http.get<Istatus[]>(this.URL+'newfeed2/'+id);
   }
 }
