@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Istatus} from '../../../models/istatus';
 import {AccountService} from '../../../service/account.service';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
 import {StatusService} from '../../../service/status/status.service';
+import {Icomment} from '../../../models/icomment';
+import {CommentService} from '../../../service/comment/comment.service';
+import {NotificationService} from '../../../service/notification.service';
 
 @Component({
   selector: 'app-status',
@@ -11,46 +14,76 @@ import {StatusService} from '../../../service/status/status.service';
 })
 export class StatusComponent implements OnInit {
 
-  statuses:Istatus[];
-  current_id:number;
+  statuses: Istatus[];
+  current_id: number;
+
+  comments: Icomment[];
+
+  status_id_loading_comments: number;
+
 
   constructor(private accountService: AccountService,
               private token: TokenStorageService,
-              private statusService: StatusService) { }
+              private statusService: StatusService,
+              private commentService: CommentService,
+              private notice: NotificationService) {
+  }
 
   ngOnInit(): void {
     this.current_id = this.token.getAccount();
     this.getNewFeed();
   }
 
-  getStatusList(){
+  getStatusList() {
     this.accountService.getListStatusByAccount(this.current_id).subscribe(
-      (statusList)=>{
+      (statusList) => {
         this.statuses = statusList;
-      })
+      });
   }
 
-  getNewFeed(){
+  getNewFeed() {
     this.statusService.getNewFeed(this.current_id).subscribe(
-      (newfeed: Istatus[])=>{
+      (newfeed: Istatus[]) => {
         this.statuses = newfeed;
         this.statuses.map(
           status1 =>
             status1.createDate = new Date(status1.createDate));
       }
-    )
+    );
   }
 
 
   deleteStatus(id: number) {
-    this.statusService.deleteStatusById(id).subscribe((response)=>{
-      if(response.message =='xóa thành công'){
-        alert("xóa thành công");
+    this.statusService.deleteStatusById(id).subscribe((response) => {
+      if (response.message == 'xóa thành công') {
+        alert('xóa thành công');
         this.getNewFeed();
-      }else {
-        alert("xóa không thành công")
+      } else {
+        alert('xóa không thành công');
       }
-    },()=>{alert("lỗi kết nối")})
+    }, () => {
+      alert('lỗi kết nối');
+    });
 
+  }
+
+  getCommentByStatus(id: number) {
+    // this.commentService.getCommentsByStatusId(id).subscribe(
+    //   (data)=>{
+    //     console.log(data);
+    //     this.status_id_loading_comments = id;
+    //     this.notice.success("Tải comment thành công");
+    // this.comments = data;
+    //
+    // },()=>{
+    //   this.notice.fail("Tải thất bại");
+    // }
+    // )
+    return this.commentService.getCommentsByStatusId(id).toPromise();
+  }
+
+  async loadComments(id: number, index: number, statues: Istatus[]) {
+    const comments = await this.getCommentByStatus(id);
+    statues[index].comments = comments;
   }
 }

@@ -197,12 +197,12 @@
                         <div class="card-footer">
 
                           <div id="newfeed{{st.id}}" class="collapse" >
-                            <div *ngFor="let comment of st.comments">
-                              <span>
-                                <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;
-                                <span>{{comment.content}}</span>
-                              </span>
-                            </div>
+<!--                            <div *ngFor="let comment of st.comments">-->
+<!--                              <span>-->
+<!--                                <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;-->
+<!--                                <span>{{comment.content}}</span>-->
+<!--                              </span>-->
+<!--                            </div>-->
                             <div *ngIf="isFriend || accountId == path_id">
                               <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
                             </div>
