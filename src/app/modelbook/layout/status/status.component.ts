@@ -22,6 +22,7 @@ export class StatusComponent implements OnInit {
   status_id_loading_comments: number;
 
 
+
   constructor(private accountService: AccountService,
               private token: TokenStorageService,
               private statusService: StatusService,
@@ -68,22 +69,12 @@ export class StatusComponent implements OnInit {
   }
 
   getCommentByStatus(id: number) {
-    // this.commentService.getCommentsByStatusId(id).subscribe(
-    //   (data)=>{
-    //     console.log(data);
-    //     this.status_id_loading_comments = id;
-    //     this.notice.success("Tải comment thành công");
-    // this.comments = data;
-    //
-    // },()=>{
-    //   this.notice.fail("Tải thất bại");
-    // }
-    // )
     return this.commentService.getCommentsByStatusId(id).toPromise();
   }
 
   async loadComments(id: number, index: number, statues: Istatus[]) {
     const comments = await this.getCommentByStatus(id);
     statues[index].comments = comments;
+    console.log(comments);
   }
 }
