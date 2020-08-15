@@ -18,7 +18,7 @@ export class LikesService {
     return this.http.post(this.URL+current_account_id+'/like/'+status_id,null);
   }
 
-  unlikeStatus(status_id:number):Observable<IResultResponse>{
-    return this.http.delete<IResultResponse>(this.URL+status_id+'/unlike');
+  unlikeStatus(current_id:number ,status_id:number):Observable<IResultResponse>{
+    return this.http.delete<IResultResponse>(this.URL+current_id+'/unlike/'+status_id);
   }
 }

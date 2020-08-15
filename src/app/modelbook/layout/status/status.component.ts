@@ -99,7 +99,20 @@ export class StatusComponent implements OnInit {
     )
   }
 
-  unlikeStatus(id: number, i: number) {
+  unlikeStatus(status_id: number) {
+    this.likeService.unlikeStatus(this.current_id,status_id).subscribe(
+      (response)=>{
+        if(response.message == 'success'){
+          this.notice.success("Unlike thành công");
+          this.getNewFeed();
+        }else {
+          this.notice.fail("Unlike thất bại")
+        }
+
+      },()=>{
+        this.notice.fail("lỗi kết nối");
+      }
+    )
 
   }
 }
