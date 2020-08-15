@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenService} from '../../../service/authen.service';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IAccount} from '../../../models/iaccount';
 import {Router} from '@angular/router';
 
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
 
     }
     this.loginAccountForm = this.fb.group({
-      email:[''],
-      password:[''],
+      email:['',[Validators.required,Validators.email]],
+      password:['',[Validators.required]],
     })
   }
 
@@ -60,5 +60,13 @@ export class LoginComponent implements OnInit {
   logOut() {
     this.tokenStorage.signOut();
     window.location.reload();
+  }
+
+  get email(){
+    return this.loginAccountForm.get('email')
+  }
+
+  get password(){
+    return this.loginAccountForm.get('password')
   }
 }
