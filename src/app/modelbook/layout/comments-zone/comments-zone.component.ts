@@ -19,16 +19,6 @@ export class CommentsZoneComponent implements OnInit {
               private activedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.status_id = +this.activedRoute.snapshot.paramMap.get('id');
-    this.commentService.getCommentsByStatusId(this.status_id).subscribe(
-      (dataResponse)=>{
-        this.comments = dataResponse;
-        console.log(dataResponse);
-      }
-    )
-
-
-
 
   }
 

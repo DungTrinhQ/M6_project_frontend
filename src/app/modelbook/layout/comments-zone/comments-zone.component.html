@@ -1,10 +1,16 @@
 <div class="row">
+  <div *ngIf="comments!= null && comments.length == 0 ">
+    <div class="col-12 text-center">
+      Chưa có bình luận...
+    </div>
+
+  </div>
   <ng-container *ngFor="let comment of comments">
     <div class="col-2 small-avatar-container">
       <img class="small-avatar rounded-circle img-thumbnail" [src]="comment.account.avatarUrl" alt="avatar">
     </div>
     <div class="col-10 commentList">
-      <a href="">{{comment.account.name}}</a><br>
+      <a [routerLink]="'/account/'+comment.account.id">{{comment.account.name}}</a><br>
       <div>
         <p>{{comment.content}}</p>
       </div>
