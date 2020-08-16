@@ -16,4 +16,8 @@ export class CommentService {
   getCommentsByStatusId(status_id:number):Observable<any>{
     return this.http.get(this.URL+'get-comments/'+status_id)
   }
+
+  createComment(data : Icomment, id_status: number): Observable<any>{
+    return this.http.post(this.URL +'add-comment/' + id_status, data)
+  }
 }

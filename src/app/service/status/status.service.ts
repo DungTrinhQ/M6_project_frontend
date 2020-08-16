@@ -22,8 +22,7 @@ export class StatusService {
   }
 
   getNewFeed(id:number):Observable<Istatus[]>{
-    // @ts-ignore
-    return this.http.get(this.URL+'newfeed/'+id);
+    return this.http.get<Istatus[]>(this.URL+'newfeed/'+id);
 
   }
 

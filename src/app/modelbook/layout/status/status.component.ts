@@ -23,6 +23,15 @@ export class StatusComponent implements OnInit {
 
   comments: Icomment[];
 
+
+  new_comment: Icomment = {
+    content: '',
+    account: {
+      id: this.current_id,
+    },
+
+  }
+
   status_id_loading_comments: number;
 
 
@@ -115,4 +124,25 @@ export class StatusComponent implements OnInit {
     )
 
   }
+
+  addComment(status_id:number,index:number) {
+    const text_value = document.getElementById("newComment"+status_id).value;
+    this.new_comment.content = text_value;
+    this.new_comment.account.id = this.current_id;
+    this.commentService.createComment(this.new_comment,status_id).subscribe(
+      (response)=>{
+        if(response.message == 'success'){
+          this.notice.success("Comment thành công");
+          this.loadComments(status_id,index,this.newFeedResponse);
+        }else {
+          this.notice.fail("Không thành công, xin thử lại");
+        }
+      },()=>{
+        this.notice.fail("Lỗi kết nối");
+      }
+    )
+
+  }
+
+
 }

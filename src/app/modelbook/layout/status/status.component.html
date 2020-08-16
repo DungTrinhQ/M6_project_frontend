@@ -72,6 +72,8 @@
     </div>
     <div class="card-footer">
       <app-comments-zone [comments]="newFeedResponse[i].status.comments"></app-comments-zone>
+      <input [id]="'newComment'+newFeedResponse[i].status.id" type="text" placeholder="Viết bình luận" >
+      <button class="btn btn-sm btn-primary" type="button" (click)="addComment(st.status.id,i)">Bình luận</button>
     </div>
   </div>
 </ng-container>

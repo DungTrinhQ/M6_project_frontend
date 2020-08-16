@@ -24,7 +24,6 @@ export class CommentComponent implements OnInit {
   }
   getComment(){
     this.commentConetent.emit(this.createCommentForm)
-    console.log(this.createCommentForm);
   }
 
 }
