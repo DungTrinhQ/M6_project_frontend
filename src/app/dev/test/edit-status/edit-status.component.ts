@@ -50,6 +50,14 @@ export class EditStatusComponent implements OnInit {
   getStatus(id: number){
     this.testService.getStatus(id).subscribe((res: Istatus) => {
       this.status = res;
+      if(this.status.images == ''){
+        this.status.images= [{
+          url: ['']
+        }]
+      }
+      else {
+        this.isUploadImage = true;
+      }
       this.editFormStatus.patchValue(this.status);
     })
   }
