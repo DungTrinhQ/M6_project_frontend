@@ -19,6 +19,7 @@ export class EditStatusComponent implements OnInit {
   status: Istatus;
   account: IAccount;
   selectedImage:any = null;
+  isUploadImage = false;
 
 
   constructor(
@@ -32,11 +33,13 @@ export class EditStatusComponent implements OnInit {
   ) { }
   path_id = +this.route.snapshot.paramMap.get('id');
   ngOnInit(): void {
-    this.getStatus(this.path_id);
     this.getAccount();
+    this.getStatus(this.path_id);
     this.editFormStatus = this.fb.group({
       content: [''],
-      image:['']
+      images: [{
+        url: ['']
+      }]
     })
   }
   getAccount() {
@@ -52,13 +55,7 @@ export class EditStatusComponent implements OnInit {
   }
   saveStatus(){
     let content = this.editFormStatus.value.content;
-    let statusImage = this.editFormStatus.value.image;
     this.status.content = content;
-    this.testService.editStatus(this.status).subscribe(() => {
-      // this.router.navigate(['account/' + this.tokenStorageService.getAccount()])
-      console.log(this.status)
-
-    })
   }
 
   updateImageStatus() {
@@ -68,15 +65,16 @@ export class EditStatusComponent implements OnInit {
       this.storage.upload(filePath,this.selectedImage).snapshotChanges().pipe(
         finalize(
           ()=> fileRef.getDownloadURL().subscribe(url=>{
-            console.log(url)
             this.status.images.map(
               image => image.url =  url
             )
+            this.testService.editStatus(this.status).subscribe(() => {
+              this.router.navigate(['account/' + this.tokenStorageService.getAccount()])
+            })
           })
         )
       ).subscribe();
     }
-
   }
 
   loadImgFile(even:any) {
@@ -89,6 +87,7 @@ export class EditStatusComponent implements OnInit {
       }
       reader.readAsDataURL(even.target.files[0]);
       this.selectedImage = even.target.files[0];
+      this.isUploadImage = true;
     }else {
       this.selectedImage = null;
     }
