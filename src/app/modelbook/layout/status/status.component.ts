@@ -126,6 +126,7 @@ export class StatusComponent implements OnInit {
   }
 
   addComment(status_id:number,index:number) {
+    // @ts-ignore
     const text_value = document.getElementById("newComment"+status_id).value;
     this.new_comment.content = text_value;
     this.new_comment.account.id = this.current_id;
