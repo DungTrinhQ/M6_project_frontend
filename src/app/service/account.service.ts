@@ -50,5 +50,4 @@ export class AccountService {
     return this.http.patch(this.API_URL + 'api/find-status/' + account_id, data);
   }
 
-
 }

@@ -42,7 +42,7 @@ export class EditInfoComponent implements OnInit {
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();
     this.userAvatar = this.fb.group({
-      avatar:[''],
+      image_url:[''],
     });
     this.editUserProfile = this.fb.group({
       id: [''],
