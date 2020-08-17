@@ -8,6 +8,7 @@ import {CommentService} from '../../../service/comment/comment.service';
 import {NotificationService} from '../../../service/notification.service';
 import {LikesService} from '../../../service/likes/likes.service';
 import {INewfeedResponse} from '../../../models/response-observable/inewfeed-response';
+import {IAccount} from '../../../models/iaccount';
 
 @Component({
   selector: 'app-status',
@@ -24,6 +25,9 @@ export class StatusComponent implements OnInit {
   comments: Icomment[];
 
   delete_comment_id:number;
+
+  @Input()
+  currentAccount:IAccount;
 
 
   new_comment: Icomment = {
@@ -137,6 +141,8 @@ export class StatusComponent implements OnInit {
         if(response.message == 'success'){
           this.notice.success("Comment thành công");
           this.loadComments(status_id,index,this.newFeedResponse);
+          // @ts-ignore
+          document.getElementById("newComment"+status_id).value = '';
         }else {
           this.notice.fail("Không thành công, xin thử lại");
         }

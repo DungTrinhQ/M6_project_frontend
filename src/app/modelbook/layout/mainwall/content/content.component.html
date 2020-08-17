@@ -30,7 +30,7 @@
     </div>
     <div *ngIf="!friendResult" class="m-3">
       <app-status-form [currentAccount]="currentAccount" ></app-status-form>
-      <app-status></app-status>
+      <app-status [currentAccount]="currentAccount"></app-status>
     </div>
   </div>
 </div>
