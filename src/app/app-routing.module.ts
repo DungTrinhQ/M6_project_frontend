@@ -6,11 +6,13 @@ import {AuthGaurdService} from './helper/auth-gaurd.service';
 import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
 import {TestComponent} from './dev/test/test.component';
 import {CommentsZoneComponent} from './modelbook/layout/comments-zone/comments-zone.component';
+import {EditStatusComponent} from './dev/test/edit-status/edit-status.component';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'test',component:TestComponent},
+  {path:'test-editStatus/:id',component:EditStatusComponent},
   {path: '',canActivate:[AuthGaurdService],
     component:MainwallComponent
   },
