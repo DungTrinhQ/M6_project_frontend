@@ -148,8 +148,20 @@ export class StatusComponent implements OnInit {
   }
 
 
-  delete_comment(event) {
-    console.log("status id: "+event);
+  delete_comment(event,status_id,index) {
+    // console.log("status id: "+event);
+    this.commentService.deleteComment(event).subscribe(
+      (response)=>{
+        if(response.message == 'success'){
+          this.notice.success("Xóa bình luận thành công.");
+          this.loadComments(status_id,index,this.newFeedResponse);
+        }else {
+          this.notice.fail("Hãy thử lại");
+        }
+      },()=>{
+        this.notice.fail("Lỗi kết nối");
+      }
+    )
 
   }
 }
