@@ -59,7 +59,7 @@ export class StatusComponent implements OnInit {
   getNewFeed() {
     this.statusService.getNewFeed2(this.current_id).subscribe(
       (newfeed:any) => {
-        console.log(newfeed);
+        // console.log(newfeed);
         this.newFeedResponse = newfeed;
         this.newFeedResponse.map(
           status1 =>
@@ -72,13 +72,13 @@ export class StatusComponent implements OnInit {
   deleteStatus(id: number) {
     this.statusService.deleteStatusById(id).subscribe((response) => {
       if (response.message == 'xóa thành công') {
-        alert('xóa thành công');
+        this.notice.success("Xóa thành công");
         this.getNewFeed();
       } else {
-        alert('xóa không thành công');
+        this.notice.fail("Thử lại sau");
       }
     }, () => {
-      alert('lỗi kết nối');
+      this.notice.fail("Lỗi kết nối");
     });
 
   }
@@ -90,7 +90,7 @@ export class StatusComponent implements OnInit {
   async loadComments(id: number, index: number, statues: INewfeedResponse[]) {
     const comments = await this.getCommentByStatus(id);
     statues[index].status.comments = comments;
-    console.log(comments);
+    // console.log(comments);
   }
 
   likeStatus(id: number,index:number) {
