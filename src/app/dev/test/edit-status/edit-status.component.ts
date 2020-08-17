@@ -52,6 +52,7 @@ export class EditStatusComponent implements OnInit {
     console.log('get status')
     this.testService.getStatus(id).subscribe((res: Istatus) => {
       this.status = res;
+      console.log(res);
       if(this.status.images != ''){
         this.isHaveImage = true;
       }
@@ -111,6 +112,9 @@ export class EditStatusComponent implements OnInit {
       this.selectedImage = null;
     }
 
+  }
+  deleteImage(){
+    this.status.images = [''];
   }
   update(data : any){
     this.testService.editStatus(this.status).subscribe(() => {
