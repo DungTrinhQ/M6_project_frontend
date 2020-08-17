@@ -43,10 +43,11 @@ export class MainwallComponent implements OnInit {
     )
     return this.accountList;
   }
+
   getKeyword(event){
 
     if(event == ''){
-      this.keywordSearch = ' ';
+      return;
     }
     else
     {
@@ -54,6 +55,7 @@ export class MainwallComponent implements OnInit {
     }
     this.findFriend();
   }
+
   findFriend(){
     this.accountService.searchFriend(this.keywordSearch).subscribe((res : IAccount[]) =>{
         this.friendResult = res;

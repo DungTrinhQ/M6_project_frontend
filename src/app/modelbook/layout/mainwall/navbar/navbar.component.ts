@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
   getKeyWord(event){
-    let data = this.keyWord.emit(event);
+    this.keyWord.emit(event);
   }
 
 

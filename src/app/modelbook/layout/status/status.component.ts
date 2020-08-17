@@ -23,6 +23,8 @@ export class StatusComponent implements OnInit {
 
   comments: Icomment[];
 
+  delete_comment_id:number;
+
 
   new_comment: Icomment = {
     content: '',
@@ -146,4 +148,8 @@ export class StatusComponent implements OnInit {
   }
 
 
+  delete_comment(event) {
+    console.log("status id: "+event);
+
+  }
 }

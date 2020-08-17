@@ -6,14 +6,32 @@
 
   </div>
   <ng-container *ngFor="let comment of comments">
-    <div class="col-2 small-avatar-container">
-      <img class="small-avatar rounded-circle img-thumbnail" [src]="comment.account.avatarUrl" alt="avatar">
-    </div>
-    <div class="col-10 commentList">
-      <a [routerLink]="'/account/'+comment.account.id">{{comment.account.name}}</a><br>
-      <div>
-        <p>{{comment.content}}</p>
+
+      <div class="col-2 small-avatar-container">
+        <img class="small-avatar rounded-circle img-thumbnail"
+             [src]="comment.account.avatarUrl?comment.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
       </div>
-    </div>
+      <div class="col-9 commentList">
+        <a [routerLink]="'/account/'+comment.account.id">{{comment.account.name}}</a><br>
+        <div>
+          <p>{{comment.content}}</p>
+        </div>
+      </div>
+      <div class="col-1">
+        <div class="dropdown">
+          <button class="btn btn-sm" type="button" aria-haspopup="true"
+                  aria-expanded="false" id="editMenu" data-toggle="dropdown">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right " aria-labelledby="editMenu">
+            <a class="dropdown-item" >Chỉnh sửa</a>
+            <a class="dropdown-item" *ngIf="current_id == comment.account.id" (click)="getComment_id(comment.id)"  >Xóa</a>
+            <a class="dropdown-item" *ngIf="current_id !== comment.account.id">Ẩn</a>
+          </div>
+        </div>
+      </div>
+
+
+
   </ng-container>
 </div>
