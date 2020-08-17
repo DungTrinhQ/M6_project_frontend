@@ -1,5 +1,5 @@
 <form [formGroup]="newStatus" (ngSubmit)="addStatus()">
-<div class="status-form-container mb-3 bg-secondary border border-secondary rounded">
+<div class="status-form-container mb-3 rounded">
   <div class="input-bar row p-3">
     <div class=" col-lg-1 col-md-2 small-avatar-container">
       <img class="small-avatar rounded-circle"
@@ -14,7 +14,7 @@
   </div>
   <div class="status-img d-flex justify-content-start"></div>
   <div class="button-downside d-flex m-3">
-    <button class="btn btn-success btn-block" (click)="fileUploader.click()">Ảnh/Video</button>
+    <button class="btn btn-success btn-block mb-3" (click)="fileUploader.click()">Ảnh/Video</button>
   </div>
   <input hidden #fileUploader type="file">
 </div>

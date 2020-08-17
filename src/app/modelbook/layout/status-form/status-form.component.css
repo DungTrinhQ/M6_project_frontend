@@ -4,7 +4,10 @@ input{
   border: none;
 }
 
-
+.status-form-container{
+  background-color: #c8e4ff;
+  border: none;
+}
 .input-bar{
 
 }

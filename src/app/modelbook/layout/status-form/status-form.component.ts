@@ -54,7 +54,7 @@ export class StatusFormComponent implements OnInit {
         (data)=>{
           if(data.message == 'success'){
             this.notice.success("Đăng status thành công!");
-            this.route.navigate(['/']);
+            window.location.reload();
             this.newStatus = this.fb.group({
               content: [''],
             })
