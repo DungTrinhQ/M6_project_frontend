@@ -58,7 +58,7 @@
                   <div class="the-timeline">
                     <form [formGroup]="editFormStatus" (ngSubmit)="updateImageStatus(); saveStatus()" class="post-to-timeline" >
                       <textarea class="form-control" formControlName="content" style="height: 100px;margin-bottom:10px;" placeholder="Whats on your mind..."></textarea>
-                      <div *ngIf="isUploadImage == true">
+                      <div *ngIf="isHaveImage == true">
                         <div *ngFor="let image of status.images">
                           <img class="img-thumbnail" style="max-height: inherit" src= "{{image.url}}">
                         </div>

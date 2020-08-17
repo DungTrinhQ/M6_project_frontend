@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TestService} from '../test.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -19,7 +19,8 @@ export class EditStatusComponent implements OnInit {
   status: Istatus;
   account: IAccount;
   selectedImage:any = null;
-  isUploadImage = false;
+  isHaveImage = false;
+  isUpdateImage = false;
 
 
   constructor(
@@ -48,22 +49,27 @@ export class EditStatusComponent implements OnInit {
     })
   }
   getStatus(id: number){
+    console.log('get status')
     this.testService.getStatus(id).subscribe((res: Istatus) => {
       this.status = res;
-      if(this.status.images == ''){
-        this.status.images= [{
-          url: ['']
-        }]
-      }
-      else {
-        this.isUploadImage = true;
+      if(this.status.images != ''){
+        this.isHaveImage = true;
       }
       this.editFormStatus.patchValue(this.status);
     })
   }
   saveStatus(){
-    let content = this.editFormStatus.value.content;
-    this.status.content = content;
+    if(this.isHaveImage == true){
+      this.updateImageStatus()
+    }
+    this.status.content = this.editFormStatus.value.content;
+    console.log('save status')
+    if(this.isUpdateImage == true){
+      this.updateImageStatus()
+    }
+    else {
+      this.update(this.status)
+    }
   }
 
   updateImageStatus() {
@@ -76,9 +82,7 @@ export class EditStatusComponent implements OnInit {
             this.status.images.map(
               image => image.url =  url
             )
-            this.testService.editStatus(this.status).subscribe(() => {
-              this.router.navigate(['account/' + this.tokenStorageService.getAccount()])
-            })
+            this.update(this.status)
           })
         )
       ).subscribe();
@@ -86,6 +90,12 @@ export class EditStatusComponent implements OnInit {
   }
 
   loadImgFile(even:any) {
+    if(this.status.images == ''){
+      this.status.images= [{
+        url: ['']
+      }]
+    }
+    console.log('load image')
     if(even.target.files && even.target.files[0]){
       const reader = new FileReader();
       reader.onload = (e:any) => {
@@ -95,12 +105,19 @@ export class EditStatusComponent implements OnInit {
       }
       reader.readAsDataURL(even.target.files[0]);
       this.selectedImage = even.target.files[0];
-      this.isUploadImage = true;
+      this.isHaveImage = true;
+      this.isUpdateImage = true;
     }else {
       this.selectedImage = null;
     }
 
   }
+  update(data : any){
+    this.testService.editStatus(this.status).subscribe(() => {
+      this.router.navigate(['account/' + this.tokenStorageService.getAccount()])
+    })
+  }
 
 
 }
+
