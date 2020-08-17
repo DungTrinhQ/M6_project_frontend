@@ -87,16 +87,6 @@ export class StatusFormComponent implements OnInit {
       const imgReader = new FileReader();
       imgReader.onload = (e: any) => {
         this.imgOne = e.target.result;
-        // if(this.totalImg == 0){
-        //   this.imgOne = e.target.result;
-        //   imgReader.readAsDataURL(event.target.files[0]);
-        // }else if(this.totalImg == 1){
-        //   this.imgTwo = e.target.result;
-        //   imgReader.readAsDataURL(event.target.files[0]);
-        // }else{
-        //   this.imgThree = e.target.result;
-        //   imgReader.readAsDataURL(event.target.files[0]);
-        // }
       };
       imgReader.readAsDataURL(event.target.files[0]);
       this.totalImg++;

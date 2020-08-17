@@ -29,6 +29,14 @@ export class StatusComponent implements OnInit {
   @Input()
   currentAccount:IAccount;
 
+  currentStatus: Istatus = {
+    id: 0,
+    content:'',
+    images:[],
+    totalComments:0,
+    totalLikes:0,
+
+  };
 
   new_comment: Icomment = {
     content: '',
@@ -169,5 +177,14 @@ export class StatusComponent implements OnInit {
       }
     )
 
+  }
+
+  getStatusForm(status:Istatus) {
+    this.currentStatus = status;
+
+  }
+
+  updateInfo() {
+    console.log("Hàm update");
   }
 }
