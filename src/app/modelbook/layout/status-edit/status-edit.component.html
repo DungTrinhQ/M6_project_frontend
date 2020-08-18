@@ -34,7 +34,7 @@
       <button [hidden]="showEditForm" class="btn btn-sm btn-warning" (click)="getCurrentStatus()">Chỉnh sửa</button>
       <div [hidden]="!showEditForm">
         <button (click)="pickImg.click()" class="btn btn-sm btn-success">Ảnh</button>
-        <button class="btn btn-sm btn-danger" (click)="deleteImg()">Xóa ảnh</button>
+        <button [hidden]="currentStatus.images != null" class="btn btn-sm btn-danger" (click)="deleteImg()">Xóa ảnh</button>
       </div>
       <input #pickImg hidden type="file" (change)="showPreview($event)">
     </div>

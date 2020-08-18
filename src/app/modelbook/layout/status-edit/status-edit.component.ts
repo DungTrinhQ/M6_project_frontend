@@ -122,5 +122,6 @@ export class StatusEditComponent implements OnInit {
 
   changeEditStatus() {
     this.showEditForm = false;
+    window.location.reload();
   }
 }
