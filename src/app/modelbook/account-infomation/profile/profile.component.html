@@ -35,23 +35,23 @@
             </ul>
 
             <!-- User button -->
-            <div class="user-button">
+            <div class="user-button mt-3">
               <div class="row">
                 <div class="col-12">
-                  <button type="button" routerLink="/" class="btn btn-primary btn-block">Trang chủ</button>
+                  <button type="button" routerLink="/" class="btn btn-primary btn-block mb-3">Trang chủ</button>
                 </div>
                 <div class="col-12" *ngIf="accountId != path_id && isNoRelation">
-                  <button type="button" class="btn btn-secondary  btn-block" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Thêm bạn</button>
+                  <button type="button" class="btn btn-secondary  btn-block mb-3" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Thêm bạn</button>
                 </div>
                 <div class="col-12" *ngIf="isPending">
-                  <button class="btn btn-secondary btn-block disabled">Chờ xác nhận</button>
+                  <button class="btn btn-secondary btn-block disabled mb-3">Chờ xác nhận</button>
                 </div>
                 <div class="col-12" *ngIf="isFriend">
-                  <button class="btn btn-primary btn-block disabled">Bạn bè</button>
+                  <button class="btn btn-primary btn-block disabled mb-3">Bạn bè</button>
                 </div>
                 <div class="col-12" *ngIf="accountId == path_id">
                   <!--Edit button-->
-                  <button routerLink="/account/edit" class="btn btn-outline-primary btn-block"><i class="fas fa-user-edit"></i></button>
+                  <button routerLink="/account/edit" class="btn btn-outline-primary btn-block mb-3"><i class="fas fa-user-edit"></i></button>
                 </div>
               </div>
             </div><!-- End div .user-button -->

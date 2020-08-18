@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit {
       }else{
         this.notificationService.fail("Không thể gửi yêu cầu kết bạn.")
       }
-    })
+    },()=>this.notificationService.fail("Lỗi kết nối"))
 
   }
   getCommentContent(event, id){

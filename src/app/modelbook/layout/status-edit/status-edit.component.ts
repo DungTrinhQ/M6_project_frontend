@@ -5,7 +5,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {NotificationService} from '../../../service/notification.service';
-import {dashCaseToCamelCase} from '@angular/compiler/src/util';
 import {Router} from '@angular/router';
 import {IImage} from '../../../models/iimage';
 
