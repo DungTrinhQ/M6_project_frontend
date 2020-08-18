@@ -1,15 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CommentService} from '../../../service/comment/comment.service';
-import {Icomment} from '../../../models/icomment';
-import {ActivatedRoute} from '@angular/router';
-import {LikesService} from '../../../service/likes/likes.service';
+import {Icomment} from '../../../../models/icomment';
+import {CommentService} from '../../../../service/comment/comment.service';
+import {LikesService} from '../../../../service/likes/likes.service';
 
 @Component({
-  selector: 'app-comments-zone',
-  templateUrl: './comments-zone.component.html',
-  styleUrls: ['./comments-zone.component.css']
+  selector: 'app-show-comment',
+  templateUrl: './show-comment.component.html',
+  styleUrls: ['./show-comment.component.css']
 })
-export class CommentsZoneComponent implements OnInit {
+export class ShowCommentComponent implements OnInit {
+
 
   @Output()
   commentResp = new EventEmitter();
@@ -48,7 +48,7 @@ export class CommentsZoneComponent implements OnInit {
   likeComment(comment_id: number,event){
 
     this.likeService.likeComment(this.current_id, comment_id).subscribe((resp) => {
-        this.getComment(this.status_id);
+      this.getComment(this.status_id);
     })
     this.commentResp.emit(event);
   }

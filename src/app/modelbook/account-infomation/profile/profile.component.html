@@ -4,7 +4,7 @@
     <div class="profile-banner" style="background-image:
     url(https://picsum.photos/800/200);">
       <div class="col-sm-3 avatar-container">
-        <img [src]="accounts.avatarUrl?accounts.avatarUrl:'../../../../assets/static/img/avatar-default.png'" class="rounded-circle profile-avatar" alt="User avatar">
+        <img [src]="account.avatarUrl?account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" class="rounded-circle profile-avatar" alt="User avatar">
       </div>
       <!--      <div class="col-sm-12 profile-actions text-right">-->
       <!--        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Friends</button>-->
@@ -19,15 +19,15 @@
           <div style="margin-top:120px">
             <ul class="list-group">
               <li class="text-center list-group-item">
-                <h4><b>{{accounts.name}}</b></h4>
+                <h4><b>{{account.name}}</b></h4>
               </li>
               <li class="list-group-item">
                 <span class="badge">Email:</span>
-                <span>{{accounts.email}}</span>
+                <span>{{account.email}}</span>
               </li>
               <li class="list-group-item">
                 <span class="badge">Phone:</span>
-                <span>{{accounts.phoneNumber}}</span>
+                <span>{{account.phoneNumber}}</span>
               </li>
               <li class="list-group-item">
                 <span class="badge">Bạn Bè: </span>
@@ -114,22 +114,22 @@
                     </div>
                     <br><br>
 
-                    <ng-container *ngFor="let st of status" style="padding-left: 0px">
+                    <ng-container *ngFor="let st of newFeedResponse, index as i" style="padding-left: 0px">
                       <div class="card mb-3">
                         <div class="card-header">
                           <div class="d-flex justify-content-between">
                             <div class="left-top-head">
                               <div class="img-container d-flex flex-row align-items-center" >
-                                <img class="img-inside rounded-circle" [src]="st.account.avatarUrl?st.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
+                                <img class="img-inside rounded-circle" [src]="st.status.account.avatarUrl?st.status.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
                                 <div class="ml-3">
-                                  <a class="account-link" [routerLink]="'/account/'+st.account.id">
-                                    <h4>{{st.account.name}}</h4>
+                                  <a class="account-link" [routerLink]="'/account/'+st.status.account.id">
+                                    <h4>{{st.status.account.name}}</h4>
                                   </a>
                                 </div>
 
                               </div>
                               <div class="the-date">
-                                <span>{{st.createDate.toDateString()}}</span>
+                                <span>{{st.status.createDate.toDateString()}}</span>
                               </div>
                             </div>
                             <div class="dropdown">
@@ -153,20 +153,20 @@
                           <div style="list-style: none">
                             <div class="upper-content px-3 pt-3">
                               <p>
-                                {{st.content}}
+                                {{st.status.content}}
                               </p>
-                              <div class="d-flex flex-row justify-content-start" *ngIf="st.images != null">
-                                <div  class="img-box" style="max-height: 300px" *ngFor="let img of st.images">
+                              <div class="d-flex flex-row justify-content-start" *ngIf="st.status.images != null">
+                                <div  class="img-box" style="max-height: 300px" *ngFor="let img of st.status.images">
                                   <img class="img-thumbnail" style="max-height: inherit" src="{{img.url}}" alt="img">
                                 </div>
                               </div>
                               <br>
                               <span>
-                              {{st.totalLikes}} Lượt thích
+                              {{st.status.totalLikes}} Lượt thích
                             </span>
                               <span>&nbsp;</span>
                               <span>
-                              {{st.totalComments}} Bình luận
+                              {{st.status.totalComments}} Bình luận
                             </span>
                             </div>
 
@@ -177,17 +177,12 @@
                                 <button type="button"  class="btn  btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
                               </div>
                               <div class="text-center col-4 py-1 px-0">
-                                <a style="text-decoration: none" href="#newfeed{{st.id}}" role="button"
+                                <a style="text-decoration: none" href="#newfeed{{st.status.id}}" role="button"
                                    data-toggle="collapse" aria-expanded="false" >
-                                  <button class="btn  btn-block mt-0">
+                                  <button class="btn  btn-block mt-0" (click)="loadComments(st.status.id, i, newFeedResponse)">
                                     <i class="fa fa-comment"></i> Comment
                                   </button>
                                 </a>
-<!--                                <button type="button" class="btn btn-light btn-block mt-0"-->
-<!--                                        data-toggle="collapse"  data-target="#newfeed{{st.id}}"-->
-<!--                                        aria-expanded="false"-->
-<!--                                        aria-controls="collapseExample"><i class="fa fa-comment">&nbsp;</i>Comment-->
-<!--                                </button>-->
                               </div>
                               <div class="text-center col-4 py-1 px-0">
                                 <button type="button" class="btn  btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
@@ -196,17 +191,9 @@
                           </div>
                         </div>
                         <div class="card-footer">
-
-                          <div id="newfeed{{st.id}}" class="collapse" >
-<!--                            <div *ngFor="let comment of st.comments">-->
-<!--                              <span>-->
-<!--                                <a href="/account/{{comment.account.id}}">{{comment.account.name}}</a>&nbsp;-->
-<!--                                <span>{{comment.content}}</span>-->
-<!--                              </span>-->
-<!--                            </div>-->
-                            <div *ngIf="isFriend || accountId == path_id">
-                              <app-comment (commentConetent)="getCommentContent($event, st.id)"></app-comment>
-                            </div>
+                          <app-show-comment [comments]="newFeedResponse[i].status.comments" [current_id]="accountId" (delete_comment_id)="delete_comment($event,st.status.id,i)" (commentResp)="loadComment(st.status.id)" [status_id]="status_id" ></app-show-comment>
+                          <div *ngIf="isFriend || accountId == path_id">
+                            <app-comment (commentConetent)="addComment($event, st.status.id, i)" [account] = "account" ></app-comment>
                           </div>
                         </div>
                       </div>
