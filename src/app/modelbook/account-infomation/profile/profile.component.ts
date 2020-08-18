@@ -31,11 +31,10 @@ export class ProfileComponent implements OnInit {
     email: '',
     password: ''
   };
-  status: Istatus[];
+  statusList: Array<Istatus> = [];
   statusResult: Istatus[];
   statusResultToken: Istatus[];
   newFeedResponse: INewfeedResponse[];
-  statusComments: Icomment[];
   comment: Icomment;
   accountId:number;
   status_id: number;
@@ -96,15 +95,21 @@ export class ProfileComponent implements OnInit {
   getNewFeed() {
     this.accountService.getListStatusByAccount(this.path_id).subscribe(
       (newfeed:any) => {
+
         this.newFeedResponse = newfeed;
-        console.log(this.newFeedResponse);
+
         this.newFeedResponse.map(
-          status1 =>
+        status1 =>
             status1.status.createDate = new Date(status1.status.createDate));
+        this.getAllStatus(this.newFeedResponse);
       }
     );
-    console.log('get new feed');
 
+  }
+  getAllStatus(newfeedResponse: INewfeedResponse[]){
+    for(let i =0; i<= newfeedResponse.length; i++){
+      this.statusList.push(newfeedResponse[i].status);
+    }
   }
 
   addStatus() {
@@ -170,7 +175,7 @@ export class ProfileComponent implements OnInit {
     this.statusResult = (keyword) ? this.filterByKeyword(keyword) :this.statusResultToken;
   }
   filterByKeyword(keyword){
-    return this.status.filter(res => {
+    return this.statusList.filter(res => {
       return res.content.toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1;
     })
   }
