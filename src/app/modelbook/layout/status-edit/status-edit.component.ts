@@ -53,10 +53,18 @@ export class StatusEditComponent implements OnInit {
   }
 
   showPreview(event: any) {
+    console.log("hàm showpreview");
+    if(this.currentStatus.images == ''){
+      this.currentStatus.images = [{
+        url: [''],
+      }]
+    }
     if (event.target.files && event.target.files[0]) {
       const imgReader = new FileReader();
       imgReader.onload = (e: any) => {
-        this.currentStatus.images[0].url = e.target.result;
+        this.currentStatus.images.map(
+          image => image.url = e.target.result,
+        )
       };
       imgReader.readAsDataURL(event.target.files[0]);
       this.selectedImage = event.target.files[0];
