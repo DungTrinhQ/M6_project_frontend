@@ -7,6 +7,7 @@ import {ProfileComponent} from './profile/profile.component';
 import { CommentComponent } from './profile/comment/comment.component';
 import { SearchStatusComponent } from './profile/search-status/search-status.component';
 import {AppModule} from '../../app.module';
+import { ShowCommentComponent } from './profile/show-comment/show-comment.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
     ProfileComponent,
     CommentComponent,
     SearchStatusComponent,
+    ShowCommentComponent,
   ],
   imports: [
         CommonModule,
