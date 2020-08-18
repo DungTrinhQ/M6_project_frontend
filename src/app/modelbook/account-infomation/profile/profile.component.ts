@@ -182,6 +182,7 @@ export class ProfileComponent implements OnInit {
     return this.commentService.getCommentsByStatusId(id,this.accountId).toPromise();
   }
 
+
   async loadComments(id: number, index: number, statues: INewfeedResponse[]) {
     const comments = await this.getCommentByStatus(id);
     statues[index].status.comments = comments;
