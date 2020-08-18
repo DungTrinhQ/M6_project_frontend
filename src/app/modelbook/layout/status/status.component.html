@@ -23,7 +23,7 @@
             <i class="fas fa-ellipsis-h"></i>
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-            <a class="dropdown-item" href="#">Chỉnh sửa</a>
+            <a class="dropdown-item"  (click)="getStatusForm(st.status)" *ngIf="st.status.account.id == current_id" data-toggle="modal" data-target="#statusEditForm">Chỉnh sửa</a>
             <a class="dropdown-item" (click)="deleteStatus(st.status.id)" *ngIf="st.status.account.id == current_id" >Xóa</a>
             <a class="dropdown-item" *ngIf="st.status.account.id !== current_id">Ẩn</a>
             <!--                                  <a class="dropdown-item" href="#">Something else here</a>-->
@@ -74,7 +74,7 @@
       <app-comments-zone [comments]="newFeedResponse[i].status.comments" [current_id]="current_id" (delete_comment_id)="delete_comment($event,st.status.id,i)" (commentResp)="loadComment(st.status.id,$event)" [status_id]="status_id"></app-comments-zone>
       <div class="row ">
         <div class="col-lg-1 col-md-2 small-avatar-container">
-          <img class="small-avatar rounded-circle" src="../../../../assets/static/img/avatar-default.png"/>
+          <img class="small-avatar rounded-circle" [src]="currentAccount.avatarUrl?currentAccount.avatarUrl:'../../../../assets/static/img/avatar-default.png'"/>
         </div>
         <div class="col-lg-11 col-md-10 d-flex justify-content-end align-items-center">
           <div style="width: 85%">
@@ -88,3 +88,12 @@
     </div>
   </div>
 </ng-container>
+
+<!--Hidden Modal div-->
+<div class="modal fade" id="statusEditForm" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-status-edit [currentStatus]="currentStatus"></app-status-edit>
+    </div>
+  </div>
+</div>

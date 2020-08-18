@@ -37,4 +37,8 @@ export class StatusService {
   createStatus(id: number,data: Istatus):Observable<any>{
     return this.http.post(this.URL +id+'/create-status',data);
   }
+
+  editStatus(data : any): Observable<any>{
+    return this.http.put(this.URL + 'edit-status', data);
+  }
 }

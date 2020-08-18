@@ -23,6 +23,8 @@ import { StatusComponent } from './modelbook/layout/status/status.component';
 import { TestComponent } from './dev/test/test.component';
 import { CommentsZoneComponent } from './modelbook/layout/comments-zone/comments-zone.component';
 import { StatusFormComponent } from './modelbook/layout/status-form/status-form.component';
+import { EditStatusComponent } from './dev/test/edit-status/edit-status.component';
+import { StatusEditComponent } from './modelbook/layout/status-edit/status-edit.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +40,9 @@ import { StatusFormComponent } from './modelbook/layout/status-form/status-form.
         StatusComponent,
         CommentsZoneComponent,
         StatusFormComponent,
+        EditStatusComponent,
+        TestComponent,
+        StatusEditComponent,
     ],
     imports: [
         BrowserModule,

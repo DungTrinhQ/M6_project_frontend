@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="staticBackdropLabel">Chi tiết trạng thái</h5>
+  <button type="button" (click)="changeEditStatus()" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div>
+    <div [hidden]="!showEditForm">
+      <form  [formGroup]="editForm">
+        <input style="width: 100%" type="text" formControlName="content">
+      </form>
+    </div>
+    <div  class="upper-content px-3 pt-3">
+      <div [hidden]="showEditForm">
+        <p >
+          {{currentStatus.content}}
+        </p>
+      </div>
+      <div class="d-flex flex-row justify-content-start" *ngIf="currentStatus.images != null">
+        <div  class="img-box" style="max-height: 300px; max-width: 300px" *ngFor="let img of currentStatus.images">
+          <img [hidden]="hideImg" class="img-under" style="max-height: inherit;max-width: inherit" [src]="img.url" alt="img">
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-between" *ngIf="currentStatus.images == null">
+        <div class="img-box" style="max-height: 300px; max-width: 300px">
+          <img [hidden]="hideImg" class="img-under"
+               style="max-height: inherit;max-width: inherit"
+               [src]="newImg.url" alt="img">
+        </div>
+
+      </div>
+      <br>
+      <button [hidden]="showEditForm" class="btn btn-sm btn-warning" (click)="getCurrentStatus()">Chỉnh sửa</button>
+      <div [hidden]="!showEditForm">
+        <button (click)="pickImg.click()" class="btn btn-sm btn-success">Ảnh</button>
+        <button [hidden]="currentStatus.images != null" class="btn btn-sm btn-danger" (click)="deleteImg()">Xóa ảnh</button>
+      </div>
+      <input #pickImg hidden type="file" (change)="showPreview($event)">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" (click)="changeEditStatus()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  <button type="button" (click)="submit()" class="btn btn-primary">Cập nhật</button>
+</div>
+
