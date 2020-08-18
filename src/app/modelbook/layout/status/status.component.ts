@@ -26,6 +26,8 @@ export class StatusComponent implements OnInit {
 
   delete_comment_id:number;
 
+  status_id:number;
+
   @Input()
   currentAccount:IAccount;
 
@@ -98,7 +100,7 @@ export class StatusComponent implements OnInit {
   }
 
   getCommentByStatus(id: number) {
-    return this.commentService.getCommentsByStatusId(id).toPromise();
+    return this.commentService.getCommentsByStatusId(id,this.current_id).toPromise();
   }
 
   async loadComments(id: number, index: number, statues: INewfeedResponse[]) {
@@ -187,4 +189,10 @@ export class StatusComponent implements OnInit {
   updateInfo() {
     console.log("Hàm update");
   }
+
+  loadComment(stt_id: number,event){
+    this.status_id= stt_id;
+  }
+
+
 }

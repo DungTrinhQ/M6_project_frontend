@@ -71,7 +71,7 @@
       </div>
     </div>
     <div class="card-footer">
-      <app-comments-zone [comments]="newFeedResponse[i].status.comments" [current_id]="current_id" (delete_comment_id)="delete_comment($event,st.status.id,i)"></app-comments-zone>
+      <app-comments-zone [comments]="newFeedResponse[i].status.comments" [current_id]="current_id" (delete_comment_id)="delete_comment($event,st.status.id,i)" (commentResp)="loadComment(st.status.id,$event)" [status_id]="status_id"></app-comments-zone>
       <div class="row ">
         <div class="col-lg-1 col-md-2 small-avatar-container">
           <img class="small-avatar rounded-circle" [src]="currentAccount.avatarUrl?currentAccount.avatarUrl:'../../../../assets/static/img/avatar-default.png'"/>
