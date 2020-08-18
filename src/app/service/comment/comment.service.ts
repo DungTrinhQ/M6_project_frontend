@@ -14,8 +14,12 @@ export class CommentService {
 
   constructor(private http:HttpClient) { }
 
-  getCommentsByStatusId(status_id:number):Observable<any>{
-    return this.http.get(this.URL+'get-comments/'+status_id);
+  getCommentsByStatusId(status_id:number,account_id: number):Observable<any>{
+    return this.http.get(this.URL+'response-comment/' + status_id + '/' + account_id);
+  }
+
+  getCommentResponse(status_id: number,account_id: number):Observable<any>{
+    return this.http.get(this.URL + 'response-comment/' + status_id + '/' + account_id)
   }
 
   createComment(data : Icomment, id_comment: number): Observable<any>{
