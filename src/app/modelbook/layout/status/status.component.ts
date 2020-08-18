@@ -9,6 +9,7 @@ import {NotificationService} from '../../../service/notification.service';
 import {LikesService} from '../../../service/likes/likes.service';
 import {INewfeedResponse} from '../../../models/response-observable/inewfeed-response';
 import {IAccount} from '../../../models/iaccount';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-status',
@@ -50,6 +51,10 @@ export class StatusComponent implements OnInit {
 
   status_id_loading_comments: number;
 
+  total_record:number = 0;
+  notEmptyRecord = true;
+  notScroll = true;
+
 
 
   constructor(private accountService: AccountService,
@@ -57,12 +62,12 @@ export class StatusComponent implements OnInit {
               private statusService: StatusService,
               private commentService: CommentService,
               private notice: NotificationService,
-              private likeService: LikesService) {
+              private likeService: LikesService,) {
   }
 
   ngOnInit(): void {
     this.current_id = this.token.getAccount();
-    this.getNewFeed();
+    this.getFirstNewFeed()
   }
 
   // getStatusList() {
@@ -72,11 +77,13 @@ export class StatusComponent implements OnInit {
   //     });
   // }
 
-  getNewFeed() {
-    this.statusService.getNewFeed2(this.current_id).subscribe(
+  getFirstNewFeed() {
+    this.statusService.getNewFeed2(this.current_id,0).subscribe(
       (newfeed:any) => {
         // console.log(newfeed);
         this.newFeedResponse = newfeed;
+        this.total_record += 5;
+        console.log("số bản ghi: "+this.total_record);
         this.newFeedResponse.map(
           status1 =>
             status1.status.createDate = new Date(status1.status.createDate));
@@ -89,7 +96,7 @@ export class StatusComponent implements OnInit {
     this.statusService.deleteStatusById(id).subscribe((response) => {
       if (response.message == 'xóa thành công') {
         this.notice.success("Xóa thành công");
-        this.getNewFeed();
+        // this.getNewFeed();
       } else {
         this.notice.fail("Thử lại sau");
       }
@@ -114,7 +121,7 @@ export class StatusComponent implements OnInit {
       (data)=>{
         if(data.message == 'success'){
           this.notice.success("Like thanh cong")
-          this.getNewFeed();
+          // this.getNewFeed();
         }else {
           this.notice.fail("like loi")
         }
@@ -129,7 +136,7 @@ export class StatusComponent implements OnInit {
       (response)=>{
         if(response.message == 'success'){
           this.notice.success("Unlike thành công");
-          this.getNewFeed();
+          // this.getNewFeed();
         }else {
           this.notice.fail("Unlike thất bại")
         }
@@ -186,8 +193,33 @@ export class StatusComponent implements OnInit {
 
   }
 
-  updateInfo() {
-    console.log("Hàm update");
+  onScroll() {
+    if(this.notScroll&& this.notEmptyRecord){
+      console.log("đang cuộn");
+      this.notScroll = false;
+      this.getNextNewFeed()
+    }
+
+  }
+
+  private getNextNewFeed() {
+    this.statusService.getNewFeed2(this.current_id,this.total_record).subscribe(
+      (newfeed:any) => {
+        if(newfeed.length==0){
+          this.notEmptyRecord = false;
+        }
+        for(let i = 0;i< newfeed.length;i++){
+          this.newFeedResponse.push(newfeed[i]);
+        }
+        console.log(this.newFeedResponse);
+        this.total_record += 5;
+        console.log("số bản ghi: "+this.total_record);
+        this.notScroll =true;
+        this.newFeedResponse.map(
+          status1 =>
+            status1.status.createDate = new Date(status1.status.createDate));
+      },()=>{this.notice.fail("Lỗi kết nối");}
+    );
   }
 
   loadComment(stt_id: number,event){

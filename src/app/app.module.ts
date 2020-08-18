@@ -25,6 +25,7 @@ import { CommentsZoneComponent } from './modelbook/layout/comments-zone/comments
 import { StatusFormComponent } from './modelbook/layout/status-form/status-form.component';
 import { EditStatusComponent } from './dev/test/edit-status/edit-status.component';
 import { StatusEditComponent } from './modelbook/layout/status-edit/status-edit.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import { StatusEditComponent } from './modelbook/layout/status-edit/status-edit.
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireDatabaseModule,
         FormsModule,
-        AccountInfomationModule
+        AccountInfomationModule,
+        InfiniteScrollModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
