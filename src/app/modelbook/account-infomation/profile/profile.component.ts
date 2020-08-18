@@ -35,9 +35,8 @@ export class ProfileComponent implements OnInit {
   statusResult: Istatus[];
   statusResultToken: Istatus[];
   newFeedResponse: INewfeedResponse[];
-  statusComments: Icomment[];
   comment: Icomment;
-  accountId:number;
+  curent_accoutID:number;
   status_id: number;
   isFriend = false;
   isPending = false;
@@ -59,7 +58,7 @@ export class ProfileComponent implements OnInit {
 
   path_id = +this.route.snapshot.paramMap.get('id');
   ngOnInit(): void {
-    this.accountId = this.tokenService.getAccount();
+    this.curent_accoutID = this.tokenService.getAccount();
     this.statusForm = this.fb.group({
       content: ['']
     })
@@ -94,15 +93,15 @@ export class ProfileComponent implements OnInit {
     })
   }
   getAllStatus(){
-    this.accountService.getListStatusByAccount(this.accountId).subscribe((res : any) =>{
+    this.accountService.getListStatusByAccount(this.curent_accoutID).subscribe((res : any) =>{
       this.status = res;
     })
   }
 
   getNewFeed() {
-    this.statusService.getNewFeed2(this.accountId).subscribe(
+    this.statusService.getNewFeed2(this.path_id).subscribe(
       (newfeed:any) => {
-        // console.log(newfeed);
+        console.log(newfeed);
         this.newFeedResponse = newfeed;
         this.newFeedResponse.map(
           status1 =>
@@ -121,7 +120,7 @@ export class ProfileComponent implements OnInit {
     if (this.statusForm.value.content == ""){
       this.notificationService.fail("Vui lòng nhập nội dung")
     }else {
-      this.accountService.createStatus(this.accountId,st).subscribe(
+      this.accountService.createStatus(this.curent_accoutID,st).subscribe(
         (httpResponse)=>{
           if(httpResponse.message == 'success'){
             this.getNewFeed()
@@ -179,7 +178,7 @@ export class ProfileComponent implements OnInit {
     })
   }
   getCommentByStatus(id: number) {
-    return this.commentService.getCommentsByStatusId(id,this.accountId).toPromise();
+    return this.commentService.getCommentsByStatusId(id,this.curent_accoutID).toPromise();
   }
 
 
@@ -190,7 +189,7 @@ export class ProfileComponent implements OnInit {
   }
 
   likeStatus(id: number,index:number) {
-    this.likesService.likeStatus(id,this.accountId).subscribe(
+    this.likesService.likeStatus(id,this.curent_accoutID).subscribe(
       (data)=>{
         if(data.message == 'success'){
           this.notice.success("Like thanh cong")
@@ -205,7 +204,7 @@ export class ProfileComponent implements OnInit {
   }
 
   unlikeStatus(status_id: number) {
-    this.likesService.unlikeStatus(this.accountId,status_id).subscribe(
+    this.likesService.unlikeStatus(this.curent_accoutID,status_id).subscribe(
       (response)=>{
         if(response.message == 'success'){
           this.notice.success("Unlike thành công");

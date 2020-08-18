@@ -40,7 +40,7 @@
                 <div class="col-12">
                   <button type="button" routerLink="/" class="btn btn-primary btn-block mb-3">Trang chủ</button>
                 </div>
-                <div class="col-12" *ngIf="accountId != path_id && isNoRelation">
+                <div class="col-12" *ngIf="curent_accoutID != path_id && isNoRelation">
                   <button type="button" class="btn btn-secondary  btn-block mb-3" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Thêm bạn</button>
                 </div>
                 <div class="col-12" *ngIf="isPending">
@@ -49,7 +49,7 @@
                 <div class="col-12" *ngIf="isFriend">
                   <button class="btn btn-primary btn-block disabled mb-3">Bạn bè</button>
                 </div>
-                <div class="col-12" *ngIf="accountId == path_id">
+                <div class="col-12" *ngIf="curent_accoutID == path_id">
                   <!--Edit button-->
                   <button routerLink="/account/edit" class="btn btn-outline-primary btn-block mb-3"><i class="fas fa-user-edit"></i></button>
                 </div>
@@ -80,7 +80,7 @@
 
                   <!-- Begin timeline -->
                   <div class="the-timeline">
-                      <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == path_id">
+                      <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="curent_accoutID == path_id">
                         <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Bạn đang nghĩ gì?"></textarea>
                         <div class="row">
                           <div class="col-sm-6">
@@ -91,7 +91,7 @@
                           <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
                         </div>
                       </form>
-                    <div *ngIf="accountId == path_id">
+                    <div *ngIf="curent_accoutID == path_id">
                       <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
                     </div>
                     <div>
@@ -142,8 +142,8 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                                 <a class="dropdown-item" href="#">Chỉnh sửa</a>
-                                <a class="dropdown-item" *ngIf="path_id == accountId">Xóa</a>
-                                <a class="dropdown-item" *ngIf="path_id != accountId">Ẩn</a>
+                                <a class="dropdown-item" *ngIf="path_id == curent_accoutID">Xóa</a>
+                                <a class="dropdown-item" *ngIf="path_id != curent_accoutID">Ẩn</a>
                                 <!--                                  <a class="dropdown-item" href="#">Something else here</a>-->
                               </div>
                             </div>
@@ -194,8 +194,8 @@
                           </div>
                         </div>
                         <div class="card-footer">
-                          <app-show-comment [comments]="newFeedResponse[i].status.comments" [current_id]="accountId" (delete_comment_id)="delete_comment($event,st.status.id,i)" (commentResp)="loadComment(st.status.id)" [status_id]="status_id" ></app-show-comment>
-                          <div *ngIf="isFriend || accountId == path_id">
+                          <app-show-comment [comments]="newFeedResponse[i].status.comments" [current_id]="curent_accoutID" (delete_comment_id)="delete_comment($event,st.status.id,i)" (commentResp)="loadComment(st.status.id)" [status_id]="status_id" ></app-show-comment>
+                          <div *ngIf="isFriend || curent_accoutID == path_id">
                             <app-comment (commentConetent)="addComment($event, st.status.id, i)" [account] = "account" ></app-comment>
                           </div>
                         </div>
