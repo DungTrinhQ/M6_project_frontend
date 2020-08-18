@@ -1,3 +1,11 @@
+<div class="search-results"
+     infiniteScroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="50"
+     (scrolled)="onScroll()">
+
+
+
 <ng-container *ngFor="let st of newFeedResponse; index as i" style="padding-left: 0px">
   <div class="card mb-3">
     <div class="card-header">
@@ -89,6 +97,8 @@
   </div>
 </ng-container>
 
+</div>
+
 <!--Hidden Modal div-->
 <div class="modal fade" id="statusEditForm" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -97,3 +107,21 @@
     </div>
   </div>
 </div>
+
+<div class="row pb-10">
+  <div class="col-12 p-5">
+    <div [hidden]="!notScroll || !notEmptyRecord" class="text-center">
+      <div class="spinner-border" role="status">
+<!--        <span class="sr-only">Loading...</span>-->
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="notEmptyRecord" class="col-12 p-5">
+    <div class="text-center border border-light rounded-lg">
+      <h4>Hết rồi bạn hiền ơi!</h4>
+    </div>
+  </div>
+
+</div>
+

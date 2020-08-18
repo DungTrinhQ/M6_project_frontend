@@ -30,8 +30,8 @@ export class StatusService {
     return this.http.get<Istatus>(this.URL+'get-one-status/'+id);
   }
 
-  getNewFeed2(id:number):Observable<Istatus[]>{
-    return this.http.get<Istatus[]>(this.URL+'newfeed2/'+id);
+  getNewFeed2(id:number,total_record:number):Observable<Istatus[]>{
+    return this.http.get<Istatus[]>(this.URL+'newfeed2/'+id+'/'+total_record);
   }
 
   createStatus(id: number,data: Istatus):Observable<any>{
