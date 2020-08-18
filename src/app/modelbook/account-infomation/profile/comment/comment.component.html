@@ -1,12 +1,14 @@
 <form action="" [formGroup]="createCommentForm" (ngSubmit)="getComment()">
-  <div class="row">
-    <div class="d-flex align-items-center">
-      <div class="col-2 small-avatar-container">
-        <img class="small-avatar" src="../../../../../assets/static/img/avatar-default.png"/>
+  <div class="card-footer">
+    <div class="row ">
+      <div class="col-lg-1 col-md-2 small-avatar-container">
+        <img class="small-avatar rounded-circle" [src]="account.avatarUrl?account.avatarUrl:'../../../../assets/static/img/avatar-default.png'"/>
       </div>
-      <div class="col-10">
-        <input type="text" formControlName="content" >
-        <input type="submit" value="Send">
+      <div class="col-lg-11 col-md-10 d-flex justify-content-end align-items-center">
+        <div style="width: 85%">
+          <input style="border: none;width: 100%" class="input-comment rounded-lg" formControlName="content" type="text" placeholder="Viết bình luận"  >
+        </div>
+        <button class="btn btn-sm btn-primary ml-3" type="button" (click)="getComment()">Bình luận</button>
       </div>
     </div>
   </div>

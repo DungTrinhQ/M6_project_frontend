@@ -14,7 +14,6 @@ export class SearchStatusComponent implements OnInit {
   ngOnInit(): void {
   }
   getKeyWord(event){
-    // let value = (<HTMLInputElement>document.getElementById("keyStatusSearch")).value;
     let value = event.target.value;
     this.keyword_status_search.emit(value);
   }

@@ -10,6 +10,10 @@ import {FriendService} from '../../../service/friend/friend.service';
 import {Icomment} from '../../../models/icomment';
 import {Ifriend} from '../../../models/ifriend';
 import {NotificationService} from '../../../service/notification.service';
+import {CommentService} from '../../../service/comment/comment.service';
+import {INewfeedResponse} from '../../../models/response-observable/inewfeed-response';
+import {LikesService} from '../../../service/likes/likes.service';
+import {StatusService} from '../../../service/status/status.service';
 
 declare var $: any;
 declare var Swal: any;
@@ -21,7 +25,7 @@ declare var Swal: any;
 export class ProfileComponent implements OnInit {
 
   statusForm: FormGroup;
-  accounts: IAccount = {
+  account: IAccount = {
     avatarUrl: '',
     name: '',
     email: '',
@@ -30,9 +34,11 @@ export class ProfileComponent implements OnInit {
   status: Istatus[];
   statusResult: Istatus[];
   statusResultToken: Istatus[];
+  newFeedResponse: INewfeedResponse[];
+  statusComments: Icomment[];
   comment: Icomment;
   accountId:number;
-  isCurrentAccount = false;
+  status_id: number;
   isFriend = false;
   isPending = false;
   isNoRelation = false;
@@ -44,6 +50,10 @@ export class ProfileComponent implements OnInit {
               private router: Router,
               private tokenService: TokenStorageService,
               private friendService: FriendService,
+              private commentService: CommentService,
+              private statusService: StatusService,
+              private likesService: LikesService,
+              private notice: NotificationService,
               private notificationService: NotificationService) {
   }
 
@@ -55,7 +65,8 @@ export class ProfileComponent implements OnInit {
     })
     this.getAccount()
     this.checkRelationShip();
-    this.getStatus()
+    this.getNewFeed();
+    this.getAllStatus()
   }
 
   checkRelationShip(){
@@ -79,19 +90,25 @@ export class ProfileComponent implements OnInit {
 
   getAccount() {
     this.accountService.getAccount(this.path_id).subscribe((resp: IAccount) => {
-      this.accounts = resp;
+      this.account = resp;
+    })
+  }
+  getAllStatus(){
+    this.accountService.getListStatusByAccount(this.accountId).subscribe((res : any) =>{
+      this.status = res;
     })
   }
 
-  getStatus() {
-    this.accountService.getListStatusByAccount(this.path_id).subscribe((resp: Istatus[]) => {
-      this.status = resp;
-      console.log(resp);
-      this.status.map(status1 =>{
-        status1.createDate = new Date(status1.createDate);
-      })
-      // console.log(this.status);
-    })
+  getNewFeed() {
+    this.statusService.getNewFeed2(this.accountId).subscribe(
+      (newfeed:any) => {
+        // console.log(newfeed);
+        this.newFeedResponse = newfeed;
+        this.newFeedResponse.map(
+          status1 =>
+            status1.status.createDate = new Date(status1.status.createDate));
+      }
+    );
   }
 
   addStatus() {
@@ -107,7 +124,7 @@ export class ProfileComponent implements OnInit {
       this.accountService.createStatus(this.accountId,st).subscribe(
         (httpResponse)=>{
           if(httpResponse.message == 'success'){
-            this.getStatus()
+            this.getNewFeed()
             this.statusForm = this.fb.group({
               content:['']
             })
@@ -134,7 +151,7 @@ export class ProfileComponent implements OnInit {
     },()=>this.notificationService.fail("Lỗi kết nối"))
 
   }
-  getCommentContent(event, id){
+  addComment(event, status_id, index){
     this.comment = {
       content: event.value.content,
       account: {
@@ -144,21 +161,82 @@ export class ProfileComponent implements OnInit {
         id: ['']
       }
     }
-    this.accountService.createComment(this.comment, id).subscribe((res) =>{
-      this.getStatus()
-      this.notificationService.success("Comment thành công")
+    this.accountService.createComment(this.comment, status_id).subscribe((res) =>{
+        this.notificationService.success("Comment thành công")
+      this.loadComments(status_id, index, this.newFeedResponse);
+
     },
       error => this.notificationService.fail("Xảy ra lỗi"));
   }
 
   searchStatusByKeyword(event){
     let keyword = event;
-    console.log(this.filterByKeyword(keyword))
     this.statusResult = (keyword) ? this.filterByKeyword(keyword) :this.statusResultToken;
   }
   filterByKeyword(keyword){
     return this.status.filter(res => {
       return res.content.toLocaleLowerCase().indexOf(keyword.toLocaleLowerCase()) != -1;
     })
+  }
+  getCommentByStatus(id: number) {
+    return this.commentService.getCommentsByStatusId(id,this.accountId).toPromise();
+  }
+
+  async loadComments(id: number, index: number, statues: INewfeedResponse[]) {
+    const comments = await this.getCommentByStatus(id);
+    statues[index].status.comments = comments;
+    console.log(comments)
+  }
+
+  likeStatus(id: number,index:number) {
+    this.likesService.likeStatus(id,this.accountId).subscribe(
+      (data)=>{
+        if(data.message == 'success'){
+          this.notice.success("Like thanh cong")
+          this.getNewFeed();
+        }else {
+          this.notice.fail("like loi")
+        }
+      },()=>{
+        this.notice.fail("loi ket noi")
+      }
+    )
+  }
+
+  unlikeStatus(status_id: number) {
+    this.likesService.unlikeStatus(this.accountId,status_id).subscribe(
+      (response)=>{
+        if(response.message == 'success'){
+          this.notice.success("Unlike thành công");
+          this.getNewFeed();
+        }else {
+          this.notice.fail("Unlike thất bại")
+        }
+
+      },()=>{
+        this.notice.fail("lỗi kết nối");
+      }
+    )
+
+  }
+  delete_comment(event,status_id,index) {
+    // console.log("status id: "+event);
+    this.commentService.deleteComment(event).subscribe(
+      (response)=>{
+        if(response.message == 'success'){
+          this.notice.success("Xóa bình luận thành công.");
+          this.loadComments(status_id,index,this.newFeedResponse);
+        }else {
+          this.notice.fail("Hãy thử lại");
+        }
+      },()=>{
+        this.notice.fail("Lỗi kết nối");
+      }
+    )
+
+  }
+  loadComment(stt_id: number){
+    this.status_id = stt_id;
+    console.log('load comment lai')
   }
 }

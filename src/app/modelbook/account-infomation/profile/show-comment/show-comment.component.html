@@ -1,0 +1,49 @@
+<div class="card-footer">
+  <div class="row">
+    <div *ngIf="comments!= null && comments.length == 0 ">
+      <div class="col-12 text-center">
+        Chưa có bình luận...
+      </div>
+
+    </div>
+    <ng-container *ngFor="let cmt of comments">
+
+      <div class="col-2 small-avatar-container">
+        <img class="small-avatar rounded-circle img-thumbnail"
+             [src]="cmt.comment.account.avatarUrl?cmt.comment.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
+      </div>
+      <div class="col-9 commentList">
+        <a [routerLink]="'/account/'+ cmt.comment.account.id">{{cmt.comment.account.name}}</a><br>
+        <div>
+          <span>{{cmt.comment.content}}</span>
+          <span>&emsp;</span>
+          <span *ngIf="cmt.like == true">
+          <i class="fa fa-thumbs-up" style="color: dodgerblue; margin-left: 20px;margin-right: 10px" (click)="unLikeComment(cmt.comment.id,$event)">
+          </i>
+        </span>
+          <span *ngIf="cmt.like == false">
+          <i class="fa fa-thumbs-up" style="margin-left: 20px;margin-right: 10px" (click)="likeComment(cmt.comment.id,$event)">
+          </i>
+        </span>
+          <span>&emsp;</span>
+          <span>{{cmt.comment.totalLikes}}</span>
+        </div>
+
+      </div>
+      <br>
+      <div class="col-1">
+        <div class="dropdown">
+          <button class="btn btn-sm" type="button" aria-haspopup="true"
+                  aria-expanded="false" id="editMenu" data-toggle="dropdown">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right " aria-labelledby="editMenu">
+            <a class="dropdown-item" >Chỉnh sửa</a>
+            <a class="dropdown-item" *ngIf="current_id == cmt.comment.account.id" (click)="getComment_id(cmt.comment.id)"  >Xóa</a>
+            <a class="dropdown-item" *ngIf="current_id !== cmt.comment.account.id">Ẩn</a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

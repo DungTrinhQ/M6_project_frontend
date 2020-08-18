@@ -59,7 +59,8 @@ import { StatusEditComponent } from './modelbook/layout/status-edit/status-edit.
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
     exports: [
-        StatusComponent
+        StatusComponent,
+        CommentsZoneComponent
     ],
     bootstrap: [AppComponent]
 })
