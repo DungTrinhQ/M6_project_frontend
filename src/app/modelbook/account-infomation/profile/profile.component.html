@@ -173,8 +173,11 @@
 
                             <hr style="margin: 3px 15px 0 15px ">
                             <div class="row d-flex flex-row justify-content-between mx-0">
-                              <div class="text-center col-4 py-1 px-0">
-                                <button type="button"  class="btn  btn-block mt-0" > <i class="fa fa-thumbs-up">&nbsp;</i>Like</button>
+                              <div class="text-center col-4 py-1 px-0" *ngIf="!st.like">
+                                <button type="button" (click)="likeStatus(st.status.id,i)"  class="btn btn-light btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
+                              </div>
+                              <div class="text-center col-4 py-1 px-0" *ngIf="st.like">
+                                <button type="button" (click)="unlikeStatus(st.status.id)"  class="btn btn-primary btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
                               </div>
                               <div class="text-center col-4 py-1 px-0">
                                 <a style="text-decoration: none" href="#newfeed{{st.status.id}}" role="button"
