@@ -11,7 +11,9 @@
           <tr>
             <th>Tên</th>
             <th>Email</th>
-            <th></th>
+            <th>
+              <button class="btn btn-outline-danger btn-sm" (click)="hideResult()"><i class="far fa-times-circle"></i></button>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -21,7 +23,7 @@
             <td><a [routerLink]="'/account/'+friend.id">{{friend.name}}</a></td>
             <td>{{friend.email}}</td>
             <td>
-              <button class="btn btn-primary btn-sm">Kết bạn</button>
+              <button routerLink="/account/{{friend.id}}" class="btn btn-primary btn-sm">Trang cá nhân</button>
             </td>
           </tr>
         </ng-container>

@@ -79,6 +79,7 @@
 
                   <!-- Begin timeline -->
                   <div class="the-timeline">
+<!--                    Status input form-->
                     <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == path_id">
                       <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Bạn đang nghĩ gì?"></textarea>
                       <div class="row">
@@ -90,6 +91,7 @@
                         <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
                       </div>
                     </form>
+<!--                    Status search status bar-->
                     <div *ngIf="accountId == path_id">
                       <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
                     </div>
@@ -114,7 +116,7 @@
                     <br><br>
 
                     <ng-container *ngFor="let st of newFeedResponse, index as i" style="padding-left: 0px">
-                      <div class="card mb-3">
+                      <div [hidden]="accountId != path_id && st.status.privacy == 1" class="card mb-3">
                         <div class="card-header">
                           <div class="d-flex justify-content-between">
                             <div class="left-top-head">

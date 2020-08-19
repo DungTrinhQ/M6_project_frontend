@@ -32,5 +32,7 @@ export class ContentComponent implements OnInit {
   }
 
 
-
+  hideResult() {
+    this.friendResult = null;
+  }
 }
