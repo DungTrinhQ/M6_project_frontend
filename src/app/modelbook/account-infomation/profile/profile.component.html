@@ -117,7 +117,7 @@
 
                     <ng-container *ngFor="let st of newFeedResponse, index as i" style="padding-left: 0px">
                       <div [hidden]="accountId != path_id && st.status.privacy == 1" class="card mb-3">
-                        <div class="card-header">
+                        <div [style]="st.status.privacy == 1?'background-color: #f8bfbd':''" class="card-header">
                           <div class="d-flex justify-content-between">
                             <div class="left-top-head">
                               <div class="img-container d-flex flex-row align-items-center" >
