@@ -79,11 +79,19 @@
 
                   <!-- Begin timeline -->
                   <div class="the-timeline">
-                    <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == path_id">
+                    <form [formGroup]="statusForm" (click)="addStatus()" class="post-to-timeline" *ngIf="accountId == path_id">
                       <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Bạn đang nghĩ gì?"></textarea>
+                      <div *ngIf="isHaveImage == true">
+                        <div *ngFor="let image of newStatus.images">
+                          <img class="img-thumbnail" style="max-height: inherit" src= "{{image.url}}">
+                        </div>
+                      </div>
                       <div class="row">
                         <div class="col-sm-6">
-                          <a class="btn btn-sm btn-default"><i class="fa fa-camera"></i></a>
+                          <div id="element-uploadImage" >
+                            <label for="uploadImage"><i class="fa fa-camera"></i></label>
+                            <input type="file" id="uploadImage" (change)="loadImgFile($event)">
+                          </div>
                           <a class="btn btn-sm btn-default"><i class="fa fa-video-camera"></i></a>
                           <a class="btn btn-sm btn-default"><i class="fa fa-map-marker"></i></a>
                         </div>

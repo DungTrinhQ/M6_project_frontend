@@ -14,6 +14,9 @@ import {CommentService} from '../../../service/comment/comment.service';
 import {INewfeedResponse} from '../../../models/response-observable/inewfeed-response';
 import {LikesService} from '../../../service/likes/likes.service';
 import {StatusService} from '../../../service/status/status.service';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {finalize} from 'rxjs/operators';
+import {IImage} from '../../../models/iimage';
 
 declare var $: any;
 declare var Swal: any;
@@ -35,12 +38,15 @@ export class ProfileComponent implements OnInit {
   statusResult: Istatus[];
   statusResultToken: Istatus[];
   newFeedResponse: INewfeedResponse[];
+  selectedImage:any = null;
   comment: Icomment;
+  newStatus: Istatus;
   accountId:number;
   status_id: number;
   isFriend = false;
   isPending = false;
   isNoRelation = false;
+  isHaveImage = false;
 
   constructor(private accountService: AccountService,
               private fb: FormBuilder,
@@ -53,6 +59,7 @@ export class ProfileComponent implements OnInit {
               private statusService: StatusService,
               private likesService: LikesService,
               private notice: NotificationService,
+              private storage: AngularFireStorage,
               private notificationService: NotificationService) {
   }
 
@@ -60,8 +67,20 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();
     this.statusForm = this.fb.group({
-      content: ['']
+      content: [''],
+      images: [{
+        url: ['']
+      }]
     })
+    this.newStatus= {
+      account: {
+        id: ''
+      },
+      content: '',
+      images: [{
+        url: ['']
+      }]
+    }
     this.getAccount()
     this.checkRelationShip();
     this.getNewFeed();
@@ -113,31 +132,84 @@ export class ProfileComponent implements OnInit {
   }
 
   addStatus() {
-    const st = {
-      content: this.statusForm.value.content,
-      account: {
-        id: this.tokenService.getAccount()
-      }
-    }
+    this.newStatus.content = this.statusForm.value.content;
+    this.newStatus.account.id = this.tokenService.getAccount();
     if (this.statusForm.value.content == ""){
       this.notificationService.fail("Vui lòng nhập nội dung")
-    }else {
-      this.accountService.createStatus(this.accountId,st).subscribe(
-        (httpResponse)=>{
-          if(httpResponse.message == 'success'){
-            this.getNewFeed()
-            this.statusForm = this.fb.group({
-              content:['']
-            })
-            this.notificationService.success("Đăng status thành công")
-          }else {
-            this.notificationService.fail("Lỗi")
-          }
-        },()=>{
-          this.notificationService.fail("Lỗi server không thể đăng")
-        }
-      )
+    } else {
+      if(this.isHaveImage){
+        this.updateImageStatus();
+        console.log('co anh')
+      }else {
+        this.creatStatus();
+        console.log('khong co anh')
+      }
     }
+  }
+  creatStatus(){
+    this.accountService.createStatus(this.accountId,this.newStatus).subscribe(
+      (httpResponse)=>{
+        if(httpResponse.message == 'success'){
+          this.getNewFeed()
+          this.statusForm = this.fb.group({
+            content: [''],
+            images: [{
+              url: ['']
+            }]
+          })
+          this.notificationService.success("Đăng status thành công")
+          this.isHaveImage = false;
+        }else {
+          this.notificationService.fail("Lỗi")
+        }
+      },()=>{
+        this.notificationService.fail("Lỗi server không thể đăng")
+      }
+    )
+  }
+  updateImageStatus() {
+    if(this.selectedImage !==null){
+      const filePath = `avatar/${this.selectedImage.name.split('.').slice(0,-1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath,this.selectedImage).snapshotChanges().pipe(
+        finalize(
+          ()=> fileRef.getDownloadURL().subscribe(url=>{
+            this.newStatus.images.map(
+              image => image.url =  url
+            )
+            this.creatStatus()
+          })
+        )
+      ).subscribe();
+      console.log(this.newStatus);
+
+    }
+  }
+
+  loadImgFile(even:any) {
+    console.log('load image')
+    if(even.target.files && even.target.files[0]){
+      const reader = new FileReader();
+      reader.onload = (e:any) => {
+        this.newStatus.images.map(
+          image => image.url =  e.target.result
+        )
+      }
+      reader.readAsDataURL(even.target.files[0]);
+      this.selectedImage = even.target.files[0];
+      this.isHaveImage = true;
+    }else {
+      this.selectedImage = null;
+    }
+
+  }
+  deleteImage(){
+    this.newStatus.images = [];
+  }
+  update(data : any){
+    this.statusService.createStatus(this.accountId,this.newStatus).subscribe(() => {
+      this.router.navigate(['account/' + this.tokenService.getAccount()])
+    })
   }
 
   sentFriendRequest() {

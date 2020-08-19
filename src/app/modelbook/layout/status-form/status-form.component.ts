@@ -54,7 +54,6 @@ export class StatusFormComponent implements OnInit {
   addStatus(image?: any) {
     let dataSent: Istatus = {
       content: this.newStatus.value.content,
-      privacy: this.newStatus.value.privacy,
     };
     if(image!=null){
       dataSent.images = [{
