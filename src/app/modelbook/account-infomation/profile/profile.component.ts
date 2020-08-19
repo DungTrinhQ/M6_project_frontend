@@ -78,11 +78,8 @@ export class ProfileComponent implements OnInit {
     this.accountId = this.tokenService.getAccount();
     this.statusForm = this.fb.group({
       content: [''],
-      images: [{
-        url: ['']
-      }]
     })
-    this.newStatus= {
+    this.newStatus =  {
       account: {
         id: ''
       },
@@ -143,17 +140,18 @@ export class ProfileComponent implements OnInit {
   }
 
   addStatus() {
+
     this.newStatus.content = this.statusForm.value.content;
-    this.newStatus.account.id = this.tokenService.getAccount();
     if (this.statusForm.value.content == ""){
       this.notificationService.fail("Vui lòng nhập nội dung")
     } else {
       if(this.isHaveImage){
         this.updateImageStatus();
-        console.log('co anh')
       }else {
+        this.newStatus = {
+          content: this.statusForm.value.content
+        }
         this.creatStatus();
-        console.log('khong co anh')
       }
     }
   }
@@ -165,9 +163,18 @@ export class ProfileComponent implements OnInit {
           this.statusForm = this.fb.group({
             content: [''],
             images: [{
-              url: ['']
+              url: ''
             }]
           })
+          this.newStatus =  {
+            account: {
+              id: ''
+            },
+            content: '',
+            images: [{
+              url: ['']
+            }]
+          }
           this.notificationService.success("Đăng status thành công")
           this.isHaveImage = false;
         }else {
