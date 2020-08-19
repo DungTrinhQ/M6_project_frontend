@@ -4,16 +4,12 @@ import {RegisterComponent} from './modelbook/layout/register/register.component'
 import {LoginComponent} from './modelbook/layout/login/login.component';
 import {AuthGaurdService} from './helper/auth-gaurd.service';
 import {MainwallComponent} from './modelbook/layout/mainwall/mainwall.component';
-import {TestComponent} from './dev/test/test.component';
 import {CommentsZoneComponent} from './modelbook/layout/comments-zone/comments-zone.component';
-import {EditStatusComponent} from './dev/test/edit-status/edit-status.component';
 import {StatusEditComponent} from './modelbook/layout/status-edit/status-edit.component';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'test',component:TestComponent},
-  {path:'test-edit-status/:id',component:EditStatusComponent},
   {path: '',canActivate:[AuthGaurdService],
     component:MainwallComponent,
     // children:[

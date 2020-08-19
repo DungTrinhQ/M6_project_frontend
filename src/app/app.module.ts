@@ -20,10 +20,8 @@ import { ContentComponent } from './modelbook/layout/mainwall/content/content.co
 import { SideMenuComponent } from './modelbook/layout/mainwall/content/side-menu/side-menu.component';
 import { SummerNoteComponent } from './modelbook/layout/summer-note/summer-note.component';
 import { StatusComponent } from './modelbook/layout/status/status.component';
-import { TestComponent } from './dev/test/test.component';
 import { CommentsZoneComponent } from './modelbook/layout/comments-zone/comments-zone.component';
 import { StatusFormComponent } from './modelbook/layout/status-form/status-form.component';
-import { EditStatusComponent } from './dev/test/edit-status/edit-status.component';
 import { StatusEditComponent } from './modelbook/layout/status-edit/status-edit.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
@@ -41,8 +39,6 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         StatusComponent,
         CommentsZoneComponent,
         StatusFormComponent,
-        EditStatusComponent,
-        TestComponent,
         StatusEditComponent,
     ],
     imports: [
