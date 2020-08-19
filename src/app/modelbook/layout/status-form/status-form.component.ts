@@ -54,7 +54,7 @@ export class StatusFormComponent implements OnInit {
   addStatus(image?: any) {
     let dataSent: Istatus = {
       content: this.newStatus.value.content,
-      privacy: this.newStatus.value.privacy,
+      // privacy: this.newStatus.value.privacy,
     };
     if(image!=null){
       dataSent.images = [{
@@ -69,10 +69,12 @@ export class StatusFormComponent implements OnInit {
         (data) => {
           if (data.message == 'success') {
             this.notice.success('Đăng status thành công!');
-            window.location.reload();
+            // window.location.reload();
             this.newStatus = this.fb.group({
               content: [''],
             });
+            console.log(dataSent)
+
           } else {
             this.notice.fail('Đăng thất bại :(');
           }
