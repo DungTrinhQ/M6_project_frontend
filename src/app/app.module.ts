@@ -18,7 +18,6 @@ import { NavbarComponent } from './modelbook/layout/mainwall/navbar/navbar.compo
 import { InputSearchComponent } from './modelbook/layout/mainwall/navbar/input-search/input-search.component';
 import { ContentComponent } from './modelbook/layout/mainwall/content/content.component';
 import { SideMenuComponent } from './modelbook/layout/mainwall/content/side-menu/side-menu.component';
-import { SummerNoteComponent } from './modelbook/layout/summer-note/summer-note.component';
 import { StatusComponent } from './modelbook/layout/status/status.component';
 import { TestComponent } from './dev/test/test.component';
 import { CommentsZoneComponent } from './modelbook/layout/comments-zone/comments-zone.component';
@@ -37,7 +36,6 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         InputSearchComponent,
         ContentComponent,
         SideMenuComponent,
-        SummerNoteComponent,
         StatusComponent,
         CommentsZoneComponent,
         StatusFormComponent,

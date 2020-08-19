@@ -70,20 +70,12 @@ export class StatusComponent implements OnInit {
     this.getFirstNewFeed()
   }
 
-  // getStatusList() {
-  //   this.accountService.getListStatusByAccount(this.current_id).subscribe(
-  //     (statusList) => {
-  //       this.statuses = statusList;
-  //     });
-  // }
 
   getFirstNewFeed() {
     this.statusService.getNewFeed2(this.current_id,0).subscribe(
       (newfeed:any) => {
-        // console.log(newfeed);
         this.newFeedResponse = newfeed;
         this.total_record += 5;
-        console.log("số bản ghi: "+this.total_record);
         this.newFeedResponse.map(
           status1 =>
             status1.status.createDate = new Date(status1.status.createDate));
@@ -113,20 +105,19 @@ export class StatusComponent implements OnInit {
   async loadComments(id: number, index: number, statues: INewfeedResponse[]) {
     const comments = await this.getCommentByStatus(id);
     statues[index].status.comments = comments;
-    // console.log(comments);
   }
 
   likeStatus(id: number,index:number) {
     this.likeService.likeStatus(id,this.current_id).subscribe(
       (data)=>{
         if(data.message == 'success'){
-          this.notice.success("Like thành công");
+          this.notice.success("Like thành công.");
           this.updateNewFeed();
         }else {
-          this.notice.fail("Like lỗi, hãy thử lại");
+          this.notice.fail("Like lỗi, hãy thử lại.");
         }
       },()=>{
-        this.notice.fail("loi ket noi")
+        this.notice.fail("Lỗi kết nối.")
       }
     )
   }
@@ -156,7 +147,6 @@ export class StatusComponent implements OnInit {
       return;
     }
     this.new_comment.content = text_value;
-    console.log(this.new_comment.content);
     this.new_comment.account.id = this.current_id;
     this.commentService.createComment(this.new_comment,status_id).subscribe(
       (response)=>{
@@ -177,7 +167,6 @@ export class StatusComponent implements OnInit {
 
 
   delete_comment(event,status_id,index) {
-    // console.log("status id: "+event);
     this.commentService.deleteComment(event).subscribe(
       (response)=>{
         if(response.message == 'success'){
@@ -200,7 +189,6 @@ export class StatusComponent implements OnInit {
 
   onScroll() {
     if(this.notScroll&& this.notEmptyRecord){
-      console.log("đang cuộn");
       this.notScroll = false;
       this.getNextNewFeed()
     }
@@ -217,7 +205,6 @@ export class StatusComponent implements OnInit {
           this.newFeedResponse.push(newfeed[i]);
         }
         this.total_record += 5;
-        console.log("số bản ghi: "+this.total_record);
         this.notScroll =true;
         this.newFeedResponse.map(
           status1 =>
@@ -237,7 +224,6 @@ export class StatusComponent implements OnInit {
         this.newFeedResponse.map(
           status1 =>
             status1.status.createDate = new Date(status1.status.createDate));
-        console.log(data_response);
       }
     );
   }

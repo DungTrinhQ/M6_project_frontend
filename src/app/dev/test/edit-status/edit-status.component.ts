@@ -14,12 +14,16 @@ import {AngularFireStorage} from '@angular/fire/storage';
   styleUrls: ['./edit-status.component.css']
 })
 export class EditStatusComponent implements OnInit {
+
   editFormStatus : FormGroup;
   status: Istatus;
   account: IAccount;
   selectedImage:any = null;
   isHaveImage = false;
   isUpdateImage = false;
+  path_id = +this.route.snapshot.paramMap.get('id');
+
+
   constructor(
     private testService: TestService,
     private fb : FormBuilder,
@@ -29,7 +33,7 @@ export class EditStatusComponent implements OnInit {
     private accountService: AccountService,
     private storage: AngularFireStorage,
   ) { }
-  path_id = +this.route.snapshot.paramMap.get('id');
+
   ngOnInit(): void {
     this.getAccount();
     this.getStatus(this.path_id);
@@ -40,13 +44,14 @@ export class EditStatusComponent implements OnInit {
       }]
     })
   }
+
   getAccount() {
     this.accountService.getAccount(this.tokenStorageService.getAccount()).subscribe((resp: IAccount) => {
       this.account = resp;
     })
   }
+
   getStatus(id: number){
-    console.log('get status')
     this.testService.getStatus(id).subscribe((res: Istatus) => {
       this.status = res;
       console.log(res);
@@ -56,22 +61,23 @@ export class EditStatusComponent implements OnInit {
       this.editFormStatus.patchValue(this.status);
     })
   }
+
   saveStatus(){
     if(this.isHaveImage == true){
-      this.updateImageStatus()
+      this.updateImageStatus();
     }
     this.status.content = this.editFormStatus.value.content;
-    console.log('save status')
     if(this.isUpdateImage == true){
-      this.updateImageStatus()
+      this.updateImageStatus();
     }
     else {
-      this.update(this.status)
+      this.update(this.status);
     }
   }
+
   updateImageStatus() {
     if(this.selectedImage !==null){
-      const filePath = `avatar/${this.selectedImage.name.split('.').slice(0,-1).join('.')}_${new Date().getTime()}`;
+      const filePath = `status/${this.selectedImage.name.split('.').slice(0,-1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath,this.selectedImage).snapshotChanges().pipe(
         finalize(
@@ -85,18 +91,18 @@ export class EditStatusComponent implements OnInit {
       ).subscribe();
     }
   }
+
   loadImgFile(even:any) {
     if(this.status.images == ''){
       this.status.images= [{
         url: ['']
       }]
     }
-    console.log('load image')
     if(even.target.files && even.target.files[0]){
       const reader = new FileReader();
       reader.onload = (e:any) => {
         this.status.images.map(
-          image => image.url =  e.target.result
+          image => image.url =  e.target.result,
         )
       }
       reader.readAsDataURL(even.target.files[0]);
