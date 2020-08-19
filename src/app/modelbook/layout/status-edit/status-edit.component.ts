@@ -103,7 +103,6 @@ export class StatusEditComponent implements OnInit {
     this.currentStatus.content = this.editForm.value.content;
     this.statusService.editStatus(this.currentStatus).subscribe(()=>{
       this.notice.success("Chỉnh sửa thành công");
-      this.router.navigate(['/']);
       this.showEditForm = false;
     })
 
@@ -121,6 +120,5 @@ export class StatusEditComponent implements OnInit {
 
   changeEditStatus() {
     this.showEditForm = false;
-    window.location.reload();
   }
 }

@@ -42,6 +42,17 @@ export class ProfileComponent implements OnInit {
   isPending = false;
   isNoRelation = false;
 
+  path_id = +this.route.snapshot.paramMap.get('id');
+
+  currentStatus: Istatus = {
+    id: 0,
+    content:'',
+    images:[],
+    totalComments:0,
+    totalLikes:0,
+  };
+
+
   constructor(private accountService: AccountService,
               private fb: FormBuilder,
               private authenService: AuthenService,
@@ -56,7 +67,7 @@ export class ProfileComponent implements OnInit {
               private notificationService: NotificationService) {
   }
 
-  path_id = +this.route.snapshot.paramMap.get('id');
+
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();
     this.statusForm = this.fb.group({
@@ -97,6 +108,7 @@ export class ProfileComponent implements OnInit {
       (newfeed:any) => {
 
         this.newFeedResponse = newfeed;
+        console.log(newfeed);
 
         this.newFeedResponse.map(
         status1 =>
@@ -239,5 +251,26 @@ export class ProfileComponent implements OnInit {
   }
   loadComment(stt_id: number){
     this.status_id = stt_id;
+  }
+
+  getStatusForm(status:Istatus) {
+    this.currentStatus = status;
+
+  }
+
+  deleteStatus(id: number) {
+    this.statusService.deleteStatusById(id).subscribe(
+      (response)=>{
+        if(response.message == 'xóa thành công'){
+          this.notice.success("Xóa thành công");
+          this.getNewFeed();
+        }else {
+          this.notice.fail("Có lỗi xảy ra, hãy thử lại sau");
+
+        }
+      },()=>{
+        this.notice.fail("Lỗi kết nối tới sever");
+      }
+    )
   }
 }

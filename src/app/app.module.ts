@@ -37,7 +37,6 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         StatusComponent,
         CommentsZoneComponent,
         StatusFormComponent,
-        StatusEditComponent,
     ],
     imports: [
         BrowserModule,
