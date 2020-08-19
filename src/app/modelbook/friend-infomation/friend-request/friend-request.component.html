@@ -13,14 +13,17 @@
     <tr *ngFor="let friend of friendRequestList">
       <td>
         <div class="img-container" >
-          <img class="img-inside img-thumbnail"
+          <img class="img-inside rounded-circle"
                [src]="friend.accountSend.avatarUrl?friend.accountSend.avatarUrl:
              '../../../../assets/static/img/avatar-default.png'"
                alt="avatar">
         </div>
       </td>
       <td>
-        {{friend.accountSend.name}}
+        <a routerLink="/account/{{friend.accountSend.id}}">
+          {{friend.accountSend.name}}
+        </a>
+
       </td>
       <td>
         <button class="btn btn-primary mr-2" (click)="accept(friend.id)">Xác Nhận</button>
