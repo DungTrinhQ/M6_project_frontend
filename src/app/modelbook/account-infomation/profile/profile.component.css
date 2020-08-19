@@ -141,3 +141,14 @@ body{
   height: 50px;
   width: 50px;
 }
+#uploadImage
+{
+  display: none;
+}
+#element-uploadImage{
+  display: inline-flex;
+  align-items: center;
+}
+#element-uploadImage>label:hover{
+  opacity: 0.5;
+}

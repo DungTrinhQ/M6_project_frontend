@@ -28,7 +28,7 @@
           <span>&emsp;</span>
           <span>{{cmt.comment.totalLikes}}</span>
         </div>
-        <div class="col-9 commentList" *ngIf="editCommentID == cmt.comment.id">
+        <div class="col-9 commentList" *ngIf="editCommentID == cmt.comment.id ">
           <form [formGroup]="createCommentForm" (ngSubmit)="saveComment(cmt.comment.id)">
             <div >
               <input style="border: none; width: 100%" class="input-comment rounded-lg" formControlName="content" type="text" placeholder="Viết bình luận"  >
