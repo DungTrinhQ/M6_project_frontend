@@ -37,7 +37,7 @@
             <i class="fas fa-ellipsis-h"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-right " aria-labelledby="editMenu">
-            <a class="dropdown-item" *ngIf="current_id == cmt.comment.account.id">Chỉnh sửa</a>
+            <a class="dropdown-item" *ngIf="current_id == cmt.comment.account.id" (click)="editComment(cmt.comment.id, $event)">Chỉnh sửa</a>
             <a class="dropdown-item" *ngIf="current_id == cmt.comment.account.id" (click)="getComment_id(cmt.comment.id)"  >Xóa</a>
             <a class="dropdown-item" *ngIf="current_id !== cmt.comment.account.id">Ẩn</a>
           </div>

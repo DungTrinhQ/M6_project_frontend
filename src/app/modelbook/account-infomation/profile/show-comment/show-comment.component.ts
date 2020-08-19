@@ -81,12 +81,13 @@ export class ShowCommentComponent implements OnInit {
   }
 
   editComment(commentID: number, event){
-    this.editCommentID = commentID;
-    this.commentService.getCommentByID(commentID).subscribe((res: Icomment) =>{
-      this.comment = res;
-      this.createCommentForm.patchValue(res);
-    })
-    this.commentResp.emit(event);
+    console.log(commentID)
+    // this.editCommentID = commentID;
+    // this.commentService.getCommentByID(commentID).subscribe((res: Icomment) =>{
+    //   this.comment = res;
+    //   this.createCommentForm.patchValue(res);
+    // })
+    // this.commentResp.emit(event);
   }
   saveComment(commentID: number){
     this.comment.content = this.createCommentForm.value.content;

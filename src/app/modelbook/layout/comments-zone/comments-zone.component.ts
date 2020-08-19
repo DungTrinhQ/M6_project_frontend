@@ -3,6 +3,9 @@ import {CommentService} from '../../../service/comment/comment.service';
 import {Icomment} from '../../../models/icomment';
 import {ActivatedRoute} from '@angular/router';
 import {LikesService} from '../../../service/likes/likes.service';
+import {FormGroup} from '@angular/forms';
+import {NotificationService} from '../../../service/notification.service';
+import {TokenStorageService} from '../../../service/tokenstorage.service';
 
 @Component({
   selector: 'app-comments-zone',
@@ -10,6 +13,12 @@ import {LikesService} from '../../../service/likes/likes.service';
   styleUrls: ['./comments-zone.component.css']
 })
 export class CommentsZoneComponent implements OnInit {
+
+  createCommentForm: FormGroup;
+  comment: Icomment;
+  accountID: number;
+  editCommentID: number;
+
 
   @Output()
   commentResp = new EventEmitter();
@@ -28,7 +37,11 @@ export class CommentsZoneComponent implements OnInit {
 
   constructor(
     private commentService:CommentService,
-    private likeService: LikesService
+    private likeService: LikesService,
+    private notification: NotificationService,
+    private tokenStorageService: TokenStorageService,
+
+
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +72,24 @@ export class CommentsZoneComponent implements OnInit {
       this.getComment(this.status_id);
     })
     this.commentResp.emit(event);
+  }
+  editComment(commentID: number, event){
+    this.editCommentID = commentID;
+    this.commentService.getCommentByID(commentID).subscribe((res: Icomment) =>{
+      this.comment = res;
+      this.createCommentForm.patchValue(res);
+    })
+    this.commentResp.emit(event);
+  }
+  saveComment(commentID: number){
+    this.comment.content = this.createCommentForm.value.content;
+    this.accountID = this.tokenStorageService.getAccount();
+    this.commentService.saveComment(this.comment, this.status_id, this.accountID).subscribe((res) =>{
+        this.notification.success("Comment thành công")
+        this.getComment(this.status_id);
+      },
+      error => this.notification.fail("Xảy ra lỗi"));
+    this.editCommentID = -1;
   }
 
 

@@ -69,7 +69,7 @@ export class StatusFormComponent implements OnInit {
         (data) => {
           if (data.message == 'success') {
             this.notice.success('Đăng status thành công!');
-            // window.location.reload();
+            window.location.reload();
             this.newStatus = this.fb.group({
               content: [''],
             });
