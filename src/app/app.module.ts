@@ -61,7 +61,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
     exports: [
-        StatusComponent
+        StatusComponent,
     ],
     bootstrap: [AppComponent]
 })

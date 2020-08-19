@@ -1,7 +1,7 @@
 <div class="search-results"
      infiniteScroll
-     [infiniteScrollDistance]="2"
-     [infiniteScrollThrottle]="50"
+     [infiniteScrollDistance]="0"
+     [infiniteScrollThrottle]="2000"
      (scrolled)="onScroll()">
 
 
@@ -67,7 +67,7 @@
             <button type="button" (click)="likeStatus(st.status.id,i)"  class="btn btn-light btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
           </div>
           <div class="text-center col-4 py-1 px-0" *ngIf="st.like">
-            <button type="button" (click)="unlikeStatus(st.status.id)"  class="btn btn-primary btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
+            <button type="button" (click)="unlikeStatus(st.status.id,i)"  class="btn btn-primary btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
           </div>
           <div class="text-center col-4 py-1 px-0">
             <button type="button" class="btn btn-light btn-block mt-0" (click)="loadComments(st.status.id, i, newFeedResponse)" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
