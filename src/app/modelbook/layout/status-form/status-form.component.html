@@ -26,6 +26,6 @@
   <div class="button-downside d-flex m-3">
     <button class="btn btn-success btn-block mb-3" type="button" (click)="fileUploader.click()">Ảnh/Video</button>
   </div>
-  <input hidden #fileUploader (change)="showPreview($event)" type="file">
+  <input hidden #fileUploader accept="image/*" (change)="showPreview($event)" type="file">
 </div>
 </form>

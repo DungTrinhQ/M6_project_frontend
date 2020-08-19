@@ -36,7 +36,7 @@
         <button (click)="pickImg.click()" class="btn btn-sm btn-success">Ảnh</button>
         <button [hidden]="currentStatus.images == null" class="btn btn-sm btn-danger" (click)="deleteImg()">Xóa ảnh</button>
       </div>
-      <input #pickImg hidden type="file" (change)="showPreview($event)">
+      <input #pickImg hidden type="file" accept="image/*" (change)="showPreview($event)">
     </div>
   </div>
 </div>
