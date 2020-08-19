@@ -151,7 +151,12 @@ export class StatusComponent implements OnInit {
   addComment(status_id:number,index:number) {
     // @ts-ignore
     const text_value = document.getElementById("newComment"+status_id).value;
+    if(text_value == '' || text_value == null){
+      this.notice.fail("Bạn chưa nhập gì cả.");
+      return;
+    }
     this.new_comment.content = text_value;
+    console.log(this.new_comment.content);
     this.new_comment.account.id = this.current_id;
     this.commentService.createComment(this.new_comment,status_id).subscribe(
       (response)=>{
