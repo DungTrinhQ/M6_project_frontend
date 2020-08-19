@@ -12,9 +12,6 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path: '',canActivate:[AuthGaurdService],
     component:MainwallComponent,
-    // children:[
-    //   {path:'status/:id',component:StatusEditComponent}
-    // ]
   },
 
   {

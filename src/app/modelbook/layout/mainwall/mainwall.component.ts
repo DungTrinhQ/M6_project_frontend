@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AccountService} from '../../../service/account.service';
 import {IAccount} from '../../../models/iaccount';
 import {NotificationService} from '../../../service/notification.service';
@@ -21,8 +21,8 @@ export class MainwallComponent implements OnInit {
   current_id:number;
 
   notificationList: INotificationResponse[]=[
-
   ];
+
   constructor(private accountService:AccountService,
               private acc_notification: AccountNotificationService,
               private token: TokenStorageService,
@@ -47,6 +47,7 @@ export class MainwallComponent implements OnInit {
   getKeyword(event){
 
     if(event == ''){
+      this.friendResult = null;
       return;
     }
     else
@@ -66,11 +67,9 @@ export class MainwallComponent implements OnInit {
   }
 
   getNotificationList(){
-    // console.log(this.current_id);
     this.acc_notification.getNotifications(this.current_id).subscribe(
       (data)=>{
         this.notificationList = data;
-        console.log(this.notificationList);
       }
     )
 

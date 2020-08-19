@@ -7,12 +7,15 @@
 
 
 <ng-container *ngFor="let st of newFeedResponse; index as i" style="padding-left: 0px">
-  <div class="card mb-3">
+  <div class="card mb-3" *ngIf="st.status.privacy == 0">
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <div class="left-top-head">
           <div class="img-container d-flex flex-row align-items-center" >
-            <img class="img-inside rounded-circle" [src]="st.status.account.avatarUrl?st.status.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
+            <img class="img-inside rounded-circle"
+                 [src]="st.status.account.avatarUrl?st.status.account.avatarUrl:
+                 '../../../../assets/static/img/avatar-default.png'"
+                 alt="avatar">
             <div class="ml-3">
               <a class="account-link" [routerLink]="'/account/'+st.status.account.id">
                 <h4>{{st.status.account.name}}</h4>
@@ -111,7 +114,7 @@
 <div class="row pb-10">
   <div class="col-12 p-5">
     <div [hidden]="!notScroll || !notEmptyRecord" class="text-center">
-      <div class="spinner-border" role="status">
+      <div class="spinner-border text-primary" role="status">
 <!--        <span class="sr-only">Loading...</span>-->
       </div>
     </div>

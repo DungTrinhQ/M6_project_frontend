@@ -2,6 +2,7 @@ import {IAccount} from './iaccount';
 import {Icomment} from './icomment';
 
 export interface Istatus {
+  privacy?: number;
   id?:number,
   content:string,
   createDate?:Date,

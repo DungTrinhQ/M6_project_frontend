@@ -39,7 +39,7 @@ export class EditInfoComponent implements OnInit {
     private tokenService: TokenStorageService,
     private notice:NotificationService,
   ) { }
-  // id = +this.route.snapshot.paramMap.get('id');
+
 
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();

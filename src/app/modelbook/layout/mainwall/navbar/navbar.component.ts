@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   getKeyWord(event){
     this.keyWord.emit(event);
   }
@@ -34,7 +35,6 @@ export class NavbarComponent implements OnInit {
   tickAsSeen(notification_id: number) {
     this.acc_notification.tickAsSeen(notification_id).subscribe(
       (data)=>{
-        console.log(data);
       }
     )
 
