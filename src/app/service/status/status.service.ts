@@ -4,6 +4,7 @@ import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from '../tokenstorage.service';
 import {Istatus} from '../../models/istatus';
+import {INewfeedResponse} from '../../models/response-observable/inewfeed-response';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,9 @@ export class StatusService {
 
   editStatus(data : any): Observable<any>{
     return this.http.put(this.URL + 'edit-status', data);
+  }
+
+  updateNewFeed(id:number,total_record:number):Observable<INewfeedResponse[]>{
+    return this.http.get<INewfeedResponse[]>(this.URL+'newfeed/update/'+id+'/'+total_record);
   }
 }

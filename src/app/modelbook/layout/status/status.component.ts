@@ -96,7 +96,7 @@ export class StatusComponent implements OnInit {
     this.statusService.deleteStatusById(id).subscribe((response) => {
       if (response.message == 'xóa thành công') {
         this.notice.success("Xóa thành công");
-        // this.getNewFeed();
+        this.updateNewFeed();
       } else {
         this.notice.fail("Thử lại sau");
       }
@@ -120,10 +120,10 @@ export class StatusComponent implements OnInit {
     this.likeService.likeStatus(id,this.current_id).subscribe(
       (data)=>{
         if(data.message == 'success'){
-          this.notice.success("Like thanh cong")
-          // this.getNewFeed();
+          this.notice.success("Like thành công");
+          this.updateNewFeed();
         }else {
-          this.notice.fail("like loi")
+          this.notice.fail("Like lỗi, hãy thử lại");
         }
       },()=>{
         this.notice.fail("loi ket noi")
@@ -131,12 +131,12 @@ export class StatusComponent implements OnInit {
     )
   }
 
-  unlikeStatus(status_id: number) {
+  unlikeStatus(status_id: number,index:number) {
     this.likeService.unlikeStatus(this.current_id,status_id).subscribe(
       (response)=>{
         if(response.message == 'success'){
           this.notice.success("Unlike thành công");
-          // this.getNewFeed();
+          this.updateNewFeed();
         }else {
           this.notice.fail("Unlike thất bại")
         }
@@ -151,7 +151,12 @@ export class StatusComponent implements OnInit {
   addComment(status_id:number,index:number) {
     // @ts-ignore
     const text_value = document.getElementById("newComment"+status_id).value;
+    if(text_value == '' || text_value == null){
+      this.notice.fail("Bạn chưa nhập gì cả.");
+      return;
+    }
     this.new_comment.content = text_value;
+    console.log(this.new_comment.content);
     this.new_comment.account.id = this.current_id;
     this.commentService.createComment(this.new_comment,status_id).subscribe(
       (response)=>{
@@ -211,7 +216,6 @@ export class StatusComponent implements OnInit {
         for(let i = 0;i< newfeed.length;i++){
           this.newFeedResponse.push(newfeed[i]);
         }
-        console.log(this.newFeedResponse);
         this.total_record += 5;
         console.log("số bản ghi: "+this.total_record);
         this.notScroll =true;
@@ -225,6 +229,19 @@ export class StatusComponent implements OnInit {
   loadComment(stt_id: number,event){
     this.status_id= stt_id;
   }
+
+  updateNewFeed(){
+    this.statusService.updateNewFeed(this.current_id,this.total_record).subscribe(
+      (data_response)=>{
+        this.newFeedResponse = data_response;
+        this.newFeedResponse.map(
+          status1 =>
+            status1.status.createDate = new Date(status1.status.createDate));
+        console.log(data_response);
+      }
+    );
+  }
+
 
 
 }

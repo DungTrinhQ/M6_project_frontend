@@ -239,6 +239,5 @@ export class ProfileComponent implements OnInit {
   }
   loadComment(stt_id: number){
     this.status_id = stt_id;
-    console.log('load comment lai')
   }
 }
