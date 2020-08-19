@@ -29,4 +29,12 @@ export class CommentService {
   deleteComment(comment_id:number):Observable<IResultResponse>{
     return this.http.delete<IResultResponse>(this.URL+'comment-delete/'+comment_id);
   }
+
+  getCommentByID(comment_id: number): Observable<any>{
+    return this.http.get(this.URL+'comment/'+comment_id);
+  }
+  saveComment(data: any, status_id: number, account_id: number ): Observable<any>{
+    return this.http.put(this.URL+'comment-edit/' + account_id + '/' + status_id , data );
+
+  }
 }

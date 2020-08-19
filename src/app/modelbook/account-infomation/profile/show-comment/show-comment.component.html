@@ -14,7 +14,7 @@
       </div>
       <div class="col-9 commentList">
         <a [routerLink]="'/account/'+ cmt.comment.account.id">{{cmt.comment.account.name}}</a><br>
-        <div>
+        <div *ngIf="editCommentID != cmt.comment.id">
           <span>{{cmt.comment.content}}</span>
           <span>&emsp;</span>
           <span *ngIf="cmt.like == true">
@@ -28,7 +28,14 @@
           <span>&emsp;</span>
           <span>{{cmt.comment.totalLikes}}</span>
         </div>
-
+        <div class="col-9 commentList" *ngIf="editCommentID == cmt.comment.id">
+          <form [formGroup]="createCommentForm" (ngSubmit)="saveComment(cmt.comment.id)">
+            <div >
+              <input style="border: none; width: 100%" class="input-comment rounded-lg" formControlName="content" type="text" placeholder="Viết bình luận"  >
+            </div>
+            <button style="display: none" class="btn btn-sm btn-primary ml-3" type="button"></button>
+          </form>
+        </div>
       </div>
       <br>
       <div class="col-1">
@@ -38,7 +45,7 @@
             <i class="fas fa-ellipsis-h"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-right " aria-labelledby="editMenu">
-            <a class="dropdown-item" >Chỉnh sửa</a>
+            <a class="dropdown-item" (click)="editComment(cmt.comment.id, $event)">Chỉnh sửa</a>
             <a class="dropdown-item" *ngIf="current_id == cmt.comment.account.id" (click)="getComment_id(cmt.comment.id)"  >Xóa</a>
             <a class="dropdown-item" *ngIf="current_id !== cmt.comment.account.id">Ẩn</a>
           </div>
