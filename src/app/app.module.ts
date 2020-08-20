@@ -12,7 +12,7 @@ import {AuthInterceptor} from './helper/auth.interceptor';
 import {AccountInfomationModule} from './modelbook/account-infomation/account-infomation.module';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
+import {environment} from '../environments/environment.prod';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import { NavbarComponent } from './modelbook/layout/mainwall/navbar/navbar.component';
 import { InputSearchComponent } from './modelbook/layout/mainwall/navbar/input-search/input-search.component';
