@@ -1,5 +1,5 @@
 
-<app-navbar (keyWord)="getKeyword($event)" ></app-navbar>
+<app-navbar (resetNotification)="resetNotification()" (keyWord)="getKeyword($event)" [noteList]="notificationList" ></app-navbar>
 <div class="container">
   <app-content  [friendResult] = "friendResult"></app-content>
 </div>

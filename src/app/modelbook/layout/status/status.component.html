@@ -1,0 +1,133 @@
+<div class="search-results"
+     infiniteScroll
+     [infiniteScrollDistance]="0"
+     [infiniteScrollThrottle]="1000"
+     (scrolled)="onScroll()">
+
+
+
+<ng-container *ngFor="let st of newFeedResponse; index as i" style="padding-left: 0px">
+  <div class="card mb-3" *ngIf="st.status.privacy == 0">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <div class="left-top-head">
+          <div class="img-container d-flex flex-row align-items-center" >
+            <img class="img-inside rounded-circle"
+                 [src]="st.status.account.avatarUrl?st.status.account.avatarUrl:
+                 '../../../../assets/static/img/avatar-default.png'"
+                 alt="avatar">
+            <div class="ml-3">
+              <a class="account-link" [routerLink]="'/account/'+st.status.account.id">
+                <h4>{{st.status.account.name}}</h4>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="the-date">
+            <span>{{st.status.createDate.toDateString()}}</span>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-sm" type="button" aria-haspopup="true"
+                  aria-expanded="false" id="dropdownMenu" data-toggle="dropdown">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+            <a class="dropdown-item"  (click)="getStatusForm(st.status)" *ngIf="st.status.account.id == current_id" data-toggle="modal" data-target="#statusEditForm">Chỉnh sửa</a>
+            <a class="dropdown-item" (click)="deleteStatus(st.status.id)" *ngIf="st.status.account.id == current_id" >Xóa</a>
+            <a class="dropdown-item" *ngIf="st.status.account.id !== current_id">Ẩn</a>
+            <!--                                  <a class="dropdown-item" href="#">Something else here</a>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div style="list-style: none">
+        <div class="upper-content px-3 pt-3">
+          <p>
+            {{st.status.content}}
+          </p>
+          <div class="d-flex flex-row justify-content-start" *ngIf="st.status.images != null">
+            <div  class="img-box" style="max-height: 300px" *ngFor="let img of st.status.images">
+              <img class="img-thumbnail" style="max-height: inherit" src="{{img.url}}" alt="img">
+            </div>
+          </div>
+          <br>
+          <span>
+                              {{st.status.totalLikes}} Lượt thích
+                            </span>
+          <span>&nbsp;</span>
+          <span>
+                              {{st.status.totalComments}} Bình luận
+                            </span>
+        </div>
+
+
+        <hr style="margin: 3px 15px 0 15px ">
+        <div class="row d-flex flex-row justify-content-between mx-0">
+          <div class="text-center col-4 py-1 px-0" *ngIf="!st.like">
+            <button type="button" (click)="likeStatus(st.status.id,i)"  class="btn btn-light btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
+          </div>
+          <div class="text-center col-4 py-1 px-0" *ngIf="st.like">
+            <button type="button" (click)="unlikeStatus(st.status.id,i)"  class="btn btn-primary btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
+          </div>
+          <div class="text-center col-4 py-1 px-0">
+            <button type="button" class="btn btn-light btn-block mt-0" (click)="loadComments(st.status.id, i, newFeedResponse)" ><i class="fa fa-comment">&nbsp;</i>Comment</button>
+          </div>
+          <div class="text-center col-4 py-1 px-0">
+            <button type="button" class="btn btn-light btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <app-comments-zone [comments]="newFeedResponse[i].status.comments"
+                         [current_id]="current_id"
+                         (delete_comment_id)="delete_comment($event,st.status.id,i)"
+                         (commentResp)="loadComment(st.status.id,$event)"
+                         [status_id]="status_id"></app-comments-zone>
+      <div class="row ">
+        <div class="col-lg-1 col-md-2 small-avatar-container">
+          <img class="small-avatar rounded-circle" [src]="currentAccount.avatarUrl?currentAccount.avatarUrl:'../../../../assets/static/img/avatar-default.png'"/>
+        </div>
+        <div class="col-lg-11 col-md-10 d-flex justify-content-end align-items-center">
+          <div style="width: 85%">
+            <input style="border: none;width: 100%" class="input-comment rounded-lg" [id]="'newComment'+newFeedResponse[i].status.id" type="text" placeholder="Viết bình luận" >
+          </div>
+          <button class="btn btn-sm btn-primary ml-3" type="button" (click)="addComment(st.status.id,i)">Bình luận</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+</div>
+
+<!--Hidden Modal div-->
+<div class="modal fade" id="statusEditForm" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-status-edit [currentStatus]="currentStatus"></app-status-edit>
+    </div>
+  </div>
+</div>
+
+<div class="row pb-10">
+  <div class="col-12 p-5">
+    <div [hidden]="!notScroll || !notEmptyRecord" class="text-center">
+      <div class="spinner-border text-primary" role="status">
+<!--        <span class="sr-only">Loading...</span>-->
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="notEmptyRecord" class="col-12 p-5">
+    <div class="text-center border border-light rounded-lg">
+      <h4>Hết rồi bạn hiền ơi!</h4>
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,24 @@
+.img-inside{
+  height: 50px;
+  width: 50px;
+}
+
+.the-date{
+  font-size: 12px;
+}
+
+.account-link{
+  text-decoration: none;
+}
+.btn-block:hover{
+  background-color: #c8e4ff;
+}
+
+.input-comment{
+
+  border: none;
+}
+
+.card-footer{
+  background-color: #c8e4ff;
+}

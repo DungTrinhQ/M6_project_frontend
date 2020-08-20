@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FriendService} from '../../../service/friend/friend.service';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
+import {NotificationService} from '../../../service/notification.service';
 
 @Component({
   selector: 'app-friend-request',
@@ -14,6 +15,7 @@ export class FriendRequestComponent implements OnInit {
 
   constructor(private friendService: FriendService,
               private tokenStorage: TokenStorageService,
+              private notice: NotificationService
               ) { }
 
   ngOnInit(): void {
@@ -31,16 +33,18 @@ export class FriendRequestComponent implements OnInit {
 
   accept(id: number) {
     this.friendService.acceptRequest(id).subscribe(()=>{
-      alert("Đã thêm bạn")
+      this.notice.success("Đã thêm bạn.")
       window.location.reload();
-    });
+    },()=> this.notice.fail("Lỗi kết nối."));
 
   }
 
   denied(id: number) {
     this.friendService.deniedRequest(id).subscribe(()=>{
-      alert("Đã hủy yêu cầu")
+      this.notice.success("Đã hủy yêu cầu.");
       window.location.reload();
+    },()=>{
+      this.notice.fail("Lỗi kết nối");
     })
 
   }

@@ -580,4 +580,9 @@ body{
     width: 40px;
     display: inline-block
   }
+
+
+}
+.account_name{
+  font-family: 'Lobster', cursive;
 }

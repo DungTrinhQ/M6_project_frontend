@@ -1,9 +1,9 @@
-
 <div class="container" style="background-color: #ebecf0">
   <div class="content-page">
-    <div class="profile-banner" style="background-image: url(http://hubancreative.com/projects/templates/coco/corporate/images/stock/1epgUO0.jpg);">
+    <div class="profile-banner" style="background-image:
+    url(https://picsum.photos/800/200);">
       <div class="col-sm-3 avatar-container">
-        <img src="{{accounts.avatarUrl}}" class="img-circle profile-avatar" alt="User avatar">
+        <img [src]="account.avatarUrl?account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" class="rounded-circle profile-avatar" alt="User avatar">
       </div>
       <!--      <div class="col-sm-12 profile-actions text-right">-->
       <!--        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Friends</button>-->
@@ -13,37 +13,44 @@
     <div class="content">
 
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-lg-3">
           <!-- Begin user profile -->
           <div style="margin-top:120px">
             <ul class="list-group">
               <li class="text-center list-group-item">
-                <h4><b>{{accounts.name}}</b></h4>
+                <h4><b>{{account.name}}</b></h4>
               </li>
               <li class="list-group-item">
                 <span class="badge">Email:</span>
-                <span>{{accounts.email}}</span>
+                <span>{{account.email}}</span>
               </li>
               <li class="list-group-item">
                 <span class="badge">Phone:</span>
-                <span>{{accounts.phoneNumber}}</span>
+                <span>{{account.phoneNumber}}</span>
               </li>
               <li class="list-group-item">
-                <span class="badge">Follow : 1.000.000</span>
+                <span class="badge">Bạn Bè: </span>
               </li>
             </ul>
 
             <!-- User button -->
-            <div class="user-button">
+            <div class="user-button mt-3">
               <div class="row">
                 <div class="col-12">
-                  <button type="button" class="btn btn-primary btn-block"><i class="fa fa-envelope"></i>Message</button>
+                  <button type="button" routerLink="/" class="btn btn-primary btn-block mb-3">Trang chủ</button>
                 </div>
-                <div class="col-12" *ngIf="accountId != accounts.id && !isRequestPending">
-                  <button type="button" class="btn btn-secondary  btn-block" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Add friend</button>
+                <div class="col-12" *ngIf="accountId != path_id && isNoRelation">
+                  <button type="button" class="btn btn-secondary  btn-block mb-3" (click)="sentFriendRequest()"><i class="fa fa-user"></i> Thêm bạn</button>
                 </div>
-                <div class="col-12" *ngIf="isRequestPending">
-                  <button class="btn btn-secondary btn-block disabled">Pending</button>
+                <div class="col-12" *ngIf="isPending">
+                  <button class="btn btn-secondary btn-block disabled mb-3">Chờ xác nhận</button>
+                </div>
+                <div class="col-12" *ngIf="isFriend">
+                  <button class="btn btn-primary btn-block disabled mb-3">Bạn bè</button>
+                </div>
+                <div class="col-12" *ngIf="accountId == path_id">
+                  <!--Edit button-->
+                  <button routerLink="/account/edit" class="btn btn-outline-primary btn-block mb-3"><i class="fas fa-user-edit"></i></button>
                 </div>
               </div>
             </div><!-- End div .user-button -->
@@ -51,57 +58,162 @@
           <!-- Begin user profile -->
         </div><!-- End div .col-sm-4 -->
 
-        <div class="col-sm-9">
+        <div class="col-lg-9">
           <div class="widget widget-tabbed">
-            <!-- Nav tab -->
-            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">
-              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>
-              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>
-              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>
-              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>
-            </ul>
-            <!-- End nav tab -->
+            <!--            &lt;!&ndash; Nav tab &ndash;&gt;-->
+            <!--            <ul class="navbar navbar-expand-lg navbar-light bg-light" style="list-style: none">-->
+            <!--              <li class="nav-item active"><a class="nav-link" href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil"></i> Timeline</a></li>-->
+            <!--              <li class="nav-item"><a class="nav-link" href="#about" data-toggle="tab"><i class="fa fa-user"></i> About</a></li>-->
+            <!--              <li class="nav-item"><a class="nav-link" href="#user-activities" data-toggle="tab"><i class="fa fa-laptop"></i> Activities</a></li>-->
+            <!--              <li class="nav-item"><a class="nav-link" href="#mymessage" data-toggle="tab"><i class="fa fa-envelope"></i> Message</a></li>-->
+            <!--            </ul>-->
+            <!--            &lt;!&ndash; End nav tab &ndash;&gt;-->
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <div class="tab-content mt-lg-5">
 
 
               <!-- Tab timeline -->
-              <div class="tab-pane animated active fadeInRight" id="my-timeline">
+              <div class="tab-pane animated active fadeInRight" style="margin-top: 70px" id="my-timeline">
                 <div class="user-profile-content">
 
                   <!-- Begin timeline -->
                   <div class="the-timeline">
-                      <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == accounts.id">
-                        <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Whats on your mind..."></textarea>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <a class="btn btn-sm btn-default"><i class="fa fa-camera"></i></a>
-                            <a class="btn btn-sm btn-default"><i class="fa fa-video-camera"></i></a>
-                            <a class="btn btn-sm btn-default"><i class="fa fa-map-marker"></i></a>
-                          </div>
-                          <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
-                        </div>
-                      </form>
-                    <br><br>
-                    <ul *ngFor="let st of status" style="padding-left: 0px">
-                      <div class="card">
-                        <div class="card-body">
-                          <li style="list-style: none">
-                            <h4>{{st.account.name}}</h4>
-                            <div class="the-date">
-                              <span>{{st.createDate}}</span>
-                            </div>
-                            <br>
-                            <p>
-                              {{st.content}}
-                            </p>
-                            <a class="btn icon-btn btn-primary" style="border-radius: 30px ;margin-right: 10px" href="#"><i class="fa fa-heart"></i></a>
-                            <a class="btn icon-btn btn-danger" style="border-radius: 30px ;margin-right: 30px" href="#"><i class="fa  fa-comment"></i></a>
-                          </li>
+<!--                    Status input form-->
+                    <form [formGroup]="statusForm" (ngSubmit)="addStatus()" class="post-to-timeline" *ngIf="accountId == path_id">
+                      <textarea class="form-control" formControlName="content" style="height: 70px;margin-bottom:10px;" placeholder="Bạn đang nghĩ gì?"></textarea>
+                      <div *ngIf="isHaveImage == true">
+                        <div *ngFor="let image of newStatus.images">
+                          <img class="img-thumbnail" style="max-height: inherit" src= "{{image.url}}">
                         </div>
                       </div>
-                    </ul>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div id="element-uploadImage" >
+                            <label for="uploadImage"><i class="fa fa-camera"></i></label>
+                            <input type="file" id="uploadImage" (change)="loadImgFile($event)">
+                          </div>
+                          <a class="btn btn-sm btn-default"><i class="fa fa-video-camera"></i></a>
+                          <a class="btn btn-sm btn-default"><i class="fa fa-map-marker"></i></a>
+                        </div>
+                        <div class="col-sm-6 text-right"><button type="submit" class="btn btn-primary">Post</button></div>
+                      </div>
+                    </form>
+<!--                    Status search status bar-->
+                    <div *ngIf="accountId == path_id">
+                      <app-search-status (keyword_status_search)="searchStatusByKeyword($event)"></app-search-status>
+                    </div>
+                    <div>
+                      <ng-container *ngFor="let status of statusResult">
+                        <div class="card">
+                          <div class="card-body">
+                            <div style="list-style: none">
+                              <h4>{{status.account.name}}</h4>
+                              <div class="the-date">
+                                <span>{{status.createDate}}</span>
+                              </div>
+                              <br>
+                              <p>
+                                {{status.content}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                    <br><br>
+
+                    <ng-container *ngFor="let st of newFeedResponse, index as i" style="padding-left: 0px">
+                      <div [hidden]="accountId != path_id && st.status.privacy == 1" class="card mb-3">
+                        <div [style]="st.status.privacy == 1?'background-color: #f8bfbd':''" class="card-header">
+                          <div class="d-flex justify-content-between">
+                            <div class="left-top-head">
+                              <div class="img-container d-flex flex-row align-items-center" >
+                                <img class="img-inside rounded-circle" [src]="st.status.account.avatarUrl?st.status.account.avatarUrl:'../../../../assets/static/img/avatar-default.png'" alt="avatar">
+                                <div class="ml-3">
+                                  <a class="account-link" [routerLink]="'/account/'+st.status.account.id">
+                                    <h4>{{st.status.account.name}}</h4>
+                                  </a>
+                                </div>
+
+                              </div>
+                              <div class="the-date">
+                                <span>{{st.status.createDate.toDateString()}}</span>
+                              </div>
+                            </div>
+                            <div class="dropdown">
+                              <!--                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                              <!--                                <i class="fas fa-ellipsis-h"></i>-->
+                              <!--                              </a>-->
+                              <button class="btn btn-sm" type="button" aria-haspopup="true"
+                                      aria-expanded="false" id="dropdownMenu" data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h"></i>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                <a class="dropdown-item" *ngIf="path_id == accountId" (click)="getStatusForm(st.status)"  data-toggle="modal" data-target="#statusEditForm">Chỉnh sửa</a>
+                                <a class="dropdown-item" (click)="deleteStatus(st.status.id)" *ngIf="path_id == accountId">Xóa</a>
+                                <a class="dropdown-item" *ngIf="path_id != accountId">Ẩn</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body p-0">
+                          <div style="list-style: none">
+                            <div class="upper-content px-3 pt-3">
+                              <p>
+                                {{st.status.content}}
+                              </p>
+                              <div class="d-flex flex-row justify-content-start" *ngIf="st.status.images != null">
+                                <div  class="img-box" style="max-height: 300px" *ngFor="let img of st.status.images">
+                                  <img class="img-thumbnail" style="max-height: inherit" src="{{img.url}}" alt="img">
+                                </div>
+                              </div>
+                              <br>
+                              <span>
+                              {{st.status.totalLikes}} Lượt thích
+                            </span>
+                              <span>&nbsp;</span>
+                              <span>
+                              {{st.status.totalComments}} Bình luận
+                            </span>
+                            </div>
+
+
+                            <hr style="margin: 3px 15px 0 15px ">
+                            <div class="row d-flex flex-row justify-content-between mx-0">
+                              <div class="text-center col-4 py-1 px-0" *ngIf="!st.like">
+                                <button type="button" (click)="likeStatus(st.status.id,i)"  class="btn btn-light btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
+                              </div>
+                              <div class="text-center col-4 py-1 px-0" *ngIf="st.like">
+                                <button type="button" (click)="unlikeStatus(st.status.id)"  class="btn btn-primary btn-block mt-0" ><i class="fa fa-thumbs-up"></i>Like</button>
+                              </div>
+                              <div class="text-center col-4 py-1 px-0">
+                                <a style="text-decoration: none" href="#newfeed{{st.status.id}}" role="button"
+                                   data-toggle="collapse" aria-expanded="false" >
+                                  <button class="btn  btn-block mt-0" (click)="loadComments(st.status.id, i, newFeedResponse)">
+                                    <i class="fa fa-comment"></i> Comment
+                                  </button>
+                                </a>
+                              </div>
+                              <div class="text-center col-4 py-1 px-0">
+                                <button type="button" class="btn  btn-block mt-0" ><i class="fa fa-share">&nbsp;</i>Share</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <app-show-comment [comments]="newFeedResponse[i].status.comments"
+                                            [current_id]="accountId"
+                                            (delete_comment_id)="delete_comment($event,st.status.id,i)"
+                                            (commentResp)="loadComment(st.status.id)" [status_id]="status_id" >
+
+                          </app-show-comment>
+                          <div *ngIf="isFriend || accountId == path_id">
+                            <app-comment (commentConetent)="addComment($event, st.status.id, i)" [account] = "account" ></app-comment>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
 
                   </div><!-- End div .the-timeline -->
                   <!-- End timeline -->
@@ -111,6 +223,13 @@
           </div><!-- End div .box-info -->
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="statusEditForm" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-status-edit [currentStatus]="currentStatus"></app-status-edit>
     </div>
   </div>
 </div>

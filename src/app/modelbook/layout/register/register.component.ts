@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AccountService} from '../../../service/account.service';
 import {IAccount} from '../../../models/iaccount';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
 import {AuthenService} from '../../../service/authen.service';
+import {NotificationService} from '../../../service/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class RegisterComponent implements OnInit {
   constructor(private accountService:AccountService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private authenService: AuthenService) { }
+              private authenService: AuthenService,
+              private notificationService: NotificationService){ }
 
   ngOnInit(): void {
     if(this.authenService.isLogin()){
@@ -30,9 +32,9 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['login'])
     }
     this.registerForm = this.formBuilder.group({
-      email:[''],
-      name:[''],
-      password:['']
+      email:['',[Validators.required,Validators.email]],
+      name:['',[Validators.required]],
+      password:['',[Validators.required,Validators.minLength(6)]]
     })
 
   }
@@ -43,11 +45,11 @@ export class RegisterComponent implements OnInit {
     if(this.confirmPassword == newAccount.password){
       this.accountService.createAccount(newAccount).subscribe(
         (data)=>{
-          if(data == 'Đăng ký thành công'){
+          if(data.message == 'Đăng ký thành công'){
             alert("Đăng ký thành công")
             this.router.navigate(['login']);
           }else {
-            this.errorMessage = data;
+            this.errorMessage = data.message;
 
           }
           this.isRegisterFail = true;
@@ -55,12 +57,26 @@ export class RegisterComponent implements OnInit {
 
         console.log(data)},
         ()=>{
-          this.errorMessage = 'Lỗi trong quá trình đăng kí'
+          this.notificationService.fail("Đăng ký không thành công")
         }
       )
     }else {
-      this.errorMessage = 'Hai mật khẩu không trùng khớp'
+      this.notificationService.fail("Mật khẩu không khớp")
     }
 
   }
+
+  get name(){
+    return this.registerForm.get('name')
+  }
+
+  get email(){
+    return this.registerForm.get('email')
+  }
+
+  get password(){
+    return this.registerForm.get('password')
+  }
+
+
 }

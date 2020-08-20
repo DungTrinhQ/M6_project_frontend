@@ -19,6 +19,9 @@ export class FriendLayoutComponent implements OnInit {
     password: ''
   };
   current_Id:number;
+  totalFriend = 0;
+
+  isShowRequest = false;
 
   constructor(private friendService:FriendService,
               private accountService:AccountService,
@@ -34,5 +37,10 @@ export class FriendLayoutComponent implements OnInit {
       this.accounts = resp;
     })
   }
+
+  getTotalFriend(event)  {
+    this.totalFriend = event;
+  }
+
 
 }

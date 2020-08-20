@@ -24,6 +24,7 @@ body{
 
 .profile-avatar {
   width: 200px;
+  height: 200px;
   position: relative;
   margin: 0px auto;
   margin-top: 196px;
@@ -69,7 +70,7 @@ body{
   margin: 15px 0;
 }
 
-.user-button .btn {
+.user-button  {
   margin: 5px 0;
 }
 
@@ -117,4 +118,37 @@ body{
 }
 .btn-primary,.btn-danger,.btn-secondary{
   height: 40px;
+}
+.the-date{
+  font-size: 12px;
+}
+
+.btn-light{
+  background-color: #ffffff;
+  margin-top: 5px;
+  display: inline;
+  border: none;
+  font-family:Lucida Sans Unicode;
+}
+.btn-block:hover{
+  background-color: #c8e4ff;
+}
+.status-footer-btn{
+  max-width: inherit;
+}
+
+.img-inside{
+  height: 50px;
+  width: 50px;
+}
+#uploadImage
+{
+  display: none;
+}
+#element-uploadImage{
+  display: inline-flex;
+  align-items: center;
+}
+#element-uploadImage>label:hover{
+  opacity: 0.5;
 }

@@ -1,17 +1,25 @@
-<ul class="nav flex-column mt-5" >
-  <li class="nav-item mb-3">
-    <a class="btn btn-outline-primary btn-block active" href="#">Home</a>
-  </li>
-  <li class="nav-item mb-3">
-    <a class="btn btn-outline-primary btn-block" [routerLink]="'account/'+account_id"  href="#">Cá nhân</a>
-  </li>
-  <li class="nav-item mb-3">
-    <a class="btn btn-outline-primary btn-block" routerLink="friends">Bạn bè</a>
-  </li>
-  <li class="nav-item mb-3">
-    <a class="btn btn-outline-primary btn-block"  tabindex="-1" aria-disabled="true">Cài đặt</a>
-  </li>
-  <li class="nav-item mb-3 ">
-    <button class="btn btn-outline-danger btn-block"  (click)="logout()">Đăng xuất</button>
-  </li>
-</ul>
+<div class="text-left">
+  <ul class="nav flex-column mt-3">
+    <!--  <li class="nav-item mb-3">-->
+    <!--    <a class="btn btn-outline-primary btn-block active" href="#"><i class="fas fa-home"></i>  Trang Chủ</a>-->
+    <!--  </li>-->
+    <li class="nav-item mb-3">
+      <a class="btn btn-outline-primary btn-block text-left" [routerLink]="'account/'+account_id"  href="#">
+        <i class="fas fa-user"></i>  Cá nhân
+      </a>
+    </li>
+    <li class="nav-item mb-3">
+      <a class="btn btn-outline-primary btn-block text-left" routerLink="friends">
+        <i class="fas fa-user-friends"></i>  Bạn bè
+      </a>
+    </li>
+    <li class="nav-item mb-3">
+      <a class="btn btn-outline-primary btn-block text-left"  tabindex="-1" aria-disabled="true">Cài đặt</a>
+    </li>
+    <li class="nav-item mb-3 ">
+      <button  class="btn btn-outline-danger btn-block text-left"  (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+      </button>
+    </li>
+  </ul>
+</div>

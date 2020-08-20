@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IAccount} from '../models/iaccount';
 import {Istatus} from '../models/istatus';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  private API_URL = 'http://localhost:8080/'
+  private API_URL = environment.AUTHEN_URL;
 
   constructor(private  http: HttpClient) { }
 
@@ -18,7 +19,7 @@ export class AccountService {
   }
 
   createAccount(data:IAccount):Observable<any>{
-    return this.http.post(this.API_URL+'register',data,{responseType: 'text'})
+    return this.http.post(this.API_URL+'register',data)
   }
 
   editAccountInfo(data: any, id: number): Observable<any>{
@@ -37,5 +38,18 @@ export class AccountService {
   searchFriend(data : String): Observable<any>{
     return this.http.patch(this.API_URL + 'api/find-list-users', data)
   }
+  createComment(data : any, id_status: number): Observable<any>{
+    return this.http.post(this.API_URL +'api/comment-create/' + id_status, data)
+  }
+  getAllComment(id: number): Observable<any>{
+    return this.http.get(this.API_URL + 'api/get-comments/' + id)
+  }
+  isFriend(current_id: number, check_id: number):Observable<any>{
+    return this.http.get(this.API_URL + 'api/'+ current_id + '/check_relation/' + check_id);
+  }
+  searchStatus(data: String, account_id: number): Observable<any>{
+    return this.http.patch(this.API_URL + 'api/find-status/' + account_id, data);
+  }
+
 
 }

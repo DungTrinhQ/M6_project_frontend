@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FriendService} from '../../../service/friend/friend.service';
 import {IAccount} from '../../../models/iaccount';
 import {AccountService} from '../../../service/account.service';
@@ -12,13 +12,16 @@ import {TokenStorageService} from '../../../service/tokenstorage.service';
 export class FriendListComponent implements OnInit {
 
   friendList: any;
-  accounts: IAccount = {
-    avatarUrl: '',
-    name: '',
-    email: '',
-    password: ''
-  };
+  // accounts: IAccount = {
+  //   avatarUrl: '',
+  //   name: '',
+  //   email: '',
+  //   password: ''
+  // };
   current_Id:number;
+
+  @Output()
+  totalFriend = new EventEmitter<number>();
 
   constructor(private friendService:FriendService,
               private accountService:AccountService,
@@ -26,19 +29,19 @@ export class FriendListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFriendRequest();
-    this.getAccount();
+    // this.getAccount();
   }
-  getAccount() {
-    this.current_Id = this.tokenStorage.getAccount();
-    this.accountService.getAccount(this.current_Id).subscribe((resp: IAccount) => {
-      this.accounts = resp;
-    })
-  }
+  // getAccount() {
+  //   this.current_Id = this.tokenStorage.getAccount();
+  //   this.accountService.getAccount(this.current_Id).subscribe((resp: IAccount) => {
+  //     this.accounts = resp;
+  //   })
+  // }
 
   getFriendRequest(){
     this.friendService.getFriendList().subscribe((data)=>{
       this.friendList = data;
-      console.log(data);
+      this.totalFriend.emit(this.friendList.length);
     })
 
   }

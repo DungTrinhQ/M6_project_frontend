@@ -13,12 +13,26 @@ export class ContentComponent implements OnInit {
   @Input()
   friendResult : IAccount[];
 
-  constructor(
+  currentAccount:IAccount = {
+    avatarUrl: '',
+    name: '',
+    email: '',
+    password: ''
+  };
+
+  constructor(private accountService: AccountService,
+              private token:TokenStorageService
   ) { }
 
   ngOnInit(): void {
+    this.accountService.getAccount(this.token.getAccount()).subscribe(
+      (data)=> {this.currentAccount = data}
+
+    )
   }
 
 
-
+  hideResult() {
+    this.friendResult = null;
+  }
 }

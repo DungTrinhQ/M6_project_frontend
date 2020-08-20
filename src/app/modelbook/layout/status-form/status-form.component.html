@@ -1,0 +1,31 @@
+<form [formGroup]="newStatus" (ngSubmit)="submit()">
+<div class="status-form-container mb-3 rounded">
+  <div class="input-bar row p-3">
+    <div class=" col-lg-1 col-md-2 small-avatar-container">
+      <img class="small-avatar rounded-circle"
+           [src]="currentAccount.avatarUrl?currentAccount.avatarUrl:'../../../../assets/static/img/avatar-default.png'"
+           alt="avatar">
+    </div>
+    <div  class=" col-lg-11 col-md-10 d-flex align-items-center">
+      <input class="rounded-lg" formControlName="content"  type="text" placeholder="Bạn đang nghĩ gì?">
+      <select style="max-width: 100px" class="btn custom-select-sm pl-0 ml-2" formControlName="privacy">
+        <option selected value= "0">Công khai</option>
+        <option value= "1">Cá nhân</option>
+      </select>
+      <button type="submit" class="btn btn-lg btn-primary ml-2">Đăng</button>
+    </div>
+
+  </div>
+  <div *ngIf="totalImg != 0" class="status-img d-flex flex-row justify-content-start p-3" >
+    <div [hidden]="totalImg < 1" class="img-box" style="max-height: 300px">
+      <img class="img-thumbnail" [style]="'max-width: '+100/totalImg+'%;max-height: inherit'"  [src]="imgOne" alt="img1">
+    </div>
+    <img [hidden]="totalImg < 2" [src]="imgTwo" alt="img2">
+    <img [hidden]="totalImg < 3" [src]="imgThree" alt="img3">
+  </div>
+  <div class="button-downside d-flex m-3">
+    <button class="btn btn-success btn-block mb-3" type="button" (click)="fileUploader.click()">Ảnh/Video</button>
+  </div>
+  <input hidden #fileUploader accept="image/*" (change)="showPreview($event)" type="file">
+</div>
+</form>

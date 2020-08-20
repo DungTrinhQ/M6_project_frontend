@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {TokenStorageService} from '../../../service/tokenstorage.service';
+import {NotificationService} from '../../../service/notification.service';
 
 @Component({
   selector: 'app-edit-info',
@@ -27,6 +28,7 @@ export class EditInfoComponent implements OnInit {
   isEditSuccess = false;
   isEditFail = false;
   message:string;
+  isAvatarUploading:boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -34,14 +36,15 @@ export class EditInfoComponent implements OnInit {
     private accountService: AccountService,
     private route: ActivatedRoute,
     private storage: AngularFireStorage,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private notice:NotificationService,
   ) { }
-  // id = +this.route.snapshot.paramMap.get('id');
+
 
   ngOnInit(): void {
     this.accountId = this.tokenService.getAccount();
     this.userAvatar = this.fb.group({
-      avatar:[''],
+      avatar:[null],
     });
     this.editUserProfile = this.fb.group({
       id: [''],
@@ -66,7 +69,7 @@ export class EditInfoComponent implements OnInit {
     this.accountService.editAccountInfo(data, this.accountId).subscribe((res) => {
       if(res.message == 'Success'){
         this.isEditSuccess = true;
-        alert("Cập nhật thành công");
+        this.notice.success("Cập nhật thành công");
         this.router.navigate(['/'])
       }else {
         this.message = 'Cập nhật thất bại';
@@ -87,7 +90,13 @@ export class EditInfoComponent implements OnInit {
         finalize(
           ()=> fileRef.getDownloadURL().subscribe(url=>{
             this.editUserProfile.value.avatarUrl = url;
-            alert("Ấn cập nhật để xác nhận thay đổi.")
+            this.isAvatarUploading = false;
+            this.notice.success("Upload ảnh thành công, ấn cập nhật để lưu thay đổi");
+
+
+          },()=>{
+            this.notice.fail("Upload ảnh không thành công, xin chờ đôi chút rồi thử lại");
+            this.isEditFail = true;
           })
         )
       ).subscribe();
@@ -97,13 +106,16 @@ export class EditInfoComponent implements OnInit {
 
   loadImgFile(even:any) {
     if(even.target.files && even.target.files[0]){
+      this.isAvatarUploading = true;
       const reader = new FileReader();
       reader.onload = (e:any) => this.user.avatarUrl = e.target.result;
       reader.readAsDataURL(even.target.files[0]);
       this.selectedImage = even.target.files[0];
     }else {
       this.selectedImage = null;
+
     }
+    this.updateAvatar();
 
   }
 }
