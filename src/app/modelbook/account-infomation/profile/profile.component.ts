@@ -255,12 +255,6 @@ export class ProfileComponent implements OnInit {
         this.notice.fail("Đã xảy ra lỗi, hãy thử lại.");
       }
     },()=>this.notice.fail("Lỗi kết nối sever"));
-    // this.accountService.createComment(this.comment, status_id).subscribe((res) =>{
-    //     this.notificationService.success("Comment thành công")
-    //     this.loadComments(status_id, index, this.newFeedResponse);
-    //
-    //   },
-    //   error => this.notificationService.fail("Xảy ra lỗi"));
   }
 
   searchStatusByKeyword(event){

@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from '../tokenstorage.service';
 import {IRelationship} from '../../models/response-observable/irelationship';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService{
 
-  private URL_FRIEND_API = 'http://localhost:8080/api/';
+  private URL_FRIEND_API = environment.API_URL;
   private account_id:number;
 
   constructor(private http:HttpClient,

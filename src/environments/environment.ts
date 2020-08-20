@@ -24,7 +24,7 @@ export const environment = {
     appId: "1:397812090994:web:3ee0a1f92d6150be78daeb",
     measurementId: "G-6FDTC3P2FR"
   },
-  API_URL: 'http://localhost:8080/api/',
+  API_URL: 'https://model-book-backend.herokuapp.com/api/',
 };
 
 /*

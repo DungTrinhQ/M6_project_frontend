@@ -11,7 +11,7 @@ import {TokenStorageService} from './tokenstorage.service';
   providedIn: 'root'
 })
 export class AuthenService {
-  private URL_API = 'http://localhost:8080/';
+  private URL_API = 'https://model-book-backend.herokuapp.com/';
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };

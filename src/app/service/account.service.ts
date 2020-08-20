@@ -9,7 +9,7 @@ import {Istatus} from '../models/istatus';
 })
 export class AccountService {
 
-  private API_URL = 'http://localhost:8080/'
+  private API_URL = 'https://model-book-backend.herokuapp.com/'
 
   constructor(private  http: HttpClient) { }
 
