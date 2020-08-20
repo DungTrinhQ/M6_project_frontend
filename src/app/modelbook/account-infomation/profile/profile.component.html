@@ -202,7 +202,12 @@
                           </div>
                         </div>
                         <div class="card-footer">
-                          <app-show-comment [comments]="newFeedResponse[i].status.comments" [current_id]="accountId" (delete_comment_id)="delete_comment($event,st.status.id,i)" (commentResp)="loadComment(st.status.id)" [status_id]="status_id" ></app-show-comment>
+                          <app-show-comment [comments]="newFeedResponse[i].status.comments"
+                                            [current_id]="accountId"
+                                            (delete_comment_id)="delete_comment($event,st.status.id,i)"
+                                            (commentResp)="loadComment(st.status.id)" [status_id]="status_id" >
+
+                          </app-show-comment>
                           <div *ngIf="isFriend || accountId == path_id">
                             <app-comment (commentConetent)="addComment($event, st.status.id, i)" [account] = "account" ></app-comment>
                           </div>

@@ -75,7 +75,10 @@ export class StatusComponent implements OnInit {
     this.statusService.getNewFeed2(this.current_id,0).subscribe(
       (newfeed:any) => {
         this.newFeedResponse = newfeed;
-        this.total_record += 5;
+        if(newfeed.length == 0){
+          this.notEmptyRecord = false;
+        }
+        this.total_record += newfeed.length;
         this.newFeedResponse.map(
           status1 =>
             status1.status.createDate = new Date(status1.status.createDate));
@@ -103,6 +106,7 @@ export class StatusComponent implements OnInit {
   }
 
   async loadComments(id: number, index: number, statues: INewfeedResponse[]) {
+    this.status_id = id;
     const comments = await this.getCommentByStatus(id);
     statues[index].status.comments = comments;
   }
@@ -123,6 +127,7 @@ export class StatusComponent implements OnInit {
   }
 
   unlikeStatus(status_id: number,index:number) {
+
     this.likeService.unlikeStatus(this.current_id,status_id).subscribe(
       (response)=>{
         if(response.message == 'success'){
@@ -198,13 +203,14 @@ export class StatusComponent implements OnInit {
   private getNextNewFeed() {
     this.statusService.getNewFeed2(this.current_id,this.total_record).subscribe(
       (newfeed:any) => {
-        if(newfeed.length==0){
+        if(newfeed.length < 5){
           this.notEmptyRecord = false;
         }
         for(let i = 0;i< newfeed.length;i++){
           this.newFeedResponse.push(newfeed[i]);
         }
-        this.total_record += 5;
+        this.total_record += newfeed.length;
+        console.log("Bản ghi:" + this.total_record);
         this.notScroll =true;
         this.newFeedResponse.map(
           status1 =>

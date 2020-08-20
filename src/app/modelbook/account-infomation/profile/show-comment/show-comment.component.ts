@@ -88,9 +88,11 @@ export class ShowCommentComponent implements OnInit {
     })
     this.commentResp.emit(event);
   }
+
   saveComment(commentID: number){
     this.comment.content = this.createCommentForm.value.content;
     this.accountID = this.tokenStorageService.getAccount();
+    console.log(this.comment);
     this.commentService.saveComment(this.comment, this.status_id, this.accountID).subscribe((res) =>{
       this.notification.success("Comment thành công")
         this.getComment(this.status_id);

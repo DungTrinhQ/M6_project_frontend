@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IAccount} from '../models/iaccount';
 import {Istatus} from '../models/istatus';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  private API_URL = 'https://model-book-backend.herokuapp.com/'
+  private API_URL = environment.AUTHEN_URL;
 
   constructor(private  http: HttpClient) { }
 

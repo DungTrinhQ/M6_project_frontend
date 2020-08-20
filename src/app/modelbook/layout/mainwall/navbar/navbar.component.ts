@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IAccount} from '../../../../models/iaccount';
 import {AccountService} from '../../../../service/account.service';
 import {INotificationResponse} from '../../../../models/response-observable/inotification-response';
 import {AccountNotificationService} from '../../../../service/notification/account-notification.service';
@@ -13,6 +12,9 @@ export class NavbarComponent implements OnInit {
 
   @Output()
   keyWord : EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+  resetNotification = new EventEmitter<any>();
 
   @Input()
   noteList: INotificationResponse[];
@@ -35,6 +37,7 @@ export class NavbarComponent implements OnInit {
   tickAsSeen(notification_id: number) {
     this.acc_notification.tickAsSeen(notification_id).subscribe(
       (data)=>{
+        this.resetNotification.emit(true);
       }
     )
 

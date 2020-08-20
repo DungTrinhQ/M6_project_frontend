@@ -76,4 +76,7 @@ export class MainwallComponent implements OnInit {
 
   }
 
+  resetNotification() {
+    this.getNotificationList();
+  }
 }

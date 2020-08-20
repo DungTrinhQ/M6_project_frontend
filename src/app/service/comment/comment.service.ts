@@ -37,4 +37,8 @@ export class CommentService {
     return this.http.put(this.URL+'comment-edit/' + account_id + '/' + status_id , data );
 
   }
+
+  updateComment(data:any,comment_id:number):Observable<IResultResponse>{
+    return this.http.put<IResultResponse>(this.URL+'comment/'+comment_id+'/update',data)
+  }
 }
